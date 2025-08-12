@@ -11,34 +11,34 @@ export class TelegramService {
 
   private formatContactMessage(contact: Contact): string {
     const lines = [
-      '🔥 *Новая заявка с сайта VERTEX Studio!*',
+      '🔥 Новая заявка с сайта VERTEX Studio!',
       '',
-      `👤 *Имя:* ${contact.name}`,
-      `📧 *Email:* ${contact.email}`,
+      `👤 Имя: ${contact.name}`,
+      `📧 Email: ${contact.email}`,
     ];
 
     if (contact.company) {
-      lines.push(`🏢 *Компания:* ${contact.company}`);
+      lines.push(`🏢 Компания: ${contact.company}`);
     }
 
     if (contact.phone) {
-      lines.push(`📱 *Телефон:* ${contact.phone}`);
+      lines.push(`📱 Телефон: ${contact.phone}`);
     }
 
     if (contact.service) {
-      lines.push(`🛠 *Услуга:* ${contact.service}`);
+      lines.push(`🛠 Услуга: ${contact.service}`);
     }
 
     if (contact.budget) {
-      lines.push(`💰 *Бюджет:* ${contact.budget}`);
+      lines.push(`💰 Бюджет: ${contact.budget}`);
     }
 
     lines.push('');
-    lines.push(`💬 *Сообщение:*`);
+    lines.push(`💬 Сообщение:`);
     lines.push(contact.message);
 
     lines.push('');
-    lines.push(`📅 *Дата:* ${contact.createdAt ? new Date(contact.createdAt).toLocaleString('ru-RU') : 'Не указана'}`);
+    lines.push(`📅 Дата: ${contact.createdAt ? new Date(contact.createdAt).toLocaleString('ru-RU') : 'Не указана'}`);
 
     return lines.join('\n');
   }
@@ -61,7 +61,6 @@ export class TelegramService {
         body: JSON.stringify({
           chat_id: this.chatId,
           text: message,
-          parse_mode: 'Markdown',
         }),
       });
 
