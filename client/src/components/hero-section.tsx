@@ -53,13 +53,7 @@ export function HeroSection() {
       {/* 3D Scene */}
       <HeroScene />
 
-      {/* Central Morphing Element */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 glass-morphism rounded-full animate-morph relative">
-          <div className="absolute inset-2 md:inset-4 bg-gradient-to-r from-neon-cyan/20 to-transparent rounded-full animate-rotate-slow"></div>
-          <div className="absolute inset-4 md:inset-8 border border-neon-cyan/30 rounded-full animate-glow"></div>
-        </div>
-      </div>
+      {/* Removed Central Morphing Element with spinning rings */}
 
       <motion.div
         variants={containerVariants}
