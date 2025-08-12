@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Box, Smartphone, Brain, Cloud, Shield, Rocket } from 'lucide-react';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
+import { Link } from 'wouter';
 
 const services = [
   {
@@ -8,36 +9,42 @@ const services = [
     title: 'Веб-Разработка',
     description: 'Создание современных веб-приложений от лендингов до сложных корпоративных систем',
     technologies: ['React', 'Vue.js', 'Next.js'],
+    link: '/services/web-development',
   },
   {
     icon: Brain,
     title: '3D и WebGL',
     description: 'Интерактивные 3D веб-приложения, игры и визуализации с использованием передовых технологий',
     technologies: ['Three.js', 'WebGL', 'Babylon.js'],
+    link: '/services/3d-webgl',
   },
   {
     icon: Smartphone,
     title: 'Мобильная Разработка',
     description: 'Нативные и кроссплатформенные мобильные приложения с современным UX',
     technologies: ['React Native', 'Flutter', 'iOS/Android'],
+    link: '/services/mobile-development',
   },
   {
     icon: Cloud,
     title: 'Backend & API',
     description: 'Надежные серверные решения, микросервисы и RESTful API',
     technologies: ['Node.js', 'Python', 'PostgreSQL'],
+    link: '/services/backend-api',
   },
   {
     icon: Shield,
     title: 'ИИ и ML',
     description: 'Внедрение машинного обучения и искусственного интеллекта в бизнес-процессы',
     technologies: ['TensorFlow', 'OpenAI', 'Computer Vision'],
+    link: '/services/ai-ml',
   },
   {
     icon: Rocket,
     title: 'DevOps & Cloud',
     description: 'Автоматизация развертывания, мониторинг и масштабирование в облаке',
     technologies: ['AWS', 'Docker', 'CI/CD'],
+    link: '/services/devops-cloud',
   },
 ];
 
@@ -123,18 +130,20 @@ export function ServicesSection() {
                 ))}
               </div>
               
-              <motion.div
-                whileHover={{ x: 10 }}
-                className="flex items-center text-neon-cyan transition-transform"
-              >
-                <span className="mr-2">Подробнее</span>
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+              <Link href={service.link}>
+                <motion.div
+                  whileHover={{ x: 10 }}
+                  className="flex items-center text-neon-cyan transition-transform cursor-pointer"
                 >
-                  →
-                </motion.span>
-              </motion.div>
+                  <span className="mr-2">Подробнее</span>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                </motion.div>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
