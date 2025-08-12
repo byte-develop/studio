@@ -18,7 +18,7 @@ export function FloatingGeometry({ position, geometry, scale = 1, delay = 0 }: F
       case 'sphere':
         return 'rounded-full';
       case 'torus':
-        return 'rounded-full border-4 border-neon-cyan/30';
+        return 'rounded-full border-4 border-neon-cyan/30 hidden'; // Hide torus rings
       case 'octahedron':
         return 'rounded-lg rotate-45';
       default:

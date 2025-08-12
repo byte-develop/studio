@@ -136,7 +136,14 @@
     }
   }
 
-  /* Removed slow rotation animation */
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
   /* Particle animation removed */
 
@@ -152,7 +159,9 @@
     animation: morph 8s ease-in-out infinite;
   }
 
-  /* Removed slow rotation class */
+  .animate-rotate-slow {
+    animation: rotate-slow 20s linear infinite;
+  }
 
   /* Particle animation class removed */
 

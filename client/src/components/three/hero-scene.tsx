@@ -13,12 +13,7 @@ export function HeroScene() {
         scale={0.8} 
         delay={0} 
       />
-      <FloatingGeometry 
-        position={{ x: '80%', y: '60%' }} 
-        geometry="torus" 
-        scale={0.6} 
-        delay={1} 
-      />
+      {/* Removed torus geometry - white rings */}
       <FloatingGeometry 
         position={{ x: '50%', y: '15%' }} 
         geometry="sphere" 
