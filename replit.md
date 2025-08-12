@@ -5,6 +5,16 @@ This is a modern full-stack web application built with a React frontend and Expr
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
+Preferred language: Russian (русский язык)
+
+# Recent Changes
+
+**August 12, 2025** - Added Telegram Bot Integration
+- ✓ Created TelegramService for sending notifications
+- ✓ Integrated contact form submissions with Telegram alerts
+- ✓ Added environment variables: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+- ✓ Formatted contact messages with Russian localization
+- ✓ Non-blocking notification sending (doesn't fail form submission)
 
 # System Architecture
 
@@ -22,6 +32,7 @@ Preferred communication style: Simple, everyday language.
 - **Runtime**: Node.js with Express.js framework
 - **Language**: TypeScript with ES modules
 - **API Design**: RESTful API endpoints for contact form submissions
+- **Notifications**: Telegram Bot integration for instant contact form notifications
 - **Development**: Hot reload with Vite integration in development mode
 - **Production**: Built and served as static files with API routes
 

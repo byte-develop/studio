@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import { telegramService } from "./telegram";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -10,6 +11,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const contactData = insertContactSchema.parse(req.body);
       const contact = await storage.createContact(contactData);
+      
+      // Send Telegram notification (don't fail if it doesn't work)
+      telegramService.sendContactNotification(contact).catch(err => {
+        console.error('Failed to send Telegram notification:', err);
+      });
+      
       res.json({ success: true, contact });
     } catch (error) {
       if (error instanceof z.ZodError) {
