@@ -188,7 +188,6 @@ export function ContactSection() {
                   <Input
                     {...form.register('name')}
                     placeholder="Ваше имя"
-                    className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan"
                   />
                   {form.formState.errors.name && (
                     <p className="text-red-400 text-sm mt-1">
@@ -204,7 +203,6 @@ export function ContactSection() {
                   <Input
                     {...form.register('company')}
                     placeholder="Название компании"
-                    className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan"
                   />
                 </div>
               </div>
@@ -218,7 +216,6 @@ export function ContactSection() {
                     {...form.register('email')}
                     type="email"
                     placeholder="your@email.com"
-                    className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan"
                   />
                   {form.formState.errors.email && (
                     <p className="text-red-400 text-sm mt-1">
@@ -235,7 +232,6 @@ export function ContactSection() {
                     {...form.register('phone')}
                     type="tel"
                     placeholder="+7 (XXX) XXX-XX-XX"
-                    className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan"
                   />
                 </div>
               </div>
@@ -245,17 +241,17 @@ export function ContactSection() {
                   Услуга
                 </label>
                 <Select onValueChange={(value) => form.setValue('service', value)}>
-                  <SelectTrigger className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan text-white placeholder:text-gray-400">
-                    <SelectValue placeholder="Выберите услугу" className="text-gray-400" />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите услугу" />
                   </SelectTrigger>
-                  <SelectContent className="bg-deep-black border-gray-700">
-                    <SelectItem value="web-dev" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">Веб-Разработка</SelectItem>
-                    <SelectItem value="3d-webgl" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">3D и WebGL</SelectItem>
-                    <SelectItem value="mobile" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">Мобильная Разработка</SelectItem>
-                    <SelectItem value="backend" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">Backend & API</SelectItem>
-                    <SelectItem value="ai-ml" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">ИИ и ML</SelectItem>
-                    <SelectItem value="devops" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">DevOps & Cloud</SelectItem>
-                    <SelectItem value="consulting" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">Консультации</SelectItem>
+                  <SelectContent>
+                    <SelectItem value="web-dev">Веб-Разработка</SelectItem>
+                    <SelectItem value="3d-webgl">3D и WebGL</SelectItem>
+                    <SelectItem value="mobile">Мобильная Разработка</SelectItem>
+                    <SelectItem value="backend">Backend & API</SelectItem>
+                    <SelectItem value="ai-ml">ИИ и ML</SelectItem>
+                    <SelectItem value="devops">DevOps & Cloud</SelectItem>
+                    <SelectItem value="consulting">Консультации</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -265,14 +261,14 @@ export function ContactSection() {
                   Бюджет проекта
                 </label>
                 <Select onValueChange={(value) => form.setValue('budget', value)}>
-                  <SelectTrigger className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan text-white placeholder:text-gray-400">
-                    <SelectValue placeholder="Выберите диапазон" className="text-gray-400" />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите диапазон" />
                   </SelectTrigger>
-                  <SelectContent className="bg-deep-black border-gray-700">
-                    <SelectItem value="50k-100k" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">50,000 - 100,000 ₽</SelectItem>
-                    <SelectItem value="100k-500k" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">100,000 - 500,000 ₽</SelectItem>
-                    <SelectItem value="500k-1m" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">500,000 - 1,000,000 ₽</SelectItem>
-                    <SelectItem value="1m+" className="text-white hover:bg-neon-cyan/10 focus:bg-neon-cyan/10 focus:text-white">1,000,000+ ₽</SelectItem>
+                  <SelectContent>
+                    <SelectItem value="50k-100k">50,000 - 100,000 ₽</SelectItem>
+                    <SelectItem value="100k-500k">100,000 - 500,000 ₽</SelectItem>
+                    <SelectItem value="500k-1m">500,000 - 1,000,000 ₽</SelectItem>
+                    <SelectItem value="1m+">1,000,000+ ₽</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -285,7 +281,7 @@ export function ContactSection() {
                   {...form.register('message')}
                   rows={4}
                   placeholder="Расскажите о вашем проекте..."
-                  className="bg-deep-black/50 border-gray-700 focus:border-neon-cyan resize-none"
+                  className="resize-none"
                 />
                 {form.formState.errors.message && (
                   <p className="text-red-400 text-sm mt-1">
