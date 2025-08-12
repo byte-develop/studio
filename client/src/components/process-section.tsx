@@ -102,7 +102,7 @@ export function ProcessSection() {
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
-                        className="w-12 h-12 bg-neon-cyan rounded-full flex items-center justify-center flex-shrink-0"
+                        className="w-12 h-12 bg-neon-cyan rounded-full flex items-center justify-center flex-shrink-0 animate-glow"
                       >
                         <step.icon className="w-5 h-5 text-deep-black" />
                       </motion.div>
@@ -135,7 +135,7 @@ export function ProcessSection() {
                         <motion.div
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.3 }}
-                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center"
+                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center animate-glow"
                         >
                           <step.icon className="w-6 h-6 text-deep-black" />
                         </motion.div>
@@ -149,7 +149,7 @@ export function ProcessSection() {
                         <motion.div
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.3 }}
-                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center"
+                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center animate-glow"
                         >
                           <step.icon className="w-6 h-6 text-deep-black" />
                         </motion.div>
