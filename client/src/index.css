@@ -102,22 +102,22 @@
 }
 
 @layer utilities {
-  /* Custom animations */
+  /* Custom animations - simplified */
   @keyframes float {
     0%, 100% { 
-      transform: translateY(0px) rotateX(0deg); 
+      transform: translateY(0px); 
     }
     50% { 
-      transform: translateY(-20px) rotateX(10deg); 
+      transform: translateY(-10px); 
     }
   }
 
   @keyframes glow {
     from { 
-      box-shadow: 0 0 20px hsla(180 100% 50% / 0.3);
+      box-shadow: 0 0 15px hsla(180 100% 50% / 0.2);
     }
     to { 
-      box-shadow: 0 0 40px hsla(180 100% 50% / 0.8);
+      box-shadow: 0 0 20px hsla(180 100% 50% / 0.4);
     }
   }
 
@@ -145,27 +145,14 @@
     }
   }
 
-  @keyframes particle-float {
-    0%, 100% {
-      transform: translateY(0px) translateX(0px);
-      opacity: 0.6;
-    }
-    33% {
-      transform: translateY(-20px) translateX(10px);
-      opacity: 1;
-    }
-    66% {
-      transform: translateY(-10px) translateX(-10px);
-      opacity: 0.8;
-    }
-  }
+  /* Particle animation removed */
 
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite;
   }
 
   .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 3s ease-in-out infinite alternate;
   }
 
   .animate-morph {
@@ -176,9 +163,7 @@
     animation: rotate-slow 20s linear infinite;
   }
 
-  .animate-particle-float {
-    animation: particle-float 4s infinite ease-in-out;
-  }
+  /* Particle animation class removed */
 
   /* Glass morphism effect */
   .glass-morphism {
@@ -210,14 +195,7 @@
       radial-gradient(circle at 40% 80%, hsla(0 0% 100% / 0.02) 0%, transparent 50%);
   }
 
-  /* Particle system */
-  .particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: hsla(180 100% 50% / 0.6);
-    border-radius: 50%;
-  }
+  /* Particle system removed */
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {

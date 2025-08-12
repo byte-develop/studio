@@ -48,20 +48,7 @@ export function HeroSection() {
       id="hero"
       className="min-h-screen flex items-center justify-center relative hero-bg overflow-hidden"
     >
-      {/* Particle System Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="particle animate-particle-float"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${i}s`,
-            }}
-          />
-        ))}
-      </div>
+      {/* Background removed - no more floating particles */}
 
       {/* 3D Scene */}
       <HeroScene />
@@ -85,14 +72,12 @@ export function HeroSection() {
           className="hero-content text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-6 text-3d"
         >
           <motion.span
-            className="block animate-float"
-            style={{ animationDelay: '0s' }}
+            className="block"
           >
             ПЕРЕДОВАЯ
           </motion.span>
           <motion.span
-            className="block animate-float text-neon-cyan"
-            style={{ animationDelay: '0.5s' }}
+            className="block text-neon-cyan"
           >
             РАЗРАБОТКА
           </motion.span>
@@ -100,20 +85,18 @@ export function HeroSection() {
 
         <motion.p
           variants={itemVariants}
-          className="hero-content text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto animate-float"
-          style={{ animationDelay: '1s' }}
+          className="hero-content text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto"
         >
           Превращаем идеи в революционные цифровые продукты с помощью инновационных технологий и креативного подхода
         </motion.p>
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center animate-float"
-          style={{ animationDelay: '1.5s' }}
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center"
         >
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={scrollToServices}
             className="glass-morphism px-8 py-4 rounded-full hover:bg-neon-cyan/10 transition-all duration-300 group"
           >
@@ -123,8 +106,8 @@ export function HeroSection() {
           </motion.button>
           
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={scrollToContact}
             className="border border-neon-cyan px-8 py-4 rounded-full hover:bg-neon-cyan hover:text-deep-black transition-all duration-300"
           >

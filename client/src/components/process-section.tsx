@@ -100,9 +100,9 @@ export function ProcessSection() {
                   >
                     <div className="flex items-start space-x-4 mb-4">
                       <motion.div
-                        whileHover={{ scale: 1.1, rotateZ: 360 }}
-                        transition={{ duration: 0.6 }}
-                        className="w-12 h-12 bg-neon-cyan rounded-full flex items-center justify-center animate-glow flex-shrink-0"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-12 h-12 bg-neon-cyan rounded-full flex items-center justify-center flex-shrink-0"
                       >
                         <step.icon className="w-5 h-5 text-deep-black" />
                       </motion.div>
@@ -122,7 +122,7 @@ export function ProcessSection() {
                     <>
                       <div className="w-1/2 pr-12 text-right">
                         <motion.div
-                          whileHover={{ scale: 1.05, rotateY: 10 }}
+                          whileHover={{ scale: 1.02 }}
                           className="glass-morphism p-8 rounded-3xl floating-card"
                         >
                           <h3 className="text-2xl font-medium mb-4 text-neon-cyan">
@@ -133,9 +133,9 @@ export function ProcessSection() {
                       </div>
                       <div className="absolute left-1/2 transform -translate-x-1/2">
                         <motion.div
-                          whileHover={{ scale: 1.2, rotateZ: 360 }}
-                          transition={{ duration: 0.6 }}
-                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center animate-glow"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center"
                         >
                           <step.icon className="w-6 h-6 text-deep-black" />
                         </motion.div>
@@ -147,16 +147,16 @@ export function ProcessSection() {
                       <div className="w-1/2 pr-12"></div>
                       <div className="absolute left-1/2 transform -translate-x-1/2">
                         <motion.div
-                          whileHover={{ scale: 1.2, rotateZ: 360 }}
-                          transition={{ duration: 0.6 }}
-                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center animate-glow"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                          className="w-16 h-16 bg-neon-cyan rounded-full flex items-center justify-center"
                         >
                           <step.icon className="w-6 h-6 text-deep-black" />
                         </motion.div>
                       </div>
                       <div className="w-1/2 pl-12">
                         <motion.div
-                          whileHover={{ scale: 1.05, rotateY: -10 }}
+                          whileHover={{ scale: 1.02 }}
                           className="glass-morphism p-8 rounded-3xl floating-card"
                         >
                           <h3 className="text-2xl font-medium mb-4 text-neon-cyan">
