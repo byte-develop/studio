@@ -1,0 +1,105 @@
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+
+export function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navItems = [
+    { href: '#hero', label: 'Главная' },
+    { href: '#services', label: 'Услуги' },
+    { href: '#portfolio', label: 'Портфолио' },
+    { href: '#team', label: 'Команда' },
+    { href: '#contact', label: 'Контакты' },
+  ];
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false);
+    }
+  };
+
+  return (
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+          isScrolled ? 'glass-morphism' : 'glass-morphism'
+        } px-8 py-4 rounded-full`}
+      >
+        <div className="flex items-center space-x-8">
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="text-neon-cyan font-jetbrains-mono font-bold text-xl cursor-pointer"
+            onClick={() => scrollToSection('#hero')}
+          >
+            VERTEX
+          </motion.div>
+          
+          {!isMobile ? (
+            <div className="flex items-center space-x-6">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.href}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => scrollToSection(item.href)}
+                  className="hover:text-neon-cyan transition-colors duration-300 text-sm font-medium"
+                >
+                  {item.label}
+                </motion.button>
+              ))}
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-neon-cyan"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          )}
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && isMobile && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed top-24 left-1/2 transform -translate-x-1/2 z-40 glass-morphism rounded-2xl p-6 w-64"
+          >
+            <div className="flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.href}
+                  whileHover={{ x: 10 }}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-left hover:text-neon-cyan transition-colors duration-300 py-2"
+                >
+                  {item.label}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
