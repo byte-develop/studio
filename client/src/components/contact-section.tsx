@@ -111,7 +111,7 @@ export function ContactSection() {
   };
 
   return (
-    <section ref={elementRef} id="contact" className="py-32 relative bg-dark-gray">
+    <section ref={elementRef} id="contact" className="py-16 md:py-24 lg:py-32 relative bg-dark-gray">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -119,10 +119,10 @@ export function ContactSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-light mb-6 text-3d">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
             Свяжитесь <span className="text-neon-cyan">с Нами</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             Готовы воплотить ваши идеи в передовые цифровые решения
           </p>
         </motion.div>
@@ -131,7 +131,7 @@ export function ContactSection() {
           variants={containerVariants}
           initial="hidden"
           animate={hasTriggered ? "visible" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center"
         >
           <div className="space-y-8">
             {contactInfo.map((info, index) => (
@@ -177,7 +177,7 @@ export function ContactSection() {
 
           <motion.div
             variants={itemVariants}
-            className="floating-card glass-morphism p-8 rounded-3xl"
+            className="floating-card glass-morphism p-6 lg:p-8 rounded-3xl"
           >
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -60,7 +60,7 @@ export function PortfolioSection() {
   };
 
   return (
-    <section ref={elementRef} id="portfolio" className="py-32 relative bg-dark-gray">
+    <section ref={elementRef} id="portfolio" className="py-16 md:py-24 lg:py-32 relative bg-dark-gray">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -68,10 +68,10 @@ export function PortfolioSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-light mb-6 text-3d">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
             Наше <span className="text-neon-cyan">Портфолио</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             Проекты, которые определяют будущее цифровых технологий
           </p>
         </motion.div>
@@ -80,7 +80,7 @@ export function PortfolioSection() {
           variants={containerVariants}
           initial="hidden"
           animate={hasTriggered ? "visible" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12"
         >
           {portfolioItems.map((project, index) => (
             <motion.div
@@ -88,7 +88,7 @@ export function PortfolioSection() {
               variants={itemVariants}
               className="floating-card group cursor-pointer"
             >
-              <div className="relative overflow-hidden rounded-3xl glass-morphism h-80 mb-6">
+              <div className="relative overflow-hidden rounded-3xl glass-morphism h-64 md:h-80 mb-4 md:mb-6">
                 <motion.img
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.7 }}

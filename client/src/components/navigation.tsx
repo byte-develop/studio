@@ -38,9 +38,9 @@ export function Navigation() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+        className={`fixed top-4 md:top-6 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
           isScrolled ? 'glass-morphism' : 'glass-morphism'
-        } px-8 py-4 rounded-full`}
+        } px-4 md:px-8 py-3 md:py-4 rounded-full w-[calc(100%-2rem)] md:w-auto max-w-5xl`}
       >
         <div className="flex items-center space-x-8">
           <motion.div

@@ -9,6 +9,16 @@ Preferred language: Russian (русский язык)
 
 # Recent Changes
 
+**August 12, 2025** - Mobile Responsiveness Improvements
+- ✓ Fixed process section mobile layout with single-column design
+- ✓ Improved footer layout with stacked elements for mobile
+- ✓ Enhanced navigation bar width and positioning on mobile
+- ✓ Added responsive typography scaling across all sections
+- ✓ Optimized padding and spacing for small screens
+- ✓ Enhanced select dropdown hover effects with neon gradients
+- ✓ Added CSS media queries for mobile and small mobile devices
+- ✓ Improved form elements sizing for better touch interaction
+
 **August 12, 2025** - Added Telegram Bot Integration
 - ✓ Created TelegramService for sending notifications
 - ✓ Integrated contact form submissions with Telegram alerts

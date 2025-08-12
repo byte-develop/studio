@@ -68,7 +68,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section ref={elementRef} id="services" className="py-32 relative">
+    <section ref={elementRef} id="services" className="py-16 md:py-24 lg:py-32 relative">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -76,10 +76,10 @@ export function ServicesSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-light mb-6 text-3d">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
             Наши <span className="text-neon-cyan">Услуги</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             Полный спектр разработки от концепции до запуска
           </p>
         </motion.div>
@@ -99,7 +99,7 @@ export function ServicesSection() {
                 y: -5,
               }}
               transition={{ duration: 0.3 }}
-              className="glass-morphism p-8 rounded-3xl group cursor-pointer hover:shadow-lg hover:shadow-neon-cyan/10"
+              className="glass-morphism p-6 lg:p-8 rounded-3xl group cursor-pointer hover:shadow-lg hover:shadow-neon-cyan/10"
             >
               <motion.div
                 whileHover={{ scale: 1.1 }}

@@ -68,7 +68,7 @@ export function TeamSection() {
   };
 
   return (
-    <section ref={elementRef} id="team" className="py-32 relative">
+    <section ref={elementRef} id="team" className="py-16 md:py-24 lg:py-32 relative">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -76,10 +76,10 @@ export function TeamSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl font-light mb-6 text-3d">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
             Наша <span className="text-neon-cyan">Команда</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             Эксперты, создающие технологии будущего
           </p>
         </motion.div>
@@ -99,7 +99,7 @@ export function TeamSection() {
                 y: -5,
               }}
               transition={{ duration: 0.3 }}
-              className="glass-morphism rounded-3xl p-8 text-center group hover:shadow-lg hover:shadow-neon-cyan/10"
+              className="glass-morphism rounded-3xl p-6 lg:p-8 text-center group hover:shadow-lg hover:shadow-neon-cyan/10"
             >
               <div className="relative mb-6">
                 <motion.div

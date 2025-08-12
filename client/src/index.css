@@ -308,3 +308,82 @@
 .select-placeholder {
   color: hsl(210 3.3898% 46.2745%) !important;
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .text-3d {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .glass-morphism {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .floating-card {
+    transform: none !important;
+  }
+  
+  /* Ensure text remains readable on mobile */
+  .hero-content h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Better spacing for mobile */
+  section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+  
+  /* Mobile navigation improvements */
+  .mobile-menu {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+  }
+  
+  /* Adjust button sizes for touch */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Form improvements */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Even smaller text on very small screens */
+  .hero-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.1;
+  }
+  
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+  
+  /* Reduce section padding further */
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}

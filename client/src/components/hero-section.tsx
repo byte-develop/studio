@@ -68,9 +68,9 @@ export function HeroSection() {
 
       {/* Central Morphing Element */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-96 h-96 glass-morphism rounded-full animate-morph relative">
-          <div className="absolute inset-4 bg-gradient-to-r from-neon-cyan/20 to-transparent rounded-full animate-rotate-slow"></div>
-          <div className="absolute inset-8 border border-neon-cyan/30 rounded-full animate-glow"></div>
+        <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 glass-morphism rounded-full animate-morph relative">
+          <div className="absolute inset-2 md:inset-4 bg-gradient-to-r from-neon-cyan/20 to-transparent rounded-full animate-rotate-slow"></div>
+          <div className="absolute inset-4 md:inset-8 border border-neon-cyan/30 rounded-full animate-glow"></div>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export function HeroSection() {
       >
         <motion.h1
           variants={itemVariants}
-          className="text-6xl md:text-8xl font-light mb-6 text-3d"
+          className="hero-content text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-6 text-3d"
         >
           <motion.span
             className="block animate-float"
@@ -100,7 +100,7 @@ export function HeroSection() {
 
         <motion.p
           variants={itemVariants}
-          className="text-xl md:text-2xl font-light text-gray-300 mb-12 max-w-2xl mx-auto animate-float"
+          className="hero-content text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto animate-float"
           style={{ animationDelay: '1s' }}
         >
           Превращаем идеи в революционные цифровые продукты с помощью инновационных технологий и креативного подхода
@@ -108,7 +108,7 @@ export function HeroSection() {
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-6 justify-center animate-float"
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center animate-float"
           style={{ animationDelay: '1.5s' }}
         >
           <motion.button
