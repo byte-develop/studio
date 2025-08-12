@@ -137,6 +137,36 @@ export async function seedDatabase() {
 
     await db.insert(serviceProjects).values(serviceSamples).onConflictDoNothing();
 
+    // Добавляем технологии как было изначально
+    const technologiesData = [
+      { name: 'React', icon: 'Code2', category: 'frontend' },
+      { name: 'Vue.js', icon: 'Code2', category: 'frontend' },
+      { name: 'Next.js', icon: 'Code2', category: 'frontend' },
+      { name: 'TypeScript', icon: 'FileCode', category: 'frontend' },
+      { name: 'Node.js', icon: 'Server', category: 'backend' },
+      { name: 'Python', icon: 'Code2', category: 'backend' },
+      { name: 'Three.js', icon: 'Box', category: 'frontend' },
+      { name: 'WebGL', icon: 'Monitor', category: 'frontend' },
+      { name: 'PostgreSQL', icon: 'Database', category: 'database' },
+      { name: 'MongoDB', icon: 'Database', category: 'database' },
+      { name: 'AWS', icon: 'Cloud', category: 'devops' },
+      { name: 'Docker', icon: 'Container', category: 'devops' },
+      { name: 'Kubernetes', icon: 'Settings', category: 'devops' },
+      { name: 'Redis', icon: 'Database', category: 'database' },
+      { name: 'GraphQL', icon: 'Code2', category: 'backend' },
+      { name: 'TensorFlow', icon: 'Brain', category: 'ai' },
+      { name: 'Flutter', icon: 'Smartphone', category: 'mobile' },
+      { name: 'Swift', icon: 'Smartphone', category: 'mobile' },
+      { name: 'Kotlin', icon: 'Smartphone', category: 'mobile' },
+      { name: 'Rust', icon: 'Code2', category: 'backend' },
+      { name: 'Go', icon: 'Code2', category: 'backend' },
+      { name: 'Figma', icon: 'Palette', category: 'design' },
+      { name: 'Blender', icon: 'Box', category: 'design' },
+      { name: 'Unity', icon: 'Gamepad2', category: 'design' }
+    ];
+
+    await db.insert(technologies).values(technologiesData).onConflictDoNothing();
+
     console.log("Database seeded successfully!");
   } catch (error) {
     console.error("Error seeding database:", error);
