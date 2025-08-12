@@ -78,7 +78,7 @@ export function TechnologiesSection() {
               const IconComponent = (LucideIcons as any)[tech.icon] || LucideIcons.Code;
               return (
                 <motion.div
-                  key={tech.name}
+                  key={tech.id}
                   variants={itemVariants}
                   whileHover={{ 
                     scale: 1.05,
@@ -90,14 +90,13 @@ export function TechnologiesSection() {
                   <motion.div
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.3 }}
-                    className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${categoryColors[tech.category] || categoryColors.frontend} opacity-20 rounded-xl flex items-center justify-center group-hover:opacity-40 transition-opacity duration-300`}
+                    className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-xl flex items-center justify-center group-hover:bg-neon-cyan/20 transition-colors duration-300"
                   >
                     <IconComponent className="w-8 h-8 text-neon-cyan" />
                   </motion.div>
                   <h4 className="font-medium text-sm group-hover:text-neon-cyan transition-colors">
                     {tech.name}
                   </h4>
-                  <p className="text-xs text-gray-500 mt-1 capitalize">{tech.category}</p>
                 </motion.div>
               );
             })}
