@@ -1,66 +1,74 @@
 import { motion } from 'framer-motion';
-import { Code2, Palette, Server, Shield, Brain, Smartphone, Globe, Database } from 'lucide-react';
+import { Code2, Palette, Server, Shield, Brain, Users, Target, Lightbulb } from 'lucide-react';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
 
 export function TeamSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
 
-  const competencies = [
+  const teamStructure = [
     {
-      title: "Frontend разработка",
-      description: "Создаем современные интерфейсы с использованием React, Vue, Angular",
-      icon: Code2,
-      technologies: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind"],
-      color: "from-blue-500/20 to-cyan-500/20"
-    },
-    {
-      title: "UI/UX Дизайн",
-      description: "Проектируем интуитивные пользовательские интерфейсы и опыт",
-      icon: Palette,
-      technologies: ["Figma", "Adobe XD", "Sketch", "Prototyping", "Design Systems"],
-      color: "from-purple-500/20 to-pink-500/20"
-    },
-    {
-      title: "Backend разработка",
-      description: "Строим надежные серверные решения и API",
-      icon: Server,
-      technologies: ["Node.js", "Python", "PostgreSQL", "MongoDB", "Redis"],
-      color: "from-green-500/20 to-emerald-500/20"
-    },
-    {
-      title: "DevOps и инфраструктура",
-      description: "Автоматизируем развертывание и обеспечиваем стабильность",
-      icon: Shield,
-      technologies: ["Docker", "Kubernetes", "AWS", "CI/CD", "Monitoring"],
-      color: "from-orange-500/20 to-red-500/20"
-    },
-    {
-      title: "Мобильная разработка",
-      description: "Разрабатываем кроссплатформенные мобильные приложения",
-      icon: Smartphone,
-      technologies: ["React Native", "Flutter", "iOS", "Android", "Expo"],
-      color: "from-indigo-500/20 to-blue-500/20"
-    },
-    {
-      title: "Веб-разработка",
-      description: "Создаем полнофункциональные веб-приложения",
-      icon: Globe,
-      technologies: ["Full-stack", "JAMstack", "PWA", "SSR", "SPA"],
-      color: "from-teal-500/20 to-cyan-500/20"
-    },
-    {
-      title: "Базы данных",
-      description: "Проектируем и оптимизируем структуры данных",
-      icon: Database,
-      technologies: ["PostgreSQL", "MongoDB", "Redis", "GraphQL", "Prisma"],
-      color: "from-violet-500/20 to-purple-500/20"
-    },
-    {
-      title: "AI/ML интеграция",
-      description: "Интегрируем искусственный интеллект в проекты",
+      role: "Технический директор",
+      description: "Определяет техническую стратегию и архитектурные решения проектов",
       icon: Brain,
-      technologies: ["OpenAI", "TensorFlow", "PyTorch", "ML APIs", "AutoML"],
-      color: "from-yellow-500/20 to-orange-500/20"
+      responsibilities: ["Архитектура решений", "Технические стандарты", "Code Review", "Наставничество"],
+      color: "from-purple-500/20 to-blue-500/20",
+      count: "1"
+    },
+    {
+      role: "Frontend разработчики",
+      description: "Создают пользовательские интерфейсы и обеспечивают отличный UX",
+      icon: Code2,
+      responsibilities: ["React/Vue разработка", "Мобильная адаптация", "Интеграция с API", "Оптимизация"],
+      color: "from-blue-500/20 to-cyan-500/20",
+      count: "3"
+    },
+    {
+      role: "UI/UX дизайнеры",
+      description: "Проектируют интуитивные интерфейсы и пользовательские сценарии",
+      icon: Palette,
+      responsibilities: ["Дизайн интерфейсов", "Прототипирование", "UX исследования", "Дизайн-системы"],
+      color: "from-pink-500/20 to-purple-500/20",
+      count: "2"
+    },
+    {
+      role: "Backend разработчики",
+      description: "Строят серверную логику и обеспечивают надежность систем",
+      icon: Server,
+      responsibilities: ["API разработка", "База данных", "Интеграции", "Производительность"],
+      color: "from-green-500/20 to-emerald-500/20",
+      count: "2"
+    },
+    {
+      role: "DevOps инженеры",
+      description: "Автоматизируют процессы развертывания и поддерживают инфраструктуру",
+      icon: Shield,
+      responsibilities: ["CI/CD настройка", "Мониторинг", "Безопасность", "Масштабирование"],
+      color: "from-orange-500/20 to-red-500/20",
+      count: "1"
+    },
+    {
+      role: "Проект-менеджеры",
+      description: "Координируют работу команды и взаимодействие с клиентами",
+      icon: Users,
+      responsibilities: ["Планирование", "Коммуникации", "Риски", "Качество"],
+      color: "from-indigo-500/20 to-blue-500/20",
+      count: "2"
+    },
+    {
+      role: "QA инженеры",
+      description: "Обеспечивают качество продукта на всех этапах разработки",
+      icon: Target,
+      responsibilities: ["Тестирование", "Автотесты", "Багрепорты", "Стандарты качества"],
+      color: "from-teal-500/20 to-cyan-500/20",
+      count: "1"
+    },
+    {
+      role: "Продуктовые аналитики",
+      description: "Анализируют требования и предлагают оптимальные решения",
+      icon: Lightbulb,
+      responsibilities: ["Анализ требований", "Метрики", "Улучшения", "Исследования"],
+      color: "from-yellow-500/20 to-orange-500/20",
+      count: "1"
     }
   ];
 
@@ -97,10 +105,10 @@ export function TeamSection() {
           className="text-center mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
-            Наши <span className="text-neon-cyan">Компетенции</span>
+            Структура <span className="text-neon-cyan">Команды</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-            Полный спектр технологических решений для цифровой трансформации вашего бизнеса
+            Сплоченная команда профессионалов с четким распределением ролей и ответственности
           </p>
         </motion.div>
 
@@ -110,9 +118,9 @@ export function TeamSection() {
           animate={hasTriggered ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
         >
-          {competencies.map((competency, index) => (
+          {teamStructure.map((role, index) => (
             <motion.div
-              key={competency.title}
+              key={role.role}
               variants={itemVariants}
               whileHover={{ 
                 scale: 1.02,
@@ -122,34 +130,40 @@ export function TeamSection() {
               className="glass-morphism rounded-3xl p-6 lg:p-8 text-center group hover:shadow-lg hover:shadow-neon-cyan/10 relative overflow-hidden"
             >
               {/* Background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${competency.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${role.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               
               {/* Content */}
               <div className="relative z-10">
+                {/* Count badge */}
+                <div className="absolute top-0 right-0 w-8 h-8 bg-neon-cyan rounded-full flex items-center justify-center text-deep-black font-semibold text-sm">
+                  {role.count}
+                </div>
+
                 <motion.div
                   whileHover={{ scale: 1.1, rotateY: 180 }}
                   transition={{ duration: 0.6 }}
                   className="w-16 h-16 mx-auto mb-6 bg-neon-cyan/10 rounded-2xl flex items-center justify-center group-hover:bg-neon-cyan/20 transition-colors duration-300"
                 >
-                  <competency.icon className="w-8 h-8 text-neon-cyan" />
+                  <role.icon className="w-8 h-8 text-neon-cyan" />
                 </motion.div>
                 
                 <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-neon-cyan transition-colors duration-300">
-                  {competency.title}
+                  {role.role}
                 </h3>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  {competency.description}
+                  {role.description}
                 </p>
                 
-                {/* Technologies */}
-                <div className="flex flex-wrap justify-center gap-2">
-                  {competency.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 text-xs bg-neon-cyan/10 text-neon-cyan rounded-lg border border-neon-cyan/20 group-hover:bg-neon-cyan/20 transition-colors duration-300"
+                {/* Responsibilities */}
+                <div className="space-y-2">
+                  {role.responsibilities.map((responsibility, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center text-xs text-gray-300 group-hover:text-neon-cyan/80 transition-colors duration-300"
                     >
-                      {tech}
-                    </span>
+                      <div className="w-1 h-1 bg-neon-cyan rounded-full mr-2 flex-shrink-0" />
+                      {responsibility}
+                    </div>
                   ))}
                 </div>
               </div>
@@ -157,38 +171,46 @@ export function TeamSection() {
           ))}
         </motion.div>
 
-        {/* Additional info */}
+        {/* Team philosophy */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={hasTriggered ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-center mt-16"
         >
-          <div className="glass-morphism rounded-3xl p-8 lg:p-12 max-w-4xl mx-auto">
+          <div className="glass-morphism rounded-3xl p-8 lg:p-12 max-w-5xl mx-auto">
             <h3 className="text-2xl lg:text-3xl font-light mb-6 text-3d">
-              Команда <span className="text-neon-cyan">профессионалов</span>
+              Наша <span className="text-neon-cyan">философия работы</span>
             </h3>
-            <p className="text-gray-300 text-lg leading-relaxed mb-6">
-              Наша команда состоит из опытных специалистов с многолетним стажем разработки. 
-              Мы объединяем глубокие технические знания с креативным подходом для создания 
-              инновационных решений, которые превосходят ожидания клиентов.
+            <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              Мы верим в силу командной работы и четкого распределения ролей. Каждый участник команды 
+              является экспертом в своей области и вносит уникальный вклад в успех проекта. 
+              Прозрачная коммуникация и взаимная поддержка - основа нашего подхода.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="text-3xl font-light text-neon-cyan mb-2">50+</div>
-                <div className="text-gray-400 text-sm">Проектов реализовано</div>
+                <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-2xl flex items-center justify-center">
+                  <Users className="w-8 h-8 text-neon-cyan" />
+                </div>
+                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">Командная работа</h4>
+                <p className="text-gray-400 text-sm">Синергия экспертов разных областей</p>
               </div>
+              
               <div className="text-center">
-                <div className="text-3xl font-light text-neon-cyan mb-2">5+</div>
-                <div className="text-gray-400 text-sm">Лет опыта</div>
+                <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-2xl flex items-center justify-center">
+                  <Target className="w-8 h-8 text-neon-cyan" />
+                </div>
+                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">Фокус на качестве</h4>
+                <p className="text-gray-400 text-sm">Каждый элемент проходит строгий контроль</p>
               </div>
+              
               <div className="text-center">
-                <div className="text-3xl font-light text-neon-cyan mb-2">20+</div>
-                <div className="text-gray-400 text-sm">Технологий</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-light text-neon-cyan mb-2">24/7</div>
-                <div className="text-gray-400 text-sm">Поддержка</div>
+                <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-2xl flex items-center justify-center">
+                  <Lightbulb className="w-8 h-8 text-neon-cyan" />
+                </div>
+                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">Инновации</h4>
+                <p className="text-gray-400 text-sm">Постоянно изучаем новые технологии</p>
               </div>
             </div>
           </div>
