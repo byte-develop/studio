@@ -52,26 +52,49 @@ export class TelegramService {
     const message = this.formatContactMessage(contact);
     const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
 
+    console.log('Sending Telegram message with length:', message.length);
+    console.log('Message content:', JSON.stringify(message));
+
     try {
-      const response = await fetch(url, {
+      // Попробуем сначала простое сообщение
+      const testResponse = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           chat_id: this.chatId,
-          text: message,
+          text: 'Тест: новая заявка получена',
         }),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Failed to send Telegram message:', errorText);
+      if (testResponse.ok) {
+        console.log('Test message sent successfully, trying full message...');
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: this.chatId,
+            text: message,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Failed to send full Telegram message:', errorText);
+          return false;
+        }
+
+        console.log('Full Telegram notification sent successfully');
+        return true;
+      } else {
+        const errorText = await testResponse.text();
+        console.error('Failed to send test Telegram message:', errorText);
         return false;
       }
-
-      console.log('Telegram notification sent successfully');
-      return true;
     } catch (error) {
       console.error('Error sending Telegram notification:', error);
       return false;
