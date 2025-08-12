@@ -1,76 +1,33 @@
 import { motion } from 'framer-motion';
-import { Code2, Palette, Server, Shield, Brain, Users, Target, Lightbulb } from 'lucide-react';
+import { Code2, Palette, Server, Shield, Brain, Users, Target, Lightbulb, Monitor, Smartphone, Settings } from 'lucide-react';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
+import { useQuery } from '@tanstack/react-query';
+import type { TeamRole } from '@shared/schema';
 
 export function TeamSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
 
-  const teamStructure = [
-    {
-      role: "Технический директор",
-      description: "Определяет техническую стратегию и архитектурные решения проектов",
-      icon: Brain,
-      responsibilities: ["Архитектура решений", "Технические стандарты", "Code Review", "Наставничество"],
-      color: "from-purple-500/20 to-blue-500/20",
-      count: "1"
-    },
-    {
-      role: "Frontend разработчики",
-      description: "Создают пользовательские интерфейсы и обеспечивают отличный UX",
-      icon: Code2,
-      responsibilities: ["React/Vue разработка", "Мобильная адаптация", "Интеграция с API", "Оптимизация"],
-      color: "from-blue-500/20 to-cyan-500/20",
-      count: "3"
-    },
-    {
-      role: "UI/UX дизайнеры",
-      description: "Проектируют интуитивные интерфейсы и пользовательские сценарии",
-      icon: Palette,
-      responsibilities: ["Дизайн интерфейсов", "Прототипирование", "UX исследования", "Дизайн-системы"],
-      color: "from-pink-500/20 to-purple-500/20",
-      count: "2"
-    },
-    {
-      role: "Backend разработчики",
-      description: "Строят серверную логику и обеспечивают надежность систем",
-      icon: Server,
-      responsibilities: ["API разработка", "База данных", "Интеграции", "Производительность"],
-      color: "from-green-500/20 to-emerald-500/20",
-      count: "2"
-    },
-    {
-      role: "DevOps инженеры",
-      description: "Автоматизируют процессы развертывания и поддерживают инфраструктуру",
-      icon: Shield,
-      responsibilities: ["CI/CD настройка", "Мониторинг", "Безопасность", "Масштабирование"],
-      color: "from-orange-500/20 to-red-500/20",
-      count: "1"
-    },
-    {
-      role: "Проект-менеджеры",
-      description: "Координируют работу команды и взаимодействие с клиентами",
-      icon: Users,
-      responsibilities: ["Планирование", "Коммуникации", "Риски", "Качество"],
-      color: "from-indigo-500/20 to-blue-500/20",
-      count: "2"
-    },
-    {
-      role: "QA инженеры",
-      description: "Обеспечивают качество продукта на всех этапах разработки",
-      icon: Target,
-      responsibilities: ["Тестирование", "Автотесты", "Багрепорты", "Стандарты качества"],
-      color: "from-teal-500/20 to-cyan-500/20",
-      count: "1"
-    },
-    {
-      role: "Продуктовые аналитики",
-      description: "Анализируют требования и предлагают оптимальные решения",
-      icon: Lightbulb,
-      responsibilities: ["Анализ требований", "Метрики", "Улучшения", "Исследования"],
-      color: "from-yellow-500/20 to-orange-500/20",
-      count: "1"
-    }
-  ];
+  // Загружаем данные команды из базы данных
+  const { data: teamStructure = [], isLoading } = useQuery<TeamRole[]>({
+    queryKey: ['/api/team-roles'],
+  });
+
+  // Карта иконок для рендеринга
+  const iconMap: Record<string, any> = {
+    Monitor, Code2, Palette, Server, Shield, Brain, Users, Target, Lightbulb, Smartphone, Settings
+  };
+
+  // Карта градиентов для цветов
+  const colorGradients: Record<string, string> = {
+    blue: "from-blue-500/20 to-cyan-500/20",
+    green: "from-green-500/20 to-emerald-500/20", 
+    purple: "from-purple-500/20 to-pink-500/20",
+    orange: "from-orange-500/20 to-red-500/20",
+    red: "from-red-500/20 to-pink-500/20",
+    yellow: "from-yellow-500/20 to-orange-500/20",
+    pink: "from-pink-500/20 to-purple-500/20",
+    gray: "from-gray-500/20 to-slate-500/20"
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -112,64 +69,61 @@ export function TeamSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasTriggered ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
-        >
-          {teamStructure.map((role, index) => (
-            <motion.div
-              key={role.role}
-              variants={itemVariants}
-              whileHover={{ 
-                scale: 1.02,
-                y: -5,
-              }}
-              transition={{ duration: 0.3 }}
-              className="glass-morphism rounded-3xl p-6 lg:p-8 text-center group hover:shadow-lg hover:shadow-neon-cyan/10 relative overflow-hidden"
-            >
-              {/* Background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${role.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-              
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Count badge */}
-                <div className="absolute top-0 right-0 w-8 h-8 bg-neon-cyan rounded-full flex items-center justify-center text-deep-black font-semibold text-sm">
-                  {role.count}
-                </div>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-neon-cyan"></div>
+            <p className="mt-4 text-gray-400">Загружаем данные команды...</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={hasTriggered ? "visible" : "hidden"}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          >
+            {teamStructure.map((role, index) => {
+              const IconComponent = iconMap[role.icon] || Users;
+              return (
+              <motion.div
+                key={role.title}
+                variants={itemVariants}
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -5,
+                }}
+                transition={{ duration: 0.3 }}
+                className="glass-morphism rounded-3xl p-6 lg:p-8 text-center group hover:shadow-lg hover:shadow-neon-cyan/10 relative overflow-hidden"
+              >
+                {/* Background gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${colorGradients[role.color] || colorGradients.blue} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Count badge */}
+                  <div className="absolute top-0 right-0 w-8 h-8 bg-neon-cyan rounded-full flex items-center justify-center text-deep-black font-semibold text-sm">
+                    {role.count}
+                  </div>
 
-                <motion.div
-                  whileHover={{ scale: 1.1, rotateY: 180 }}
-                  transition={{ duration: 0.6 }}
-                  className="w-16 h-16 mx-auto mb-6 bg-neon-cyan/10 rounded-2xl flex items-center justify-center group-hover:bg-neon-cyan/20 transition-colors duration-300"
-                >
-                  <role.icon className="w-8 h-8 text-neon-cyan" />
-                </motion.div>
-                
-                <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-neon-cyan transition-colors duration-300">
-                  {role.role}
-                </h3>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  {role.description}
-                </p>
-                
-                {/* Responsibilities */}
-                <div className="space-y-2">
-                  {role.responsibilities.map((responsibility, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center text-xs text-gray-300 group-hover:text-neon-cyan/80 transition-colors duration-300"
-                    >
-                      <div className="w-1 h-1 bg-neon-cyan rounded-full mr-2 flex-shrink-0" />
-                      {responsibility}
-                    </div>
-                  ))}
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotateY: 180 }}
+                    transition={{ duration: 0.6 }}
+                    className="w-16 h-16 mx-auto mb-6 bg-neon-cyan/10 rounded-2xl flex items-center justify-center group-hover:bg-neon-cyan/20 transition-colors duration-300"
+                  >
+                    <IconComponent className="w-8 h-8 text-neon-cyan" />
+                  </motion.div>
+                  
+                  <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-neon-cyan transition-colors duration-300">
+                    {role.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                    {role.description}
+                  </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            );
+            })}
+          </motion.div>
+        )}
 
         {/* Team philosophy */}
         <motion.div

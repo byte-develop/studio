@@ -4,9 +4,12 @@ import {
   type Technology, type InsertTechnology,
   type PortfolioProject, type InsertPortfolioProject,
   type ServiceProject, type InsertServiceProject,
-  type TeamRole, type InsertTeamRole
+  type TeamRole, type InsertTeamRole,
+  users, contacts, technologies, portfolioProjects, serviceProjects, teamRoles
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -180,6 +183,9 @@ export class MemStorage implements IStorage {
     const project: PortfolioProject = {
       id: this.idCounter++,
       ...insertProject,
+      link: insertProject.link ?? null,
+      featured: insertProject.featured ?? false,
+      technologies: insertProject.technologies ?? [],
       createdAt: new Date()
     };
     this.portfolioProjects.set(project.id, project);
@@ -210,6 +216,8 @@ export class MemStorage implements IStorage {
     const project: ServiceProject = {
       id: this.idCounter++,
       ...insertProject,
+      link: insertProject.link ?? null,
+      technologies: insertProject.technologies ?? [],
       createdAt: new Date()
     };
     this.serviceProjects.set(project.id, project);
@@ -238,6 +246,8 @@ export class MemStorage implements IStorage {
     const role: TeamRole = {
       id: this.idCounter++,
       ...insertRole,
+      count: insertRole.count ?? 1,
+      color: insertRole.color ?? "blue",
       updatedAt: new Date()
     };
     this.teamRoles.set(role.id, role);
@@ -258,4 +268,130 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// DatabaseStorage implementation for PostgreSQL
+export class DatabaseStorage implements IStorage {
+  // User methods
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
+  // Contact methods
+  async createContact(insertContact: InsertContact): Promise<Contact> {
+    const [contact] = await db.insert(contacts).values(insertContact).returning();
+    return contact;
+  }
+
+  async getContacts(): Promise<Contact[]> {
+    return await db.select().from(contacts).orderBy(contacts.createdAt);
+  }
+
+  // Technology methods
+  async getTechnologies(): Promise<Technology[]> {
+    return await db.select().from(technologies).orderBy(technologies.name);
+  }
+
+  async createTechnology(insertTechnology: InsertTechnology): Promise<Technology> {
+    const [technology] = await db.insert(technologies).values(insertTechnology).returning();
+    return technology;
+  }
+
+  async updateTechnology(id: number, updateData: Partial<InsertTechnology>): Promise<Technology> {
+    const [technology] = await db.update(technologies)
+      .set(updateData)
+      .where(eq(technologies.id, id))
+      .returning();
+    if (!technology) throw new Error('Technology not found');
+    return technology;
+  }
+
+  async deleteTechnology(id: number): Promise<void> {
+    await db.delete(technologies).where(eq(technologies.id, id));
+  }
+
+  // Portfolio project methods
+  async getPortfolioProjects(): Promise<PortfolioProject[]> {
+    return await db.select().from(portfolioProjects).orderBy(portfolioProjects.createdAt);
+  }
+
+  async createPortfolioProject(insertProject: InsertPortfolioProject): Promise<PortfolioProject> {
+    const [project] = await db.insert(portfolioProjects).values(insertProject).returning();
+    return project;
+  }
+
+  async updatePortfolioProject(id: number, updateData: Partial<InsertPortfolioProject>): Promise<PortfolioProject> {
+    const [project] = await db.update(portfolioProjects)
+      .set(updateData)
+      .where(eq(portfolioProjects.id, id))
+      .returning();
+    if (!project) throw new Error('Portfolio project not found');
+    return project;
+  }
+
+  async deletePortfolioProject(id: number): Promise<void> {
+    await db.delete(portfolioProjects).where(eq(portfolioProjects.id, id));
+  }
+
+  // Service project methods
+  async getServiceProjects(serviceType?: string): Promise<ServiceProject[]> {
+    if (serviceType) {
+      return await db.select().from(serviceProjects)
+        .where(eq(serviceProjects.serviceType, serviceType))
+        .orderBy(serviceProjects.createdAt);
+    }
+    return await db.select().from(serviceProjects).orderBy(serviceProjects.createdAt);
+  }
+
+  async createServiceProject(insertProject: InsertServiceProject): Promise<ServiceProject> {
+    const [project] = await db.insert(serviceProjects).values(insertProject).returning();
+    return project;
+  }
+
+  async updateServiceProject(id: number, updateData: Partial<InsertServiceProject>): Promise<ServiceProject> {
+    const [project] = await db.update(serviceProjects)
+      .set(updateData)
+      .where(eq(serviceProjects.id, id))
+      .returning();
+    if (!project) throw new Error('Service project not found');
+    return project;
+  }
+
+  async deleteServiceProject(id: number): Promise<void> {
+    await db.delete(serviceProjects).where(eq(serviceProjects.id, id));
+  }
+
+  // Team role methods
+  async getTeamRoles(): Promise<TeamRole[]> {
+    return await db.select().from(teamRoles).orderBy(teamRoles.title);
+  }
+
+  async createTeamRole(insertRole: InsertTeamRole): Promise<TeamRole> {
+    const [role] = await db.insert(teamRoles).values(insertRole).returning();
+    return role;
+  }
+
+  async updateTeamRole(id: number, updateData: Partial<InsertTeamRole>): Promise<TeamRole> {
+    const [role] = await db.update(teamRoles)
+      .set({ ...updateData, updatedAt: new Date() })
+      .where(eq(teamRoles.id, id))
+      .returning();
+    if (!role) throw new Error('Team role not found');
+    return role;
+  }
+
+  async deleteTeamRole(id: number): Promise<void> {
+    await db.delete(teamRoles).where(eq(teamRoles.id, id));
+  }
+}
+
+export const storage = new DatabaseStorage();

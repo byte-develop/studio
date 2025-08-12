@@ -1,40 +1,16 @@
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
-
-const portfolioItems = [
-  {
-    title: 'Корпоративная CRM Система',
-    description: 'Полнофункциональная система управления клиентами с интерактивной аналитикой и автоматизацией',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
-    technologies: ['React', 'Node.js', 'PostgreSQL'],
-    category: 'Web App',
-  },
-  {
-    title: 'E-commerce Платформа',
-    description: 'Масштабируемый интернет-магазин с микросервисной архитектурой и современным UI/UX',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
-    technologies: ['Vue.js', 'Python', 'Redis'],
-    category: 'E-commerce',
-  },
-  {
-    title: '3D Визуализатор Недвижимости',
-    description: 'Интерактивная платформа для просмотра объектов недвижимости с WebGL и виртуальными турами',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
-    technologies: ['Three.js', 'WebGL', 'TypeScript'],
-    category: '3D/WebGL',
-  },
-  {
-    title: 'Мобильное Фитнес Приложение',
-    description: 'Кроссплатформенное приложение для фитнеса с AI тренером и социальными функциями',
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
-    technologies: ['Flutter', 'Firebase', 'TensorFlow'],
-    category: 'Mobile App',
-  },
-];
+import { useQuery } from '@tanstack/react-query';
+import type { PortfolioProject } from '@shared/schema';
 
 export function PortfolioSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
+  
+  // Загружаем данные портфолио из базы данных
+  const { data: portfolioItems = [], isLoading } = useQuery<PortfolioProject[]>({
+    queryKey: ['/api/portfolio-projects'],
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,13 +52,19 @@ export function PortfolioSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasTriggered ? "visible" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12"
-        >
-          {portfolioItems.map((project, index) => (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-neon-cyan"></div>
+            <p className="mt-4 text-gray-400">Загружаем проекты...</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={hasTriggered ? "visible" : "hidden"}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12"
+          >
+            {portfolioItems.filter(item => item.featured).map((project, index) => (
             <motion.div
               key={project.title}
               variants={itemVariants}
@@ -104,7 +86,7 @@ export function PortfolioSection() {
                 />
                 <div className="absolute top-4 right-4 glass-morphism px-4 py-2 rounded-full">
                   <span className="text-neon-cyan text-sm font-medium">
-                    {project.category}
+                    Портфолио
                   </span>
                 </div>
               </div>
@@ -131,8 +113,9 @@ export function PortfolioSection() {
                 <ExternalLink className="w-4 h-4" />
               </motion.div>
             </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

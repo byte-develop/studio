@@ -1,35 +1,26 @@
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
-
-const technologies = [
-  { name: 'React', icon: '⚛️', color: 'from-blue-400 to-cyan-400' },
-  { name: 'Vue.js', icon: '💚', color: 'from-emerald-400 to-green-400' },
-  { name: 'Next.js', icon: '▲', color: 'from-gray-400 to-white' },
-  { name: 'TypeScript', icon: '📘', color: 'from-blue-400 to-indigo-400' },
-  { name: 'Node.js', icon: '🟢', color: 'from-green-400 to-emerald-400' },
-  { name: 'Python', icon: '🐍', color: 'from-blue-400 to-yellow-400' },
-  { name: 'Three.js', icon: '🎲', color: 'from-yellow-400 to-orange-400' },
-  { name: 'WebGL', icon: '🌐', color: 'from-purple-400 to-pink-400' },
-  { name: 'PostgreSQL', icon: '🐘', color: 'from-blue-400 to-teal-400' },
-  { name: 'MongoDB', icon: '🍃', color: 'from-green-400 to-teal-400' },
-  { name: 'AWS', icon: '☁️', color: 'from-orange-400 to-yellow-400' },
-  { name: 'Docker', icon: '🐳', color: 'from-blue-400 to-purple-400' },
-  { name: 'Kubernetes', icon: '⚓', color: 'from-blue-400 to-cyan-400' },
-  { name: 'Redis', icon: '🔴', color: 'from-red-400 to-pink-400' },
-  { name: 'GraphQL', icon: '◆', color: 'from-pink-400 to-purple-400' },
-  { name: 'TensorFlow', icon: '🧠', color: 'from-orange-400 to-red-400' },
-  { name: 'Flutter', icon: '🐦', color: 'from-blue-400 to-teal-400' },
-  { name: 'Swift', icon: '🍎', color: 'from-orange-400 to-red-400' },
-  { name: 'Kotlin', icon: '🤖', color: 'from-purple-400 to-blue-400' },
-  { name: 'Rust', icon: '🦀', color: 'from-orange-400 to-red-400' },
-  { name: 'Go', icon: '🐹', color: 'from-cyan-400 to-blue-400' },
-  { name: 'Figma', icon: '🎨', color: 'from-purple-400 to-pink-400' },
-  { name: 'Blender', icon: '🌀', color: 'from-orange-400 to-yellow-400' },
-  { name: 'Unity', icon: '🎮', color: 'from-gray-400 to-black' },
-];
+import { useQuery } from '@tanstack/react-query';
+import type { Technology } from '@shared/schema';
+import * as LucideIcons from 'lucide-react';
 
 export function TechnologiesSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
+
+  // Загружаем данные технологий из базы данных
+  const { data: technologies = [], isLoading } = useQuery<Technology[]>({
+    queryKey: ['/api/technologies'],
+  });
+
+  // Цветовые градиенты для разных категорий
+  const categoryColors: Record<string, string> = {
+    frontend: 'from-blue-400 to-cyan-400',
+    backend: 'from-green-400 to-emerald-400',
+    mobile: 'from-purple-400 to-pink-400',
+    database: 'from-orange-400 to-yellow-400',
+    devops: 'from-red-400 to-pink-400',
+    design: 'from-pink-400 to-purple-400'
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -71,37 +62,47 @@ export function TechnologiesSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasTriggered ? "visible" : "hidden"}
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8"
-        >
-          {technologies.map((tech, index) => (
-            <motion.div
-              key={tech.name}
-              variants={itemVariants}
-              whileHover={{ 
-                scale: 1.05,
-                y: -5,
-              }}
-              transition={{ duration: 0.3 }}
-              className="glass-morphism p-6 rounded-2xl group text-center cursor-pointer hover:shadow-lg hover:shadow-neon-cyan/10"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-                className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-xl flex items-center justify-center group-hover:bg-neon-cyan/20 transition-colors duration-300"
-              >
-                <span className="text-3xl">{tech.icon}</span>
-              </motion.div>
-              <h4 className="font-medium text-sm group-hover:text-neon-cyan transition-colors">
-                {tech.name}
-              </h4>
-
-            </motion.div>
-          ))}
-        </motion.div>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-neon-cyan"></div>
+            <p className="mt-4 text-gray-400">Загружаем технологии...</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={hasTriggered ? "visible" : "hidden"}
+            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8"
+          >
+            {technologies.map((tech, index) => {
+              const IconComponent = (LucideIcons as any)[tech.icon] || LucideIcons.Code;
+              return (
+                <motion.div
+                  key={tech.name}
+                  variants={itemVariants}
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -5,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="glass-morphism p-6 rounded-2xl group text-center cursor-pointer hover:shadow-lg hover:shadow-neon-cyan/10"
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                    className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${categoryColors[tech.category] || categoryColors.frontend} opacity-20 rounded-xl flex items-center justify-center group-hover:opacity-40 transition-opacity duration-300`}
+                  >
+                    <IconComponent className="w-8 h-8 text-neon-cyan" />
+                  </motion.div>
+                  <h4 className="font-medium text-sm group-hover:text-neon-cyan transition-colors">
+                    {tech.name}
+                  </h4>
+                  <p className="text-xs text-gray-500 mt-1 capitalize">{tech.category}</p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        )}
       </div>
     </section>
   );

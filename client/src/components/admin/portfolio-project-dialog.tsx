@@ -1,114 +1,78 @@
 import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { insertPortfolioProjectSchema, type PortfolioProject } from '@shared/schema';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useToast } from '@/hooks/use-toast';
-
-const formSchema = insertPortfolioProjectSchema.extend({
-  technologiesInput: z.string().optional(),
-});
+import { Switch } from '@/components/ui/switch';
+import { apiRequest } from '@/lib/queryClient';
+import { insertPortfolioProjectSchema, type PortfolioProject, type InsertPortfolioProject } from '@shared/schema';
+import { z } from 'zod';
 
 interface PortfolioProjectDialogProps {
   children: React.ReactNode;
   project?: PortfolioProject;
 }
 
+const formSchema = insertPortfolioProjectSchema.extend({
+  technologiesText: z.string().optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
 export function PortfolioProjectDialog({ children, project }: PortfolioProjectDialogProps) {
   const [open, setOpen] = useState(false);
-  const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: project?.title || '',
       description: project?.description || '',
       image: project?.image || '',
-      technologies: project?.technologies || [],
-      technologiesInput: project?.technologies?.join(', ') || '',
-      link: project?.link || undefined,
-      featured: project?.featured || false,
+      technologiesText: project?.technologies?.join(', ') || '',
+      link: project?.link || '',
+      featured: project?.featured ?? false,
     },
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: z.infer<typeof formSchema>) => {
-      const { technologiesInput, ...projectData } = data;
-      const processedData = {
-        ...projectData,
-        technologies: technologiesInput 
-          ? technologiesInput.split(',').map(t => t.trim()).filter(t => t)
-          : [],
-      };
-
+    mutationFn: (data: InsertPortfolioProject) => {
       if (project) {
-        return apiRequest(`/api/portfolio-projects/${project.id}`, 'PUT', {
-          body: JSON.stringify(processedData),
-        });
-      } else {
-        return apiRequest('/api/portfolio-projects', 'POST', {
-          body: JSON.stringify(processedData),
-        });
+        return apiRequest(`/api/portfolio-projects/${project.id}`, 'PUT', data);
       }
+      return apiRequest('/api/portfolio-projects', 'POST', data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/portfolio-projects'] });
-      toast({
-        title: 'Успешно',
-        description: project ? 'Проект обновлен' : 'Проект добавлен',
-      });
       setOpen(false);
       form.reset();
     },
-    onError: () => {
-      toast({
-        title: 'Ошибка',
-        description: 'Не удалось сохранить проект',
-        variant: 'destructive',
-      });
-    },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    mutation.mutate(data);
+  const onSubmit = (data: FormData) => {
+    const technologies = data.technologiesText
+      ? data.technologiesText.split(',').map(t => t.trim()).filter(Boolean)
+      : [];
+    
+    const { technologiesText, ...projectData } = data;
+    mutation.mutate({ ...projectData, technologies });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-gray-900 border-gray-700 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogTrigger asChild>
+        {children}
+      </DialogTrigger>
+      <DialogContent className="bg-gray-900 border-gray-700 max-w-2xl">
         <DialogHeader>
-          <DialogTitle>
-            {project ? 'Редактировать проект' : 'Добавить проект в портфолио'}
+          <DialogTitle className="text-white">
+            {project ? 'Редактировать проект' : 'Добавить проект'}
           </DialogTitle>
-          <DialogDescription>
-            {project ? 'Изменить данные проекта' : 'Добавить новый проект в портфолио'}
-          </DialogDescription>
         </DialogHeader>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -116,137 +80,91 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Название проекта</FormLabel>
+                  <FormLabel className="text-white">Название</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Название проекта"
-                      className="bg-gray-800 border-gray-600"
-                      {...field}
-                      data-testid="input-project-title"
-                    />
+                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Описание</FormLabel>
+                  <FormLabel className="text-white">Описание</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Описание проекта"
-                      className="bg-gray-800 border-gray-600 min-h-[100px]"
-                      {...field}
-                      data-testid="textarea-project-description"
-                    />
+                    <Textarea {...field} className="bg-gray-800 border-gray-600 text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL изображения</FormLabel>
+                  <FormLabel className="text-white">URL изображения</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="https://example.com/image.jpg"
-                      className="bg-gray-800 border-gray-600"
-                      {...field}
-                      data-testid="input-project-image"
-                    />
+                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
-              name="technologiesInput"
+              name="technologiesText"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Технологии</FormLabel>
+                  <FormLabel className="text-white">Технологии (через запятую)</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="React, Node.js, TypeScript (через запятую)"
-                      className="bg-gray-800 border-gray-600"
-                      {...field}
-                      data-testid="input-project-technologies"
-                    />
+                    <Input {...field} placeholder="React, Node.js, PostgreSQL" className="bg-gray-800 border-gray-600 text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="link"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Ссылка (необязательно)</FormLabel>
+                  <FormLabel className="text-white">Ссылка на проект</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="https://example.com"
-                      className="bg-gray-800 border-gray-600"
-                      {...field}
-                      data-testid="input-project-link"
-                    />
+                    <Input {...field} value={field.value || ''} className="bg-gray-800 border-gray-600 text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="featured"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border border-gray-600 p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-white">Рекомендуемый проект</FormLabel>
+                    <div className="text-gray-400 text-sm">Отображать на главной странице</div>
+                  </div>
                   <FormControl>
-                    <Checkbox
-                      checked={field.value || false}
+                    <Switch
+                      checked={field.value ?? false}
                       onCheckedChange={field.onChange}
-                      className="border-gray-600"
-                      data-testid="checkbox-project-featured"
                     />
                   </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Рекомендуемый проект</FormLabel>
-                    <p className="text-sm text-gray-400">
-                      Показывать этот проект в главной секции портфолио
-                    </p>
-                  </div>
                 </FormItem>
               )}
             />
-
-            <div className="flex justify-end gap-2 pt-4">
-              <Button 
-                type="button" 
-                variant="outline" 
-                onClick={() => setOpen(false)}
-                data-testid="button-cancel"
-              >
-                Отмена
-              </Button>
-              <Button 
-                type="submit" 
-                disabled={mutation.isPending}
-                className="bg-blue-600 hover:bg-blue-700"
-                data-testid="button-save-project"
-              >
-                {mutation.isPending ? 'Сохранение...' : 'Сохранить'}
-              </Button>
-            </div>
+            <Button 
+              type="submit" 
+              disabled={mutation.isPending}
+              className="w-full bg-blue-600 hover:bg-blue-700"
+            >
+              {mutation.isPending ? 'Сохранение...' : (project ? 'Сохранить' : 'Добавить')}
+            </Button>
           </form>
         </Form>
       </DialogContent>
