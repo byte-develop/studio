@@ -171,33 +171,30 @@ export function AdminPage() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {portfolioProjects.map((project) => (
-                    <div key={project.id} className="bg-gray-700/50 backdrop-blur-sm p-4 rounded-lg border border-gray-600">
+                    <div key={project.id} className="bg-gray-900 p-4 rounded-lg border border-gray-600">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-semibold text-white">{project.title}</h3>
                         <div className="flex gap-2">
-                          {project.featured && (
-                            <Badge className="bg-neon-cyan text-black">Рекомендуемый</Badge>
-                          )}
+                          {project.featured && <Badge variant="secondary">Рекомендуемый</Badge>}
                           <PortfolioProjectDialog project={project}>
-                            <Button size="sm" variant="outline" className="border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black">
+                            <Button size="sm" variant="ghost">
                               <Edit className="w-4 h-4" />
                             </Button>
                           </PortfolioProjectDialog>
                           <Button 
                             size="sm" 
-                            variant="outline" 
+                            variant="ghost" 
                             onClick={() => deletePortfolioProject.mutate(project.id)}
                             disabled={deletePortfolioProject.isPending}
-                            className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4 text-red-400" />
                           </Button>
                         </div>
                       </div>
                       <p className="text-gray-400 text-sm mb-2">{project.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {project.technologies?.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-xs border-gray-500 text-gray-300">
+                          <Badge key={tech} variant="outline" className="text-xs">
                             {tech}
                           </Badge>
                         ))}
@@ -208,6 +205,8 @@ export function AdminPage() {
               </CardContent>
             </Card>
           </TabsContent>
+
+
 
           <TabsContent value="team" className="space-y-4">
             <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700">
@@ -229,24 +228,23 @@ export function AdminPage() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {teamRoles.map((role) => (
-                    <div key={role.id} className="bg-gray-700/50 backdrop-blur-sm p-4 rounded-lg border border-gray-600">
+                    <div key={role.id} className="bg-gray-900 p-4 rounded-lg border border-gray-600">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-semibold text-white">{role.title}</h3>
                         <div className="flex gap-2">
-                          <Badge className="bg-neon-cyan text-black">{role.count}</Badge>
+                          <Badge variant="secondary">{role.count}</Badge>
                           <TeamRoleDialog role={role}>
-                            <Button size="sm" variant="outline" className="border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black">
+                            <Button size="sm" variant="ghost">
                               <Edit className="w-4 h-4" />
                             </Button>
                           </TeamRoleDialog>
                           <Button 
                             size="sm" 
-                            variant="outline" 
+                            variant="ghost" 
                             onClick={() => deleteTeamRole.mutate(role.id)}
                             disabled={deleteTeamRole.isPending}
-                            className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4 text-red-400" />
                           </Button>
                         </div>
                       </div>
@@ -258,18 +256,15 @@ export function AdminPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="technologies" className="space-y-4">
-            <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700">
+          <TabsContent value="technologies">
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle className="text-white flex items-center gap-2">
-                    <Code className="w-5 h-5 text-neon-cyan" />
-                    Технологии
-                  </CardTitle>
-                  <p className="text-gray-400 mt-1">Управление технологиями и инструментами</p>
-                </div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Code className="w-5 h-5" />
+                  Технологии ({technologies.length})
+                </CardTitle>
                 <TechnologyDialog>
-                  <Button className="bg-neon-cyan hover:bg-neon-cyan/80 text-black font-semibold">
+                  <Button className="bg-blue-600 hover:bg-blue-700">
                     <Plus className="w-4 h-4 mr-2" />
                     Добавить технологию
                   </Button>
@@ -278,29 +273,27 @@ export function AdminPage() {
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {technologies.map((tech) => (
-                    <div key={tech.id} className="bg-gray-700/50 backdrop-blur-sm p-3 rounded-lg border border-gray-600 text-center">
+                    <div key={tech.id} className="bg-gray-900 p-3 rounded-lg border border-gray-600 text-center">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-semibold text-white text-sm">{tech.name}</h3>
+                        <Badge variant="outline" className="text-xs">{tech.category}</Badge>
                         <div className="flex gap-1">
                           <TechnologyDialog technology={tech}>
-                            <Button size="sm" variant="ghost" className="h-6 w-6 p-0 text-neon-cyan hover:bg-neon-cyan hover:text-black">
+                            <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
                               <Edit className="w-3 h-3" />
                             </Button>
                           </TechnologyDialog>
                           <Button 
                             size="sm" 
                             variant="ghost" 
+                            className="h-6 w-6 p-0"
                             onClick={() => deleteTechnology.mutate(tech.id)}
                             disabled={deleteTechnology.isPending}
-                            className="h-6 w-6 p-0 text-red-500 hover:bg-red-500 hover:text-white"
                           >
-                            <Trash2 className="w-3 h-3" />
+                            <Trash2 className="w-3 h-3 text-red-400" />
                           </Button>
                         </div>
                       </div>
-                      <Badge variant="outline" className="text-xs border-gray-500 text-gray-300">
-                        {tech.category}
-                      </Badge>
+                      <h4 className="font-medium text-white text-sm">{tech.name}</h4>
                     </div>
                   ))}
                 </div>
