@@ -279,13 +279,17 @@
 }
 
 [data-radix-select-item][data-highlighted] {
-  background-color: hsla(180 100% 50% / 0.1) !important;
-  color: hsl(0 0% 100%) !important;
+  background: linear-gradient(90deg, hsla(180 100% 50% / 0.2) 0%, hsla(180 100% 50% / 0.1) 100%) !important;
+  color: hsl(180 100% 50%) !important;
+  box-shadow: 0 0 10px hsla(180 100% 50% / 0.2) !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
 [data-radix-select-item][data-state="checked"] {
-  background-color: hsla(180 100% 50% / 0.15) !important;
-  color: var(--neon-cyan) !important;
+  background: linear-gradient(90deg, hsla(180 100% 50% / 0.25) 0%, hsla(180 100% 50% / 0.15) 100%) !important;
+  color: hsl(180 100% 50%) !important;
+  font-weight: 500 !important;
+  box-shadow: 0 0 15px hsla(180 100% 50% / 0.3) !important;
 }
 
 [data-radix-select-trigger] [data-placeholder] {
