@@ -9,38 +9,45 @@ export class TelegramService {
     this.chatId = process.env.TELEGRAM_CHAT_ID || '';
   }
 
+  private escapeHtml(text: string): string {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
   private formatContactMessage(contact: Contact): string {
     const lines = [
-      'Новая заявка с сайта VERTEX Studio!',
+      '🔥 <b>Новая заявка с сайта VERTEX Studio!</b>',
       '',
-      `Имя: ${contact.name || 'Не указано'}`,
-      `Email: ${contact.email || 'Не указан'}`,
+      `👤 <b>Имя:</b> ${this.escapeHtml(contact.name || 'Не указано')}`,
+      `📧 <b>Email:</b> ${this.escapeHtml(contact.email || 'Не указан')}`,
     ];
 
     if (contact.company) {
-      lines.push(`Компания: ${contact.company}`);
+      lines.push(`🏢 <b>Компания:</b> ${this.escapeHtml(contact.company)}`);
     }
 
     if (contact.phone) {
-      lines.push(`Телефон: ${contact.phone}`);
+      lines.push(`📱 <b>Телефон:</b> ${this.escapeHtml(contact.phone)}`);
     }
 
     if (contact.service) {
-      lines.push(`Услуга: ${contact.service}`);
+      lines.push(`🛠 <b>Услуга:</b> ${this.escapeHtml(contact.service)}`);
     }
 
     if (contact.budget) {
-      lines.push(`Бюджет: ${contact.budget}`);
+      lines.push(`💰 <b>Бюджет:</b> ${this.escapeHtml(contact.budget)}`);
     }
 
     if (contact.message) {
       lines.push('');
-      lines.push('Сообщение:');
-      lines.push(contact.message);
+      lines.push('💬 <b>Сообщение:</b>');
+      lines.push(`<i>${this.escapeHtml(contact.message)}</i>`);
     }
 
     lines.push('');
-    lines.push(`Дата: ${contact.createdAt ? new Date(contact.createdAt).toLocaleString('ru-RU') : new Date().toLocaleString('ru-RU')}`);
+    lines.push(`📅 <b>Дата:</b> ${contact.createdAt ? new Date(contact.createdAt).toLocaleString('ru-RU') : new Date().toLocaleString('ru-RU')}`);
 
     return lines.join('\n');
   }
@@ -65,6 +72,7 @@ export class TelegramService {
         body: JSON.stringify({
           chat_id: this.chatId,
           text: message,
+          parse_mode: 'HTML',
         }),
       });
 
