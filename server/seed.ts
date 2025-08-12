@@ -3,23 +3,6 @@ import { technologies, teamRoles, portfolioProjects, serviceProjects } from "@sh
 
 export async function seedDatabase() {
   try {
-    // Добавляем базовые технологии
-    const baseTechnologies = [
-      { name: "React", icon: "Code", category: "frontend" },
-      { name: "Node.js", icon: "Server", category: "backend" },
-      { name: "TypeScript", icon: "FileCode", category: "frontend" },
-      { name: "Python", icon: "Bot", category: "backend" },
-      { name: "PostgreSQL", icon: "Database", category: "database" },
-      { name: "Docker", icon: "Package", category: "devops" },
-      { name: "Vue.js", icon: "Code", category: "frontend" },
-      { name: "Express.js", icon: "Server", category: "backend" },
-      { name: "MongoDB", icon: "Database", category: "database" },
-      { name: "AWS", icon: "Cloud", category: "devops" },
-      { name: "Flutter", icon: "Smartphone", category: "mobile" },
-      { name: "React Native", icon: "Smartphone", category: "mobile" }
-    ];
-
-    await db.insert(technologies).values(baseTechnologies).onConflictDoNothing();
 
     // Добавляем базовые роли команды
     const baseRoles = [
@@ -67,7 +50,7 @@ export async function seedDatabase() {
       }
     ];
 
-    await db.insert(teamRoles).values(baseRoles).onConflictDoNothing();
+    await db.insert(teamRoles).values(baseRoles);
 
     // Добавляем примеры проектов портфолио
     const portfolioSamples = [
@@ -97,7 +80,7 @@ export async function seedDatabase() {
       }
     ];
 
-    await db.insert(portfolioProjects).values(portfolioSamples).onConflictDoNothing();
+    await db.insert(portfolioProjects).values(portfolioSamples);
 
     // Добавляем примеры проектов для услуг
     const serviceSamples = [
@@ -135,9 +118,9 @@ export async function seedDatabase() {
       }
     ];
 
-    await db.insert(serviceProjects).values(serviceSamples).onConflictDoNothing();
+    await db.insert(serviceProjects).values(serviceSamples);
 
-    // Добавляем технологии как было изначально
+    // Добавляем уникальные технологии как было изначально
     const technologiesData = [
       { name: 'React', icon: 'Code2', category: 'frontend' },
       { name: 'Vue.js', icon: 'Code2', category: 'frontend' },
@@ -165,7 +148,7 @@ export async function seedDatabase() {
       { name: 'Unity', icon: 'Gamepad2', category: 'design' }
     ];
 
-    await db.insert(technologies).values(technologiesData).onConflictDoNothing();
+    await db.insert(technologies).values(technologiesData);
 
     console.log("Database seeded successfully!");
   } catch (error) {
