@@ -67,13 +67,10 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gray-900/95 backdrop-blur-md border-gray-700/50 max-w-3xl rounded-2xl shadow-2xl">
-        <DialogHeader className="pb-6">
-          <DialogTitle className="text-white text-2xl font-light flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-green-500/20 text-green-400">
-              <Briefcase className="w-5 h-5" />
-            </div>
-            {project ? 'Редактировать проект' : 'Добавить новый проект'}
+      <DialogContent className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="text-slate-900 dark:text-white text-xl font-semibold">
+            {project ? 'Редактировать проект' : 'Добавить проект'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -83,9 +80,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Название</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Название</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
+                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,9 +93,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Описание</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Описание</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="bg-gray-800 border-gray-600 text-white" />
+                    <Textarea {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,9 +106,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">URL изображения</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">URL изображения</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
+                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,9 +119,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
               name="technologiesText"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Технологии (через запятую)</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Технологии (через запятую)</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="React, Node.js, PostgreSQL" className="bg-gray-800 border-gray-600 text-white" />
+                    <Input {...field} placeholder="React, Node.js, PostgreSQL" className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,9 +132,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
               name="link"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Ссылка на проект</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Ссылка на проект</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} className="bg-gray-800 border-gray-600 text-white" />
+                    <Input {...field} value={field.value || ''} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

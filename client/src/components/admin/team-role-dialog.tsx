@@ -55,13 +55,10 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gray-900/95 backdrop-blur-md border-gray-700/50 max-w-2xl rounded-2xl shadow-2xl">
-        <DialogHeader className="pb-6">
-          <DialogTitle className="text-white text-xl font-light flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400">
-              <Users className="w-4 h-4" />
-            </div>
-            {role ? 'Редактировать роль' : 'Добавить роль команды'}
+      <DialogContent className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="text-slate-900 dark:text-white text-xl font-semibold">
+            {role ? 'Редактировать роль' : 'Добавить роль'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -71,9 +68,9 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Название роли</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Название роли</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
+                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,9 +81,9 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Описание</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Описание</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="bg-gray-800 border-gray-600 text-white" />
+                    <Textarea {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

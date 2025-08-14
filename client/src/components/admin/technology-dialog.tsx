@@ -52,12 +52,9 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gray-900/95 backdrop-blur-md border-gray-700/50 max-w-lg rounded-2xl shadow-2xl">
-        <DialogHeader className="pb-6">
-          <DialogTitle className="text-white text-xl font-light flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-orange-500/20 text-orange-400">
-              <Code className="w-4 h-4" />
-            </div>
+      <DialogContent className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="text-slate-900 dark:text-white text-xl font-semibold">
             {technology ? 'Редактировать технологию' : 'Добавить технологию'}
           </DialogTitle>
         </DialogHeader>
@@ -68,9 +65,9 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Название</FormLabel>
+                  <FormLabel className="text-slate-900 dark:text-white">Название</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
+                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
