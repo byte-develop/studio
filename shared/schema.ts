@@ -82,6 +82,10 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export const insertContactSchema = createInsertSchema(contacts).omit({
   id: true,
   createdAt: true,
+}).extend({
+  name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
+  email: z.string().email("Введите корректный email адрес"),
+  message: z.string().min(10, "Сообщение должно содержать минимум 10 символов"),
 });
 
 export const insertTechnologySchema = createInsertSchema(technologies).omit({
