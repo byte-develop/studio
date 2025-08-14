@@ -324,19 +324,40 @@
 /* Form input styling fixes */
 input[type="text"], 
 input[type="email"], 
+input[type="tel"],
 input[type="url"],
 textarea {
-  background-color: hsl(0 0% 12%) !important;
+  background-color: rgba(10, 10, 10, 0.5) !important;
   color: hsl(0 0% 100%) !important;
-  border-color: hsl(0 0% 25%) !important;
+  border-color: hsl(0 0% 40%) !important;
 }
 
 input[type="text"]:focus, 
 input[type="email"]:focus, 
+input[type="tel"]:focus,
 input[type="url"]:focus,
 textarea:focus {
   border-color: hsl(180 100% 50%) !important;
   box-shadow: 0 0 0 1px hsl(180 100% 50%) !important;
+}
+
+/* Override browser autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgba(10, 10, 10, 0.5) inset !important;
+  -webkit-text-fill-color: white !important;
+  border-color: hsl(0 0% 40%) !important;
+}
+
+input[type="email"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:focus,
+input[type="email"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgba(10, 10, 10, 0.5) inset !important;
+  -webkit-text-fill-color: white !important;
+  border-color: hsl(0 0% 40%) !important;
 }
 
 /* Tabs styling fixes */
