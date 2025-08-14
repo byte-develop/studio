@@ -175,7 +175,7 @@ export function ContactSection() {
                   <h4 className="font-medium mb-2 text-neon-cyan">Быстрый отклик</h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
                     Отвечаем на все заявки в течение 2 часов в рабочее время. 
-                    Для срочных вопросов звоните напрямую.
+                    Приоритет отдаем срочным проектам и важным задачам.
                   </p>
                 </div>
               </div>
