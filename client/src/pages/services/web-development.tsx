@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Box, Globe, Smartphone, ArrowRight, CheckCircle } from 'lucide-react';
+import { Box, Globe, Smartphone, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
 
 export default function WebDevelopmentPage() {
@@ -21,11 +21,7 @@ export default function WebDevelopmentPage() {
     { name: "MongoDB/PostgreSQL", description: "Современные базы данных для хранения данных" }
   ];
 
-  const projects = [
-    { name: "E-commerce платформа", description: "Полнофункциональный интернет-магазин с корзиной и оплатой" },
-    { name: "Корпоративный портал", description: "Внутренняя система управления для крупной компании" },
-    { name: "Образовательная платформа", description: "Онлайн школа с видеоуроками и тестированием" }
-  ];
+
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -152,39 +148,7 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* Примеры проектов */}
-      <section className="py-16 bg-gray-900/50">
-        <div className="container mx-auto px-6">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl font-bold text-center mb-16"
-          >
-            Примеры наших проектов
-          </motion.h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="glass-morphism p-6 rounded-2xl group cursor-pointer"
-              >
-                <h3 className="text-xl font-semibold mb-3">{project.name}</h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
-                <div className="flex items-center text-neon-cyan group-hover:translate-x-2 transition-transform">
-                  <span className="mr-2">Подробнее</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* CTA секция */}
       <section className="py-16">

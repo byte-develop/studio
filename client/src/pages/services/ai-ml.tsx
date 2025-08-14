@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Brain, Bot, ArrowRight, CheckCircle } from 'lucide-react';
+import { Shield, Brain, Bot, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
 
 export default function AIMLPage() {
@@ -21,11 +21,7 @@ export default function AIMLPage() {
     { name: "Hugging Face", description: "Готовые модели для NLP и компьютерного зрения" }
   ];
 
-  const projects = [
-    { name: "ИИ чат-бот поддержки", description: "Автоматический помощник клиентов с обучением на базе знаний" },
-    { name: "Система рекомендаций", description: "Персонализированные рекомендации товаров для e-commerce" },
-    { name: "Анализ документов", description: "Автоматическая обработка и классификация документов" }
-  ];
+
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -152,39 +148,7 @@ export default function AIMLPage() {
         </div>
       </section>
 
-      {/* Примеры проектов */}
-      <section className="py-16 bg-gray-900/50">
-        <div className="container mx-auto px-6">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl font-bold text-center mb-16"
-          >
-            Наши ИИ проекты
-          </motion.h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="glass-morphism p-6 rounded-2xl group cursor-pointer"
-              >
-                <h3 className="text-xl font-semibold mb-3">{project.name}</h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
-                <div className="flex items-center text-neon-cyan group-hover:translate-x-2 transition-transform">
-                  <span className="mr-2">Подробнее</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* CTA секция */}
       <section className="py-16">
