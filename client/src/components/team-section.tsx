@@ -104,13 +104,11 @@ export function TeamSection() {
                     {role.count}
                   </div>
 
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotateY: 180 }}
-                    transition={{ duration: 0.6 }}
+                  <div
                     className="w-16 h-16 mx-auto mb-6 bg-neon-cyan/10 rounded-2xl flex items-center justify-center group-hover:bg-neon-cyan/20 transition-colors duration-300"
                   >
                     <IconComponent className="w-8 h-8 text-neon-cyan" />
-                  </motion.div>
+                  </div>
                   
                   <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-neon-cyan transition-colors duration-300">
                     {role.title}

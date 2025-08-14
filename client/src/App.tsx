@@ -8,6 +8,8 @@ import { AdminPage } from "@/pages/admin";
 import { AdminLoginPage } from "@/pages/admin-login";
 import NotFound from "@/pages/not-found";
 import { PortfolioPage } from "@/pages/portfolio";
+import { TermsPage } from "@/pages/terms";
+import { PrivacyPage } from "@/pages/privacy";
 import WebDevelopmentPage from "@/pages/services/web-development";
 import MobileDevelopmentPage from "@/pages/services/mobile-development";
 import ThreeDWebGLPage from "@/pages/services/3d-webgl";
@@ -28,6 +30,8 @@ function Router() {
       <Route path="/services/backend-api" component={BackendAPIPage} />
       <Route path="/services/ai-ml" component={AIMLPage} />
       <Route path="/services/devops-cloud" component={DevOpsCloudPage} />
+      <Route path="/terms" component={TermsPage} />
+      <Route path="/privacy" component={PrivacyPage} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'wouter';
 import { MapPin, Mail, Phone, Linkedin, Github, Twitter, Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,19 +17,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 const contactInfo = [
   {
-    icon: MapPin,
-    title: 'Адрес',
-    description: 'Москва, ул. Технологическая, 15',
-  },
-  {
     icon: Mail,
     title: 'Email',
     description: 'hello@vertexstudio.dev',
-  },
-  {
-    icon: Phone,
-    title: 'Телефон',
-    description: '+7 (495) 123-45-67',
   },
 ];
 
@@ -142,13 +133,11 @@ export function ContactSection() {
                 className="floating-card glass-morphism p-6 rounded-2xl"
               >
                 <div className="flex items-center space-x-4">
-                  <motion.div
-                    whileHover={{ rotateZ: 360 }}
-                    transition={{ duration: 0.6 }}
+                  <div
                     className="w-12 h-12 bg-neon-cyan/10 rounded-xl flex items-center justify-center"
                   >
                     <info.icon className="w-5 h-5 text-neon-cyan" />
-                  </motion.div>
+                  </div>
                   <div>
                     <h4 className="font-medium mb-1">{info.title}</h4>
                     <p className="text-gray-400">{info.description}</p>
@@ -161,15 +150,13 @@ export function ContactSection() {
               <h4 className="font-medium mb-4">Следите за нами</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
-                  <motion.a
+                  <a
                     key={index}
                     href={social.href}
-                    whileHover={{ scale: 1.2, rotateZ: 360 }}
-                    transition={{ duration: 0.3 }}
                     className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:bg-neon-cyan/20 transition-all"
                   >
                     <social.icon className="w-5 h-5 text-neon-cyan" />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </motion.div>
@@ -297,10 +284,13 @@ export function ContactSection() {
                 />
                 <label htmlFor="privacy" className="text-sm text-gray-400">
                   Я согласен с{' '}
-                  <a href="#" className="text-neon-cyan hover:underline">
+                  <a href="/privacy" className="text-neon-cyan hover:underline">
                     политикой конфиденциальности
                   </a>{' '}
-                  и обработкой персональных данных
+                  и{' '}
+                  <a href="/terms" className="text-neon-cyan hover:underline">
+                    пользовательским соглашением
+                  </a>
                 </label>
               </div>
 
