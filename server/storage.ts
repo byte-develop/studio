@@ -488,7 +488,7 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-// Use memory storage for development, database storage for production
-export const storage = process.env.NODE_ENV === 'production' && process.env.DATABASE_URL 
+// Use database storage when DATABASE_URL is available
+export const storage = process.env.DATABASE_URL 
   ? new DatabaseStorage() 
   : new MemStorage();
