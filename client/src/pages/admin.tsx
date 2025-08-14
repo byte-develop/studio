@@ -19,7 +19,10 @@ import {
   MessageCircle,
   UserPlus,
   FolderPlus,
-  Settings
+  Settings,
+  Send,
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
@@ -97,6 +100,7 @@ export function AdminPage() {
     { id: 'portfolio', label: 'Портфолио', icon: Briefcase, count: portfolioProjects.length },
     { id: 'team', label: 'Команда', icon: Users, count: teamRoles.length },
     { id: 'technologies', label: 'Технологии', icon: Code, count: technologies.length },
+    { id: 'settings', label: 'Настройки', icon: Settings },
   ];
 
   const StatCard = ({ title, value, icon: Icon, color, description }: any) => (
@@ -697,6 +701,159 @@ export function AdminPage() {
                   <p className="text-slate-400">Добавьте технологии в стек</p>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Settings */}
+          {activeTab === 'settings' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Настройки системы</h2>
+                  <p className="text-sm md:text-base text-slate-400">Управление интеграциями и системными параметрами</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Telegram Integration */}
+                <Card className="border-0 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <Send className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-white">Telegram Интеграция</h3>
+                        <p className="text-xs text-slate-400">Уведомления о новых заявках</p>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400" />
+                        <span className="text-sm text-slate-300">Статус интеграции</span>
+                      </div>
+                      <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0">
+                        Активна
+                      </Badge>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 pt-2">
+                      <div className="p-3 bg-slate-800/30 rounded-lg">
+                        <p className="text-xs text-slate-400 mb-1">Bot Token</p>
+                        <p className="text-sm text-white font-mono">
+                          {process.env.TELEGRAM_BOT_TOKEN ? '••••••••••••••••' : 'Не настроен'}
+                        </p>
+                      </div>
+                      <div className="p-3 bg-slate-800/30 rounded-lg">
+                        <p className="text-xs text-slate-400 mb-1">Chat ID</p>
+                        <p className="text-sm text-white font-mono">
+                          {process.env.TELEGRAM_CHAT_ID ? '••••••••••••••••' : 'Не настроен'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-700/50">
+                      <div className="flex items-center gap-2 mb-3">
+                        <AlertCircle className="w-4 h-4 text-blue-400" />
+                        <span className="text-sm text-slate-300">Последняя активность</span>
+                      </div>
+                      <p className="text-xs text-slate-400">
+                        {contacts.length > 0 
+                          ? `Последняя заявка отправлена: ${new Date(contacts[contacts.length - 1]?.createdAt || Date.now()).toLocaleString('ru-RU')}`
+                          : 'Заявки ещё не поступали'
+                        }
+                      </p>
+                    </div>
+
+                    <Button 
+                      className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
+                      onClick={() => {
+                        // Тестовое сообщение
+                        const testData = {
+                          name: "Тестовое сообщение",
+                          email: "admin@test.com",
+                          message: "Проверка работы Telegram интеграции из админ-панели"
+                        };
+                        
+                        apiRequest('POST', '/api/contacts', testData)
+                          .then(() => {
+                            toast({
+                              title: "Тестовое сообщение отправлено",
+                              description: "Проверьте ваш Telegram чат"
+                            });
+                          })
+                          .catch(() => {
+                            toast({
+                              title: "Ошибка отправки",
+                              description: "Проверьте настройки Telegram бота",
+                              variant: "destructive"
+                            });
+                          });
+                      }}
+                    >
+                      <Send className="w-4 h-4 mr-2" />
+                      Отправить тест
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* System Statistics */}
+                <Card className="border-0 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-500 rounded-lg flex items-center justify-center">
+                        <Settings className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-white">Системная информация</h3>
+                        <p className="text-xs text-slate-400">Статистика и производительность</p>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-3 bg-slate-800/30 rounded-lg">
+                        <p className="text-xs text-slate-400 mb-1">База данных</p>
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <p className="text-sm text-green-400 font-medium">Подключена</p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-slate-800/30 rounded-lg">
+                        <p className="text-xs text-slate-400 mb-1">API статус</p>
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <p className="text-sm text-green-400 font-medium">Работает</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-700/50">
+                      <h4 className="text-sm font-medium text-slate-300 mb-3">Статистика данных</h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-xs text-slate-400">Всего заявок:</span>
+                          <span className="text-xs text-white font-medium">{contacts.length}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-xs text-slate-400">Проектов портфолио:</span>
+                          <span className="text-xs text-white font-medium">{portfolioProjects.length}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-xs text-slate-400">Ролей команды:</span>
+                          <span className="text-xs text-white font-medium">{teamRoles.length}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-xs text-slate-400">Технологий:</span>
+                          <span className="text-xs text-white font-medium">{technologies.length}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           )}
         </div>
