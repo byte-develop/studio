@@ -3,14 +3,28 @@ import { ExternalLink } from 'lucide-react';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
 import { useQuery } from '@tanstack/react-query';
 import type { PortfolioProject } from '@shared/schema';
+import { ProjectModal } from '@/components/ui/project-modal';
+import { useState } from 'react';
 
 export function PortfolioSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Загружаем данные портфолио из базы данных
   const { data: portfolioItems = [], isLoading } = useQuery<PortfolioProject[]>({
     queryKey: ['/api/portfolio-projects'],
   });
+
+  const openProjectModal = (project: PortfolioProject) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeProjectModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 200);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,6 +83,8 @@ export function PortfolioSection() {
               key={project.title}
               variants={itemVariants}
               className="floating-card group cursor-pointer relative"
+              onClick={() => openProjectModal(project)}
+              data-testid={`card-project-${project.id}`}
             >
               <div className="relative overflow-hidden rounded-3xl glass-morphism bg-gradient-to-br from-slate-800/30 to-slate-900/50 backdrop-blur-xl border border-white/10 hover:border-neon-cyan/30 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan/20">
                 
@@ -183,6 +199,13 @@ export function PortfolioSection() {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeProjectModal}
+      />
     </section>
   );
 }
