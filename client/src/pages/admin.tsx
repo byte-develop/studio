@@ -1,9 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { 
   Plus, 
   Edit2, 
@@ -30,8 +42,10 @@ import type {
   Contact, 
   PortfolioProject, 
   TeamRole, 
-  Technology 
+  Technology,
+  TelegramSettings
 } from '@shared/schema';
+import { telegramSettingsSchema } from '@shared/schema';
 
 // Import dialog components
 import { PortfolioProjectDialog } from '@/components/admin/portfolio-project-dialog';
@@ -58,6 +72,15 @@ export function AdminPage() {
   const { data: portfolioProjects = [] } = useQuery<PortfolioProject[]>({ queryKey: ['/api/portfolio-projects'] });
   const { data: teamRoles = [] } = useQuery<TeamRole[]>({ queryKey: ['/api/team-roles'] });
   const { data: technologies = [] } = useQuery<Technology[]>({ queryKey: ['/api/technologies'] });
+  
+  // Telegram settings form
+  const telegramForm = useForm<TelegramSettings>({
+    resolver: zodResolver(telegramSettingsSchema),
+    defaultValues: {
+      telegram_bot_token: '',
+      telegram_chat_id: '',
+    },
+  });
 
   // Logout handler
   const handleLogout = () => {
@@ -93,6 +116,29 @@ export function AdminPage() {
       toast({ title: "Технология удалена", description: "Технология успешно удалена" });
     },
   });
+
+  // Telegram settings mutation
+  const updateTelegramSettings = useMutation({
+    mutationFn: (data: TelegramSettings) => apiRequest('POST', '/api/settings/telegram', data),
+    onSuccess: () => {
+      toast({ 
+        title: "Настройки обновлены", 
+        description: "Telegram настройки успешно сохранены" 
+      });
+      telegramForm.reset();
+    },
+    onError: () => {
+      toast({ 
+        title: "Ошибка", 
+        description: "Не удалось сохранить настройки", 
+        variant: "destructive" 
+      });
+    }
+  });
+
+  const onTelegramSubmit = (data: TelegramSettings) => {
+    updateTelegramSettings.mutate(data);
+  };
 
   const menuItems = [
     { id: 'overview', label: 'Обзор', icon: Home },
@@ -724,35 +770,101 @@ export function AdminPage() {
                       </div>
                       <div>
                         <h3 className="font-bold text-white">Telegram Интеграция</h3>
-                        <p className="text-xs text-slate-400">Уведомления о новых заявках</p>
+                        <p className="text-xs text-slate-400">Настройка уведомлений о новых заявках</p>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-400" />
-                        <span className="text-sm text-slate-300">Статус интеграции</span>
-                      </div>
-                      <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0">
-                        Активна
-                      </Badge>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4 pt-2">
-                      <div className="p-3 bg-slate-800/30 rounded-lg">
-                        <p className="text-xs text-slate-400 mb-1">Bot Token</p>
-                        <p className="text-sm text-white font-mono">
-                          {'••••••••••••••••'}
-                        </p>
-                      </div>
-                      <div className="p-3 bg-slate-800/30 rounded-lg">
-                        <p className="text-xs text-slate-400 mb-1">Chat ID</p>
-                        <p className="text-sm text-white font-mono">
-                          {'••••••••••••••••'}
-                        </p>
-                      </div>
-                    </div>
+                    <Form {...telegramForm}>
+                      <form onSubmit={telegramForm.handleSubmit(onTelegramSubmit)} className="space-y-4">
+                        <FormField
+                          control={telegramForm.control}
+                          name="telegram_bot_token"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-slate-300">Bot Token</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Введите токен бота"
+                                  className="bg-slate-800/30 border-slate-700 text-white placeholder:text-slate-500"
+                                  {...field}
+                                  data-testid="input-telegram-bot-token"
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs text-slate-500">
+                                Получите токен у @BotFather в Telegram
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={telegramForm.control}
+                          name="telegram_chat_id"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-slate-300">Chat ID</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Введите ID чата или канала"
+                                  className="bg-slate-800/30 border-slate-700 text-white placeholder:text-slate-500"
+                                  {...field}
+                                  data-testid="input-telegram-chat-id"
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs text-slate-500">
+                                ID чата, куда отправлять уведомления
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <div className="flex gap-2">
+                          <Button
+                            type="submit"
+                            disabled={updateTelegramSettings.isPending}
+                            className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
+                            data-testid="button-save-telegram-settings"
+                          >
+                            {updateTelegramSettings.isPending ? 'Сохранение...' : 'Сохранить'}
+                          </Button>
+                          
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="border-slate-700 text-slate-300 hover:bg-slate-800"
+                            onClick={() => {
+                              const testData = {
+                                name: "Тестовое сообщение",
+                                email: "admin@test.com",
+                                message: "Проверка работы Telegram интеграции из админ-панели"
+                              };
+                              
+                              apiRequest('POST', '/api/contacts', testData)
+                                .then(() => {
+                                  toast({
+                                    title: "Тестовое сообщение отправлено",
+                                    description: "Проверьте ваш Telegram чат"
+                                  });
+                                })
+                                .catch(() => {
+                                  toast({
+                                    title: "Ошибка отправки",
+                                    description: "Проверьте настройки Telegram бота",
+                                    variant: "destructive"
+                                  });
+                                });
+                            }}
+                            data-testid="button-test-telegram"
+                          >
+                            <Send className="w-4 h-4 mr-2" />
+                            Тест
+                          </Button>
+                        </div>
+                      </form>
+                    </Form>
 
                     <div className="pt-4 border-t border-slate-700/50">
                       <div className="flex items-center gap-2 mb-3">
@@ -766,36 +878,6 @@ export function AdminPage() {
                         }
                       </p>
                     </div>
-
-                    <Button 
-                      className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
-                      onClick={() => {
-                        // Тестовое сообщение
-                        const testData = {
-                          name: "Тестовое сообщение",
-                          email: "admin@test.com",
-                          message: "Проверка работы Telegram интеграции из админ-панели"
-                        };
-                        
-                        apiRequest('POST', '/api/contacts', testData)
-                          .then(() => {
-                            toast({
-                              title: "Тестовое сообщение отправлено",
-                              description: "Проверьте ваш Telegram чат"
-                            });
-                          })
-                          .catch(() => {
-                            toast({
-                              title: "Ошибка отправки",
-                              description: "Проверьте настройки Telegram бота",
-                              variant: "destructive"
-                            });
-                          });
-                      }}
-                    >
-                      <Send className="w-4 h-4 mr-2" />
-                      Отправить тест
-                    </Button>
                   </CardContent>
                 </Card>
 

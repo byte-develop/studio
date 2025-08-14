@@ -65,6 +65,14 @@ export const teamRoles = pgTable("team_roles", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Таблица для настроек приложения
+export const settings = pgTable("settings", {
+  id: serial("id").primaryKey(),
+  key: text("key").notNull().unique(), // например: telegram_bot_token, telegram_chat_id
+  value: text("value"), // значение настройки
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Схемы для валидации
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
@@ -96,6 +104,17 @@ export const insertTeamRoleSchema = createInsertSchema(teamRoles).omit({
   updatedAt: true,
 });
 
+export const insertSettingSchema = createInsertSchema(settings).omit({
+  id: true,
+  updatedAt: true,
+});
+
+// Специальная схема для Telegram настроек
+export const telegramSettingsSchema = z.object({
+  telegram_bot_token: z.string().optional(),
+  telegram_chat_id: z.string().optional(),
+});
+
 // Типы
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -109,3 +128,6 @@ export type InsertServiceProject = z.infer<typeof insertServiceProjectSchema>;
 export type ServiceProject = typeof serviceProjects.$inferSelect;
 export type InsertTeamRole = z.infer<typeof insertTeamRoleSchema>;
 export type TeamRole = typeof teamRoles.$inferSelect;
+export type InsertSetting = z.infer<typeof insertSettingSchema>;
+export type Setting = typeof settings.$inferSelect;
+export type TelegramSettings = z.infer<typeof telegramSettingsSchema>;

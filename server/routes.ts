@@ -6,7 +6,8 @@ import {
   insertTechnologySchema,
   insertPortfolioProjectSchema,
   insertServiceProjectSchema,
-  insertTeamRoleSchema
+  insertTeamRoleSchema,
+  telegramSettingsSchema
 } from "@shared/schema";
 import { z } from "zod";
 import { telegramService } from "./telegram";
@@ -237,6 +238,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true });
     } catch (error) {
       res.status(404).json({ error: "Team role not found" });
+    }
+  });
+
+  // Settings routes - Get all settings
+  app.get("/api/settings", async (req, res) => {
+    try {
+      const allSettings = await storage.getSettings();
+      res.json(allSettings);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve settings" });
+    }
+  });
+
+  // Settings routes - Update Telegram settings
+  app.post("/api/settings/telegram", async (req, res) => {
+    try {
+      const telegramData = telegramSettingsSchema.parse(req.body);
+      const updatedSettings = [];
+
+      if (telegramData.telegram_bot_token) {
+        const botTokenSetting = await storage.setSetting('telegram_bot_token', telegramData.telegram_bot_token);
+        updatedSettings.push(botTokenSetting);
+      }
+
+      if (telegramData.telegram_chat_id) {
+        const chatIdSetting = await storage.setSetting('telegram_chat_id', telegramData.telegram_chat_id);
+        updatedSettings.push(chatIdSetting);
+      }
+
+      res.json({ success: true, settings: updatedSettings });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid settings data", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Failed to update Telegram settings" });
+      }
+    }
+  });
+
+  // Get Telegram settings status
+  app.get("/api/settings/telegram/status", async (req, res) => {
+    try {
+      const botToken = await storage.getSetting('telegram_bot_token');
+      const chatId = await storage.getSetting('telegram_chat_id');
+      
+      res.json({
+        bot_token_configured: !!botToken?.value,
+        chat_id_configured: !!chatId?.value,
+        last_updated: Math.max(
+          botToken?.updatedAt?.getTime() || 0,
+          chatId?.updatedAt?.getTime() || 0
+        )
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to check Telegram settings status" });
     }
   });
 

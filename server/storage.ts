@@ -5,7 +5,8 @@ import {
   type PortfolioProject, type InsertPortfolioProject,
   type ServiceProject, type InsertServiceProject,
   type TeamRole, type InsertTeamRole,
-  users, contacts, technologies, portfolioProjects, serviceProjects, teamRoles
+  type Setting, type InsertSetting,
+  users, contacts, technologies, portfolioProjects, serviceProjects, teamRoles, settings
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -44,6 +45,12 @@ export interface IStorage {
   createTeamRole(role: InsertTeamRole): Promise<TeamRole>;
   updateTeamRole(id: number, role: Partial<InsertTeamRole>): Promise<TeamRole>;
   deleteTeamRole(id: number): Promise<void>;
+  
+  // Settings methods
+  getSetting(key: string): Promise<Setting | undefined>;
+  getSettings(): Promise<Setting[]>;
+  setSetting(key: string, value: string): Promise<Setting>;
+  deleteSetting(key: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -53,6 +60,7 @@ export class MemStorage implements IStorage {
   private portfolioProjects: Map<number, PortfolioProject>;
   private serviceProjects: Map<number, ServiceProject>;
   private teamRoles: Map<number, TeamRole>;
+  private settings: Map<string, Setting>;
   private idCounter: number;
 
   constructor() {
@@ -62,6 +70,7 @@ export class MemStorage implements IStorage {
     this.portfolioProjects = new Map();
     this.serviceProjects = new Map();
     this.teamRoles = new Map();
+    this.settings = new Map();
     this.idCounter = 1;
     
     // Инициализируем базовые данные
@@ -266,6 +275,30 @@ export class MemStorage implements IStorage {
   async deleteTeamRole(id: number): Promise<void> {
     this.teamRoles.delete(id);
   }
+
+  // Settings methods
+  async getSetting(key: string): Promise<Setting | undefined> {
+    return this.settings.get(key);
+  }
+
+  async getSettings(): Promise<Setting[]> {
+    return Array.from(this.settings.values());
+  }
+
+  async setSetting(key: string, value: string): Promise<Setting> {
+    const setting: Setting = {
+      id: this.idCounter++,
+      key,
+      value,
+      updatedAt: new Date()
+    };
+    this.settings.set(key, setting);
+    return setting;
+  }
+
+  async deleteSetting(key: string): Promise<void> {
+    this.settings.delete(key);
+  }
 }
 
 // DatabaseStorage implementation for PostgreSQL
@@ -418,6 +451,40 @@ export class DatabaseStorage implements IStorage {
   async deleteTeamRole(id: number): Promise<void> {
     if (!db) throw new Error("Database not available");
     await db.delete(teamRoles).where(eq(teamRoles.id, id));
+  }
+
+  // Settings methods
+  async getSetting(key: string): Promise<Setting | undefined> {
+    if (!db) throw new Error("Database not available");
+    const [setting] = await db.select().from(settings).where(eq(settings.key, key));
+    return setting || undefined;
+  }
+
+  async getSettings(): Promise<Setting[]> {
+    if (!db) throw new Error("Database not available");
+    return await db.select().from(settings);
+  }
+
+  async setSetting(key: string, value: string): Promise<Setting> {
+    if (!db) throw new Error("Database not available");
+    const existing = await this.getSetting(key);
+    if (existing) {
+      const [updated] = await db.update(settings)
+        .set({ value, updatedAt: new Date() })
+        .where(eq(settings.key, key))
+        .returning();
+      return updated;
+    } else {
+      const [created] = await db.insert(settings)
+        .values({ key, value })
+        .returning();
+      return created;
+    }
+  }
+
+  async deleteSetting(key: string): Promise<void> {
+    if (!db) throw new Error("Database not available");
+    await db.delete(settings).where(eq(settings.key, key));
   }
 }
 

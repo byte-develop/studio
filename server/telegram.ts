@@ -1,12 +1,15 @@
 import type { Contact } from "@shared/schema";
+import { storage } from "./storage";
 
 export class TelegramService {
-  private botToken: string;
-  private chatId: string;
+  private async getBotToken(): Promise<string> {
+    const setting = await storage.getSetting('telegram_bot_token');
+    return setting?.value || process.env.TELEGRAM_BOT_TOKEN || '';
+  }
 
-  constructor() {
-    this.botToken = process.env.TELEGRAM_BOT_TOKEN || '';
-    this.chatId = process.env.TELEGRAM_CHAT_ID || '';
+  private async getChatId(): Promise<string> {
+    const setting = await storage.getSetting('telegram_chat_id');
+    return setting?.value || process.env.TELEGRAM_CHAT_ID || '';
   }
 
   private escapeHtml(text: string): string {
@@ -53,13 +56,16 @@ export class TelegramService {
   }
 
   async sendContactNotification(contact: Contact): Promise<boolean> {
-    if (!this.botToken || !this.chatId) {
+    const botToken = await this.getBotToken();
+    const chatId = await this.getChatId();
+    
+    if (!botToken || !chatId) {
       console.error('Telegram bot token or chat ID not configured');
       return false;
     }
 
     const message = this.formatContactMessage(contact);
-    const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
 
 
@@ -70,7 +76,7 @@ export class TelegramService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          chat_id: this.chatId,
+          chat_id: chatId,
           text: message,
           parse_mode: 'HTML',
         }),
