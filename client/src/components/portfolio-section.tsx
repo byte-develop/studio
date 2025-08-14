@@ -171,15 +171,16 @@ export function PortfolioSection() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center mt-16"
         >
-          <motion.button
+          <motion.a
+            href="/portfolio"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="glass-morphism px-8 py-4 rounded-full hover:bg-neon-cyan/10 transition-all duration-300 group"
+            className="inline-block glass-morphism px-8 py-4 rounded-full hover:bg-neon-cyan/10 transition-all duration-300 group cursor-pointer"
           >
             <span className="group-hover:text-neon-cyan transition-colors">
               Посмотреть все проекты
             </span>
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
     </section>

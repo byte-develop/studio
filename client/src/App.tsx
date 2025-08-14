@@ -7,6 +7,7 @@ import Home from "@/pages/home";
 import { AdminPage } from "@/pages/admin";
 import { AdminLoginPage } from "@/pages/admin-login";
 import NotFound from "@/pages/not-found";
+import { PortfolioPage } from "@/pages/portfolio";
 import WebDevelopmentPage from "@/pages/services/web-development";
 import MobileDevelopmentPage from "@/pages/services/mobile-development";
 import ThreeDWebGLPage from "@/pages/services/3d-webgl";
@@ -18,6 +19,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/portfolio" component={PortfolioPage} />
       <Route path="/admin/login" component={AdminLoginPage} />
       <Route path="/admin" component={AdminPage} />
       <Route path="/services/web-development" component={WebDevelopmentPage} />
