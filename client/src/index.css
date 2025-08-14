@@ -327,9 +327,9 @@ input[type="email"],
 input[type="tel"],
 input[type="url"],
 textarea {
-  background-color: rgb(55, 65, 81) !important;
+  background-color: rgba(30, 41, 59, 0.6) !important;
   color: hsl(0 0% 100%) !important;
-  border-color: rgb(75, 85, 99) !important;
+  border-color: rgb(51, 65, 85) !important;
 }
 
 input[type="text"]:focus, 
@@ -346,18 +346,18 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px rgb(55, 65, 81) inset !important;
+  -webkit-box-shadow: 0 0 0 30px rgba(30, 41, 59, 0.6) inset !important;
   -webkit-text-fill-color: white !important;
-  border-color: rgb(75, 85, 99) !important;
+  border-color: rgb(51, 65, 85) !important;
 }
 
 input[type="email"]:-webkit-autofill,
 input[type="email"]:-webkit-autofill:hover,
 input[type="email"]:-webkit-autofill:focus,
 input[type="email"]:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px rgb(55, 65, 81) inset !important;
+  -webkit-box-shadow: 0 0 0 30px rgba(30, 41, 59, 0.6) inset !important;
   -webkit-text-fill-color: white !important;
-  border-color: rgb(75, 85, 99) !important;
+  border-color: rgb(51, 65, 85) !important;
 }
 
 /* Tabs styling fixes */
