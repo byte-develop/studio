@@ -234,6 +234,15 @@
   color: var(--neon-cyan);
 }
 
+/* Utility classes */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .border-neon-cyan {
   border-color: var(--neon-cyan);
 }

@@ -216,45 +216,45 @@ export function AdminPage() {
             </Card>
 
             <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-6">
+              <CardContent className="p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Проекты</p>
-                    <p className="text-3xl font-bold text-white">{portfolioProjects.length}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white">{portfolioProjects.length}</p>
                     <p className="text-xs text-slate-500 mt-1">В портфолио</p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <Briefcase className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Briefcase className="w-6 h-6 md:w-7 md:h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-6">
+              <CardContent className="p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Команда</p>
-                    <p className="text-3xl font-bold text-white">{teamRoles.length}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white">{teamRoles.length}</p>
                     <p className="text-xs text-slate-500 mt-1">Ролей</p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <Users className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Users className="w-6 h-6 md:w-7 md:h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-6">
+              <CardContent className="p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Технологии</p>
-                    <p className="text-3xl font-bold text-white">{technologies.length}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white">{technologies.length}</p>
                     <p className="text-xs text-slate-500 mt-1">В стеке</p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <Code className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Code className="w-6 h-6 md:w-7 md:h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
@@ -263,34 +263,34 @@ export function AdminPage() {
 
           {/* Tabs */}
           <Tabs defaultValue="contacts" className="space-y-8">
-            <TabsList className="bg-slate-800/80 border border-slate-700/50 p-2 rounded-xl shadow-xl backdrop-blur-sm flex-wrap gap-2 h-auto">
+            <TabsList className="bg-slate-800/80 border border-slate-700/50 p-1 md:p-2 rounded-xl shadow-xl backdrop-blur-sm w-full justify-start overflow-x-auto scrollbar-hide">
               <TabsTrigger 
                 value="contacts" 
-                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
+                className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-xs md:text-sm shrink-0"
               >
-                <Mail className="w-4 h-4" />
-                <span className="font-medium hidden sm:inline">Заявки</span>
+                <Mail className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="font-medium">Заявки</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="portfolio" 
-                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
+                className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-xs md:text-sm shrink-0"
               >
-                <Briefcase className="w-4 h-4" />
-                <span className="font-medium hidden sm:inline">Портфолио</span>
+                <Briefcase className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="font-medium">Портфолио</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="team" 
-                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
+                className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-xs md:text-sm shrink-0"
               >
-                <Users className="w-4 h-4" />
-                <span className="font-medium hidden sm:inline">Команда</span>
+                <Users className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="font-medium">Команда</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="technologies" 
-                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
+                className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-2 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-xs md:text-sm shrink-0"
               >
-                <Code className="w-4 h-4" />
-                <span className="font-medium hidden sm:inline">Технологии</span>
+                <Code className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="font-medium">Технологии</span>
               </TabsTrigger>
             </TabsList>
 
@@ -333,17 +333,17 @@ export function AdminPage() {
                     </PortfolioProjectDialog>
                   </div>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-4 md:p-8">
                   {portfolioProjects.length === 0 ? (
-                    <div className="text-center py-16">
-                      <div className="mx-auto w-20 h-20 bg-slate-700/50 rounded-full flex items-center justify-center mb-6">
-                        <Briefcase className="w-10 h-10 text-slate-400" />
+                    <div className="text-center py-8 md:py-16">
+                      <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-slate-700/50 rounded-full flex items-center justify-center mb-4 md:mb-6">
+                        <Briefcase className="w-8 h-8 md:w-10 md:h-10 text-slate-400" />
                       </div>
-                      <p className="text-slate-300 text-xl font-medium mb-2">Проектов пока нет</p>
-                      <p className="text-slate-400">Добавьте первый проект в портфолио</p>
+                      <p className="text-slate-300 text-lg md:text-xl font-medium mb-2">Проектов пока нет</p>
+                      <p className="text-slate-400 text-sm md:text-base">Добавьте первый проект в портфолио</p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
                       {portfolioProjects.map((project) => (
                         <div key={project.id} className="group bg-slate-800/50 border border-slate-700/50 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 backdrop-blur-sm p-6">
                           <div className="flex justify-between items-start mb-4">

@@ -25,50 +25,50 @@ export function ContactsTable({ contacts }: ContactsTableProps) {
   return (
     <div className="space-y-6">
       {contacts.map((contact) => (
-        <div key={contact.id} className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm">
-          <div className="flex items-start justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Mail className="w-6 h-6 text-white" />
+        <div key={contact.id} className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 md:p-8 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm">
+          <div className="flex flex-col sm:flex-row items-start justify-between mb-4 md:mb-6 gap-3 sm:gap-0">
+            <div className="flex items-center gap-3 md:gap-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Mail className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-xl">{contact.name}</h3>
-                <p className="text-slate-300 text-lg">{contact.email}</p>
+                <h3 className="font-bold text-white text-lg md:text-xl">{contact.name}</h3>
+                <p className="text-slate-300 text-base md:text-lg break-all">{contact.email}</p>
               </div>
             </div>
-            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 shadow-lg text-sm px-3 py-1">
+            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 shadow-lg text-xs md:text-sm px-2 md:px-3 py-1 shrink-0">
               {contact.createdAt ? format(new Date(contact.createdAt), 'dd MMM yyyy, HH:mm', { locale: ru }) : 'Дата неизвестна'}
             </Badge>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-4 md:mb-6">
             {contact.phone && (
-              <div className="flex items-center gap-3 p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
-                <Phone className="w-5 h-5 text-green-400 flex-shrink-0" />
-                <span className="text-slate-200 font-medium">{contact.phone}</span>
+              <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                <Phone className="w-4 h-4 md:w-5 md:h-5 text-green-400 flex-shrink-0" />
+                <span className="text-slate-200 font-medium text-sm md:text-base">{contact.phone}</span>
               </div>
             )}
             
             {contact.company && (
-              <div className="flex items-center gap-3 p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
-                <Building className="w-5 h-5 text-purple-400 flex-shrink-0" />
-                <span className="text-slate-200 font-medium">{contact.company}</span>
+              <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                <Building className="w-4 h-4 md:w-5 md:h-5 text-purple-400 flex-shrink-0" />
+                <span className="text-slate-200 font-medium text-sm md:text-base truncate">{contact.company}</span>
               </div>
             )}
             
             {contact.service && (
-              <div className="flex items-center gap-3 p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
-                <Briefcase className="w-5 h-5 text-orange-400 flex-shrink-0" />
-                <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 shadow-lg">
+              <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                <Briefcase className="w-4 h-4 md:w-5 md:h-5 text-orange-400 flex-shrink-0" />
+                <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 shadow-lg text-xs md:text-sm">
                   {contact.service}
                 </Badge>
               </div>
             )}
             
             {contact.budget && (
-              <div className="flex items-center gap-3 p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
-                <DollarSign className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white border-0 shadow-lg">
+              <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                <DollarSign className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 flex-shrink-0" />
+                <Badge className="bg-gradient-to-r from-emerald-500 to-green-500 text-white border-0 shadow-lg text-xs md:text-sm">
                   {contact.budget}
                 </Badge>
               </div>
@@ -76,13 +76,13 @@ export function ContactsTable({ contacts }: ContactsTableProps) {
           </div>
           
           {contact.message && (
-            <div className="mt-6">
-              <div className="p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
-                <div className="flex items-center gap-3 mb-4">
-                  <MessageSquare className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                  <span className="font-semibold text-slate-200">Сообщение:</span>
+            <div className="mt-4 md:mt-6">
+              <div className="p-4 md:p-6 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+                  <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-blue-400 flex-shrink-0" />
+                  <span className="font-semibold text-slate-200 text-sm md:text-base">Сообщение:</span>
                 </div>
-                <p className="text-slate-300 leading-relaxed text-lg">{contact.message}</p>
+                <p className="text-slate-300 leading-relaxed text-sm md:text-lg">{contact.message}</p>
               </div>
             </div>
           )}

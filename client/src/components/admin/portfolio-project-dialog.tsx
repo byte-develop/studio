@@ -67,7 +67,7 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 text-white max-w-2xl w-[95vw] md:w-full max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-white text-xl font-bold">
             {project ? 'Редактировать проект' : 'Добавить проект'}

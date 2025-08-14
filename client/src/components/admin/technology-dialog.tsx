@@ -58,7 +58,7 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 text-white max-w-lg">
+      <DialogContent className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 text-white max-w-lg w-[95vw] md:w-full">
         <DialogHeader>
           <DialogTitle className="text-white text-xl font-bold">
             {technology ? 'Редактировать технологию' : 'Добавить технологию'}
