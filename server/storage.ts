@@ -270,43 +270,57 @@ export class MemStorage implements IStorage {
 
 // DatabaseStorage implementation for PostgreSQL
 export class DatabaseStorage implements IStorage {
+  constructor() {
+    if (!db) {
+      throw new Error("Database connection not available. Cannot use DatabaseStorage.");
+    }
+  }
+
   // User methods
   async getUser(id: string): Promise<User | undefined> {
+    if (!db) throw new Error("Database not available");
     const [user] = await db.select().from(users).where(eq(users.id, id));
     return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
+    if (!db) throw new Error("Database not available");
     const [user] = await db.select().from(users).where(eq(users.username, username));
     return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
+    if (!db) throw new Error("Database not available");
     const [user] = await db.insert(users).values(insertUser).returning();
     return user;
   }
 
   // Contact methods
   async createContact(insertContact: InsertContact): Promise<Contact> {
+    if (!db) throw new Error("Database not available");
     const [contact] = await db.insert(contacts).values(insertContact).returning();
     return contact;
   }
 
   async getContacts(): Promise<Contact[]> {
+    if (!db) throw new Error("Database not available");
     return await db.select().from(contacts).orderBy(contacts.createdAt);
   }
 
   // Technology methods
   async getTechnologies(): Promise<Technology[]> {
+    if (!db) throw new Error("Database not available");
     return await db.select().from(technologies).orderBy(technologies.name);
   }
 
   async createTechnology(insertTechnology: InsertTechnology): Promise<Technology> {
+    if (!db) throw new Error("Database not available");
     const [technology] = await db.insert(technologies).values(insertTechnology).returning();
     return technology;
   }
 
   async updateTechnology(id: number, updateData: Partial<InsertTechnology>): Promise<Technology> {
+    if (!db) throw new Error("Database not available");
     const [technology] = await db.update(technologies)
       .set(updateData)
       .where(eq(technologies.id, id))
@@ -316,20 +330,24 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteTechnology(id: number): Promise<void> {
+    if (!db) throw new Error("Database not available");
     await db.delete(technologies).where(eq(technologies.id, id));
   }
 
   // Portfolio project methods
   async getPortfolioProjects(): Promise<PortfolioProject[]> {
+    if (!db) throw new Error("Database not available");
     return await db.select().from(portfolioProjects).orderBy(portfolioProjects.createdAt);
   }
 
   async createPortfolioProject(insertProject: InsertPortfolioProject): Promise<PortfolioProject> {
+    if (!db) throw new Error("Database not available");
     const [project] = await db.insert(portfolioProjects).values(insertProject).returning();
     return project;
   }
 
   async updatePortfolioProject(id: number, updateData: Partial<InsertPortfolioProject>): Promise<PortfolioProject> {
+    if (!db) throw new Error("Database not available");
     const [project] = await db.update(portfolioProjects)
       .set(updateData)
       .where(eq(portfolioProjects.id, id))
@@ -339,11 +357,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deletePortfolioProject(id: number): Promise<void> {
+    if (!db) throw new Error("Database not available");
     await db.delete(portfolioProjects).where(eq(portfolioProjects.id, id));
   }
 
   // Service project methods
   async getServiceProjects(serviceType?: string): Promise<ServiceProject[]> {
+    if (!db) throw new Error("Database not available");
     if (serviceType) {
       return await db.select().from(serviceProjects)
         .where(eq(serviceProjects.serviceType, serviceType))
@@ -353,11 +373,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createServiceProject(insertProject: InsertServiceProject): Promise<ServiceProject> {
+    if (!db) throw new Error("Database not available");
     const [project] = await db.insert(serviceProjects).values(insertProject).returning();
     return project;
   }
 
   async updateServiceProject(id: number, updateData: Partial<InsertServiceProject>): Promise<ServiceProject> {
+    if (!db) throw new Error("Database not available");
     const [project] = await db.update(serviceProjects)
       .set(updateData)
       .where(eq(serviceProjects.id, id))
@@ -367,20 +389,24 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteServiceProject(id: number): Promise<void> {
+    if (!db) throw new Error("Database not available");
     await db.delete(serviceProjects).where(eq(serviceProjects.id, id));
   }
 
   // Team role methods
   async getTeamRoles(): Promise<TeamRole[]> {
+    if (!db) throw new Error("Database not available");
     return await db.select().from(teamRoles).orderBy(teamRoles.title);
   }
 
   async createTeamRole(insertRole: InsertTeamRole): Promise<TeamRole> {
+    if (!db) throw new Error("Database not available");
     const [role] = await db.insert(teamRoles).values(insertRole).returning();
     return role;
   }
 
   async updateTeamRole(id: number, updateData: Partial<InsertTeamRole>): Promise<TeamRole> {
+    if (!db) throw new Error("Database not available");
     const [role] = await db.update(teamRoles)
       .set({ ...updateData, updatedAt: new Date() })
       .where(eq(teamRoles.id, id))
@@ -390,8 +416,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteTeamRole(id: number): Promise<void> {
+    if (!db) throw new Error("Database not available");
     await db.delete(teamRoles).where(eq(teamRoles.id, id));
   }
 }
 
-export const storage = new DatabaseStorage();
+// Use memory storage for development, database storage for production
+export const storage = process.env.NODE_ENV === 'production' && process.env.DATABASE_URL 
+  ? new DatabaseStorage() 
+  : new MemStorage();
