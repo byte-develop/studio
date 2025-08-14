@@ -24,7 +24,9 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
     defaultValues: {
       title: role?.title || '',
       description: role?.description || '',
+      icon: role?.icon || 'Users',
       count: role?.count || 1,
+      color: role?.color || 'blue',
     },
   });
 
@@ -43,12 +45,7 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
   });
 
   const onSubmit = (data: InsertTeamRole) => {
-    const roleData = {
-      ...data,
-      icon: 'Users',
-      color: 'blue'
-    };
-    mutation.mutate(roleData);
+    mutation.mutate(data);
   };
 
   return (
