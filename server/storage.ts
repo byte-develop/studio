@@ -73,6 +73,9 @@ export class MemStorage implements IStorage {
     this.settings = new Map();
     this.idCounter = 1;
     
+    // Initialize with base data
+    this.initializeBaseData();
+    
     // Инициализируем базовые данные
     this.initializeBaseData();
   }
@@ -112,6 +115,83 @@ export class MemStorage implements IStorage {
         updatedAt: new Date()
       };
       this.teamRoles.set(teamRole.id, teamRole);
+    });
+
+    // Проекты портфолио - полностью реализуемые технически сложные проекты
+    const portfolioProjectsData = [
+      {
+        title: "CRM System с AI-аналитикой",
+        description: "Полнофункциональная CRM система с автоматизацией продаж, управлением клиентской базой, интеллектуальной аналитикой и прогнозированием. Включает модули для работы с лидами, сделками, отчетностью и интеграцией с внешними сервисами.",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Express.js"],
+        link: "#",
+        featured: true
+      },
+      {
+        title: "Learning Management System (LMS)",
+        description: "Современная платформа онлайн-обучения с интерактивными курсами, системой тестирования, прогресс-трекингом, форумами и видеоконференциями. Поддержка ролей преподавателей, студентов и администраторов.",
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "Express.js"],
+        link: "#",
+        featured: true
+      },
+      {
+        title: "Task Management & Project Tracking",
+        description: "Комплексная система управления проектами и задачами с канбан-досками, временными линиями, отчетами, интеграцией команд и автоматизацией рабочих процессов. Поддержка методологий Agile и Scrum.",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express.js"],
+        link: "#",
+        featured: true
+      },
+      {
+        title: "Advanced Analytics Dashboard",
+        description: "Мощная панель аналитики с интерактивными графиками, кастомными отчетами, real-time мониторингом KPI, фильтрацией данных и экспортом в различные форматы. Поддержка множественных источников данных.",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Express.js"],
+        link: "#",
+        featured: true
+      },
+      {
+        title: "E-commerce Platform",
+        description: "Полнофункциональная платформа электронной коммерции с каталогом товаров, корзиной покупок, системой заказов, управлением складом, админ-панелью и интеграцией платежей. Мультивендорная поддержка.",
+        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "Express.js"],
+        link: "#",
+        featured: false
+      },
+      {
+        title: "Inventory Management System",
+        description: "Система управления складскими запасами с отслеживанием товаров, автоматическими уведомлениями о низких остатках, управлением поставщиками, штрих-кодированием и детальной отчетностью.",
+        image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express.js"],
+        link: "#",
+        featured: false
+      },
+      {
+        title: "Real-time Chat & Collaboration",
+        description: "Система корпоративного общения в реальном времени с чатами, каналами, файлообменом, видеозвонками, интеграцией с задачами и продвинутыми настройками приватности.",
+        image: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "WebSocket"],
+        link: "#",
+        featured: false
+      },
+      {
+        title: "HR Management Platform",
+        description: "Комплексная HR-система для управления персоналом с модулями найма, учета рабочего времени, оценки производительности, управления отпусками и корпоративным обучением.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Express.js"],
+        link: "#",
+        featured: false
+      }
+    ];
+
+    portfolioProjectsData.forEach(project => {
+      const portfolioProject: PortfolioProject = {
+        id: this.idCounter++,
+        ...project,
+        createdAt: new Date()
+      };
+      this.portfolioProjects.set(portfolioProject.id, portfolioProject);
     });
   }
 
