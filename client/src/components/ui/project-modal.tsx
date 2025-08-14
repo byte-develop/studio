@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Calendar, Tag, Eye } from "lucide-react";
+import { X, ExternalLink, Calendar, Tag } from "lucide-react";
 import { type PortfolioProject } from "@shared/schema";
 
 interface ProjectModalProps {
@@ -112,7 +112,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               <div className="p-6 md:p-8 max-h-[50vh] overflow-y-auto custom-scrollbar">
                 
                 {/* Project Info */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <div className="flex items-center gap-3 text-slate-300">
                     <Calendar className="w-5 h-5 text-neon-cyan" />
                     <span className="text-sm">
@@ -129,10 +129,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                     <span className="text-sm">{project.technologies.length} технологий</span>
                   </div>
                   
-                  <div className="flex items-center gap-3 text-slate-300">
-                    <Eye className="w-5 h-5 text-neon-green" />
-                    <span className="text-sm">Полностью реализуемый</span>
-                  </div>
+
                 </div>
 
                 {/* Description */}
@@ -160,28 +157,18 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={onClose}
-                    className="flex-1 py-3 px-6 bg-gradient-to-r from-neon-cyan to-neon-blue rounded-xl text-white font-medium hover:shadow-lg hover:shadow-neon-cyan/25 transition-all duration-300 group"
-                    data-testid="button-request-implementation"
-                  >
-                    <span className="group-hover:scale-105 transition-transform inline-block">
-                      Заказать реализацию проекта
-                    </span>
-                  </button>
-                  
-                  {project.link && project.link !== "#" && (
+                {project.link && project.link !== "#" && (
+                  <div className="flex justify-center">
                     <button
                       onClick={() => window.open(project.link || '', '_blank')}
-                      className="flex items-center justify-center gap-2 py-3 px-6 border border-white/20 rounded-xl text-white hover:border-neon-purple/50 hover:bg-neon-purple/10 transition-all duration-300"
+                      className="flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-neon-cyan to-neon-blue rounded-xl text-white font-medium hover:shadow-lg hover:shadow-neon-cyan/25 transition-all duration-300"
                       data-testid="button-view-demo"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Демо
+                      Посмотреть демо
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

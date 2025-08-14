@@ -6,11 +6,14 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { ProjectModal } from '@/components/ui/project-modal';
 import type { PortfolioProject } from '@shared/schema';
 
 export function PortfolioPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Загружаем данные портфолио из базы данных
   const { data: portfolioItems = [], isLoading } = useQuery<PortfolioProject[]>({
@@ -29,6 +32,16 @@ export function PortfolioPage() {
     const matchesTech = !selectedTech || (project.technologies && project.technologies.includes(selectedTech));
     return matchesSearch && matchesTech;
   });
+
+  const openProjectModal = (project: PortfolioProject) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeProjectModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 200);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -182,6 +195,8 @@ export function PortfolioPage() {
                   key={project.id}
                   variants={itemVariants}
                   className="group cursor-pointer"
+                  onClick={() => openProjectModal(project)}
+                  data-testid={`card-project-${project.id}`}
                 >
                   <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-xl border border-white/10 hover:border-neon-cyan/40 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan/20 hover:scale-[1.02]">
                     
@@ -301,6 +316,13 @@ export function PortfolioPage() {
           )}
         </div>
       </section>
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeProjectModal}
+      />
     </div>
   );
 }
