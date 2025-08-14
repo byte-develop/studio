@@ -290,8 +290,8 @@ export function AdminPage() {
           {activeTab === 'overview' && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-bold text-white mb-2">Обзор системы</h2>
-                <p className="text-slate-400">Управление контентом и мониторинг активности</p>
+                <h2 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Обзор системы</h2>
+                <p className="text-sm md:text-base text-slate-400">Управление контентом и мониторинг активности</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -383,12 +383,12 @@ export function AdminPage() {
           {/* Contacts */}
           {activeTab === 'contacts' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Заявки клиентов</h2>
-                  <p className="text-slate-400">Обращения и запросы от потенциальных клиентов</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Заявки клиентов</h2>
+                  <p className="text-sm md:text-base text-slate-400">Обращения и запросы от потенциальных клиентов</p>
                 </div>
-                <Badge variant="outline" className="border-blue-500 text-blue-400">
+                <Badge variant="outline" className="border-blue-500 text-blue-400 text-xs md:text-sm">
                   {contacts.length} заявок
                 </Badge>
               </div>
@@ -464,15 +464,15 @@ export function AdminPage() {
           {/* Portfolio */}
           {activeTab === 'portfolio' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Портфолио проектов</h2>
-                  <p className="text-slate-400">Управление проектами в портфолио</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Портфолио проектов</h2>
+                  <p className="text-sm md:text-base text-slate-400">Управление проектами в портфолио</p>
                 </div>
                 <PortfolioProjectDialog>
-                  <Button className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600">
-                    <FolderPlus className="w-4 h-4 mr-2" />
-                    Добавить проект
+                  <Button className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-sm px-3 py-2">
+                    <FolderPlus className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
+                    <span className="truncate">Добавить проект</span>
                   </Button>
                 </PortfolioProjectDialog>
               </div>
@@ -546,15 +546,15 @@ export function AdminPage() {
           {/* Team */}
           {activeTab === 'team' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Команда</h2>
-                  <p className="text-slate-400">Управление ролями в команде</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Команда</h2>
+                  <p className="text-sm md:text-base text-slate-400">Управление ролями в команде</p>
                 </div>
                 <TeamRoleDialog>
-                  <Button className="bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600">
-                    <UserPlus className="w-4 h-4 mr-2" />
-                    Добавить роль
+                  <Button className="bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-sm px-3 py-2">
+                    <UserPlus className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
+                    <span className="truncate">Добавить роль</span>
                   </Button>
                 </TeamRoleDialog>
               </div>
@@ -608,15 +608,15 @@ export function AdminPage() {
           {/* Technologies */}
           {activeTab === 'technologies' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Технологии</h2>
-                  <p className="text-slate-400">Управление технологическим стеком</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Технологии</h2>
+                  <p className="text-sm md:text-base text-slate-400">Управление технологическим стеком</p>
                 </div>
                 <TechnologyDialog>
-                  <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Добавить технологию
+                  <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-xs md:text-sm px-2 md:px-3 py-2">
+                    <Plus className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
+                    <span className="truncate">Добавить технологию</span>
                   </Button>
                 </TechnologyDialog>
               </div>
