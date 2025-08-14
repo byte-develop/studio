@@ -67,10 +67,13 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gray-900 border-gray-700 max-w-2xl">
-        <DialogHeader>
-          <DialogTitle className="text-white">
-            {project ? 'Редактировать проект' : 'Добавить проект'}
+      <DialogContent className="bg-gray-900/95 backdrop-blur-md border-gray-700/50 max-w-3xl rounded-2xl shadow-2xl">
+        <DialogHeader className="pb-6">
+          <DialogTitle className="text-white text-2xl font-light flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-green-500/20 text-green-400">
+              <Briefcase className="w-5 h-5" />
+            </div>
+            {project ? 'Редактировать проект' : 'Добавить новый проект'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>

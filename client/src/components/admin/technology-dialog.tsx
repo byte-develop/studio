@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
+import { Code } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -51,9 +52,12 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gray-900 border-gray-700">
-        <DialogHeader>
-          <DialogTitle className="text-white">
+      <DialogContent className="bg-gray-900/95 backdrop-blur-md border-gray-700/50 max-w-lg rounded-2xl shadow-2xl">
+        <DialogHeader className="pb-6">
+          <DialogTitle className="text-white text-xl font-light flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-orange-500/20 text-orange-400">
+              <Code className="w-4 h-4" />
+            </div>
             {technology ? 'Редактировать технологию' : 'Добавить технологию'}
           </DialogTitle>
         </DialogHeader>

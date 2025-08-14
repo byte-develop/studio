@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
+import { Users } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -54,10 +55,13 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-gray-900 border-gray-700">
-        <DialogHeader>
-          <DialogTitle className="text-white">
-            {role ? 'Редактировать роль' : 'Добавить роль'}
+      <DialogContent className="bg-gray-900/95 backdrop-blur-md border-gray-700/50 max-w-2xl rounded-2xl shadow-2xl">
+        <DialogHeader className="pb-6">
+          <DialogTitle className="text-white text-xl font-light flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400">
+              <Users className="w-4 h-4" />
+            </div>
+            {role ? 'Редактировать роль' : 'Добавить роль команды'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
