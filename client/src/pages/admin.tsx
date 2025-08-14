@@ -743,13 +743,13 @@ export function AdminPage() {
                       <div className="p-3 bg-slate-800/30 rounded-lg">
                         <p className="text-xs text-slate-400 mb-1">Bot Token</p>
                         <p className="text-sm text-white font-mono">
-                          {process.env.TELEGRAM_BOT_TOKEN ? '••••••••••••••••' : 'Не настроен'}
+                          {'••••••••••••••••'}
                         </p>
                       </div>
                       <div className="p-3 bg-slate-800/30 rounded-lg">
                         <p className="text-xs text-slate-400 mb-1">Chat ID</p>
                         <p className="text-sm text-white font-mono">
-                          {process.env.TELEGRAM_CHAT_ID ? '••••••••••••••••' : 'Не настроен'}
+                          {'••••••••••••••••'}
                         </p>
                       </div>
                     </div>
