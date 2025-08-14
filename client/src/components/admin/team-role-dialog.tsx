@@ -42,6 +42,15 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
     },
   });
 
+  const onSubmit = (data: InsertTeamRole) => {
+    const roleData = {
+      ...data,
+      icon: 'Users',
+      color: 'blue'
+    };
+    mutation.mutate(roleData);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -57,7 +66,7 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(mutation.mutate)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="title"

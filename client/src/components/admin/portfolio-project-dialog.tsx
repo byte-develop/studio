@@ -141,7 +141,7 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
                 <FormItem>
                   <FormLabel className="text-slate-300">Ссылка на проект</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="https://..." className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
+                    <Input {...field} value={field.value || ''} placeholder="https://..." className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -161,7 +161,7 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
                   </div>
                   <FormControl>
                     <Switch
-                      checked={field.value}
+                      checked={field.value ?? false}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>

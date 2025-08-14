@@ -68,7 +68,7 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(mutation.mutate)} className="space-y-6">
+          <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-6">
             <FormField
               control={form.control}
               name="name"

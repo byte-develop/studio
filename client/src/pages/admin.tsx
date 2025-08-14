@@ -477,56 +477,90 @@ export function AdminPage() {
                 </PortfolioProjectDialog>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {portfolioProjects.map((project) => (
-                  <Card key={project.id} className="group border-0 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm">
-                    <CardContent className="p-6 space-y-4">
-                      <div className="flex items-start justify-between">
-                        <h3 className="font-semibold text-white text-lg leading-tight">{project.title}</h3>
-                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <PortfolioProjectDialog project={project}>
-                            <Button size="sm" variant="ghost" className="h-8 w-8 p-0 hover:bg-white/10">
-                              <Edit2 className="w-4 h-4 text-slate-400" />
-                            </Button>
-                          </PortfolioProjectDialog>
-                          <Button 
-                            size="sm" 
-                            variant="ghost" 
-                            className="h-8 w-8 p-0 hover:bg-red-500/20 hover:text-red-400"
-                            onClick={() => deletePortfolioProject.mutate(project.id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
+                  <Card key={project.id} className="group border-0 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm hover:from-slate-700/60 hover:to-slate-800/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl overflow-hidden">
+                    <div className="relative">
+                      {/* Project Image */}
+                      {project.image && (
+                        <div className="aspect-video bg-slate-700 rounded-t-xl overflow-hidden">
+                          <img 
+                            src={project.image} 
+                            alt={project.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
                         </div>
+                      )}
+                      
+                      {/* Featured Badge */}
+                      {project.featured && (
+                        <div className="absolute top-3 right-3">
+                          <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 shadow-lg">
+                            ⭐ Топ проект
+                          </Badge>
+                        </div>
+                      )}
+                      
+                      {/* Action Buttons */}
+                      <div className="absolute top-3 left-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <PortfolioProjectDialog project={project}>
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 bg-black/30 hover:bg-black/50 backdrop-blur-sm">
+                            <Edit2 className="w-3 h-3 text-white" />
+                          </Button>
+                        </PortfolioProjectDialog>
+                        <Button 
+                          size="sm" 
+                          variant="ghost" 
+                          className="h-8 w-8 p-0 bg-black/30 hover:bg-red-500/50 backdrop-blur-sm"
+                          onClick={() => deletePortfolioProject.mutate(project.id)}
+                        >
+                          <Trash2 className="w-3 h-3 text-white" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <CardContent className="p-6 space-y-4">
+                      <div>
+                        <h3 className="font-bold text-white text-xl leading-tight mb-2">{project.title}</h3>
+                        <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">{project.description}</p>
                       </div>
 
-                      <p className="text-slate-400 text-sm leading-relaxed">{project.description}</p>
-
+                      {/* Technologies */}
                       {project.technologies && project.technologies.length > 0 && (
-                        <div className="flex flex-wrap gap-1">
-                          {project.technologies.map((tech) => (
-                            <Badge key={tech} variant="secondary" className="text-xs bg-white/10 text-slate-300 border-0">
-                              {tech}
-                            </Badge>
-                          ))}
+                        <div className="space-y-2">
+                          <p className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Технологии</p>
+                          <div className="flex flex-wrap gap-1">
+                            {project.technologies.slice(0, 4).map((tech) => (
+                              <Badge key={tech} variant="secondary" className="text-xs bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-200 border border-emerald-500/30">
+                                {tech}
+                              </Badge>
+                            ))}
+                            {project.technologies.length > 4 && (
+                              <Badge variant="secondary" className="text-xs bg-white/10 text-slate-400 border border-slate-600">
+                                +{project.technologies.length - 4}
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       )}
 
-                      {project.featured && (
-                        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0">
-                          Рекомендуемый
-                        </Badge>
-                      )}
-
+                      {/* Link */}
                       {project.link && (
-                        <a 
-                          href={project.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-block text-blue-400 hover:text-blue-300 text-sm transition-colors"
-                        >
-                          Посмотреть проект →
-                        </a>
+                        <div className="pt-2 border-t border-slate-700/50">
+                          <a 
+                            href={project.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors group-hover:gap-3"
+                          >
+                            <span>Посмотреть проект</span>
+                            <span className="text-xs">→</span>
+                          </a>
+                        </div>
                       )}
                     </CardContent>
                   </Card>
