@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
-import { MapPin, Mail, Phone, Linkedin, Github, Twitter, Send } from 'lucide-react';
+import { MapPin, Mail, Phone, Linkedin, Github, Twitter, Send, Clock, MessageCircle, HeadphonesIcon, Users } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,7 +20,26 @@ const contactInfo = [
     icon: Mail,
     title: 'Email',
     description: 'hello@vertexstudio.dev',
+    action: 'mailto:hello@vertexstudio.dev'
   },
+  {
+    icon: Phone,
+    title: 'Телефон',
+    description: '+7 (495) 123-45-67',
+    action: 'tel:+74951234567'
+  },
+  {
+    icon: MapPin,
+    title: 'Офис',
+    description: 'Москва, ул. Тверская, 1',
+    action: '#'
+  },
+  {
+    icon: Clock,
+    title: 'Режим работы',
+    description: 'Пн-Пт: 9:00 - 18:00',
+    action: null
+  }
 ];
 
 const socialLinks = [
@@ -130,7 +149,8 @@ export function ContactSection() {
                 key={info.title}
                 variants={itemVariants}
                 whileHover={{ x: 10, scale: 1.02 }}
-                className="floating-card glass-morphism p-6 rounded-2xl"
+                className="floating-card glass-morphism p-6 rounded-2xl cursor-pointer"
+                onClick={() => info.action && info.action !== '#' && (window.location.href = info.action)}
               >
                 <div className="flex items-center space-x-4">
                   <div
@@ -158,6 +178,42 @@ export function ContactSection() {
                     <social.icon className="w-5 h-5 text-neon-cyan" />
                   </a>
                 ))}
+              </div>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants} 
+              className="floating-card glass-morphism p-6 rounded-2xl border border-neon-cyan/20"
+            >
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-neon-cyan/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <HeadphonesIcon className="w-5 h-5 text-neon-cyan" />
+                </div>
+                <div>
+                  <h4 className="font-medium mb-2 text-neon-cyan">Быстрый отклик</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    Отвечаем на все заявки в течение 2 часов в рабочее время. 
+                    Для срочных вопросов звоните напрямую.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants} 
+              className="floating-card glass-morphism p-6 rounded-2xl border border-neon-purple/20"
+            >
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-neon-purple/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Users className="w-5 h-5 text-neon-purple" />
+                </div>
+                <div>
+                  <h4 className="font-medium mb-2 text-neon-purple">Персональный менеджер</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    За каждым проектом закрепляется персональный менеджер 
+                    для постоянной связи и контроля качества.
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
