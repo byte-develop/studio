@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Pencil, Trash2, Users, Briefcase, Code, Mail, LogOut, Settings, BarChart3 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Users, Briefcase, Code, Mail, LogOut, Settings, BarChart3, Menu, X } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import type { 
@@ -22,6 +22,7 @@ import { TechnologyDialog } from '@/components/admin/technology-dialog';
 import { ContactsTable } from '@/components/admin/contacts-table';
 
 export function AdminPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
@@ -86,20 +87,41 @@ export function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
+      {/* Mobile overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-10 md:hidden transition-opacity duration-300 ${
+          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      ></div>
+      
       {/* Sidebar */}
-      <div className="fixed left-0 top-0 h-full w-64 lg:w-72 bg-gradient-to-b from-slate-800 to-slate-900 border-r border-slate-700/50 shadow-2xl backdrop-blur-sm z-20">
-        <div className="p-6">
+      <div className={`fixed left-0 top-0 h-full w-full sm:w-80 md:w-64 lg:w-72 bg-gradient-to-b from-slate-800 to-slate-900 border-r border-slate-700/50 shadow-2xl backdrop-blur-sm z-20 transition-transform duration-300 ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+      }`}>
+        <div className="p-4 md:p-6">
+          {/* Mobile close button */}
+          <div className="md:hidden flex justify-end mb-4">
+            <Button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 bg-slate-700/50 hover:bg-slate-600/50 text-white"
+              size="sm"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          </div>
+
           {/* Logo Section */}
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-3 md:gap-4 mb-8 md:mb-10">
             <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Settings className="w-7 h-7 text-white" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Settings className="w-5 h-5 md:w-7 md:h-7 text-white" />
               </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-slate-800"></div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-green-400 rounded-full border-2 border-slate-800"></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Админ панель</h1>
-              <p className="text-sm text-cyan-300 font-medium">VERTEX Studio</p>
+              <h1 className="text-lg md:text-xl font-bold text-white">Админ панель</h1>
+              <p className="text-xs md:text-sm text-cyan-300 font-medium">VERTEX Studio</p>
             </div>
           </div>
           
@@ -121,21 +143,45 @@ export function AdminPage() {
           </nav>
 
           {/* Status Indicator */}
-          <div className="mt-8 p-4 bg-slate-800/50 rounded-xl border border-slate-700/50">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="mt-6 md:mt-8 p-3 md:p-4 bg-slate-800/50 rounded-xl border border-slate-700/50">
+            <div className="flex items-center gap-2 mb-1 md:mb-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-green-300 font-medium">Система активна</span>
+              <span className="text-xs md:text-sm text-green-300 font-medium">Система активна</span>
             </div>
-            <p className="text-xs text-slate-400">База данных и API работают</p>
+            <p className="text-xs text-slate-400">API отвечает, данные загружаются</p>
+            <p className="text-xs text-slate-500 mt-1">Определяется автоматически</p>
           </div>
         </div>
       </div>
 
       {/* Main content */}
-      <div className="ml-64 lg:ml-72 p-4 md:p-8">
+      <div className="md:ml-64 lg:ml-72 p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="mb-10">
+          {/* Mobile Header */}
+          <div className="md:hidden mb-6">
+            <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl border border-slate-700/50">
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="p-2 bg-slate-700/50 hover:bg-slate-600/50 text-white"
+                  size="sm"
+                >
+                  <Menu className="w-5 h-5" />
+                </Button>
+                <div>
+                  <h1 className="text-lg font-bold text-white">Админ панель</h1>
+                  <p className="text-sm text-slate-300">VERTEX Studio</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-slate-700/50 rounded-lg">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-xs text-green-300">Online</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Header */}
+          <div className="mb-6 md:mb-10 hidden md:block">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
@@ -263,7 +309,7 @@ export function AdminPage() {
                     )}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-4 md:p-8">
                   <ContactsTable contacts={contacts} />
                 </CardContent>
               </Card>
@@ -280,9 +326,9 @@ export function AdminPage() {
                       <span className="font-bold">Портфолио проектов</span>
                     </CardTitle>
                     <PortfolioProjectDialog>
-                      <Button className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-2">
-                        <Plus className="w-4 h-4 mr-2" />
-                        <span className="font-medium">Добавить проект</span>
+                      <Button className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 px-3 md:px-6 py-2">
+                        <Plus className="w-4 h-4 mr-1 md:mr-2" />
+                        <span className="font-medium text-sm md:text-base">Добавить</span>
                       </Button>
                     </PortfolioProjectDialog>
                   </div>
