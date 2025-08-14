@@ -87,7 +87,7 @@ export function AdminPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
       {/* Sidebar */}
-      <div className="fixed left-0 top-0 h-full w-72 bg-gradient-to-b from-slate-800 to-slate-900 border-r border-slate-700/50 shadow-2xl backdrop-blur-sm">
+      <div className="fixed left-0 top-0 h-full w-64 lg:w-72 bg-gradient-to-b from-slate-800 to-slate-900 border-r border-slate-700/50 shadow-2xl backdrop-blur-sm z-20">
         <div className="p-6">
           {/* Logo Section */}
           <div className="flex items-center gap-4 mb-10">
@@ -126,44 +126,44 @@ export function AdminPage() {
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="text-sm text-green-300 font-medium">Система активна</span>
             </div>
-            <p className="text-xs text-slate-400">Все сервисы работают нормально</p>
+            <p className="text-xs text-slate-400">База данных и API работают</p>
           </div>
         </div>
       </div>
 
       {/* Main content */}
-      <div className="ml-72 p-8">
+      <div className="ml-64 lg:ml-72 p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-10">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
               <div>
-                <h1 className="text-3xl font-bold text-white mb-2">
+                <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
                   Панель управления
                 </h1>
-                <p className="text-slate-300 text-lg">
+                <p className="text-slate-300 text-sm md:text-lg">
                   Управление контентом и настройками сайта
                 </p>
               </div>
-              <div className="flex items-center gap-3 px-4 py-2 bg-slate-800/50 rounded-xl border border-slate-700/50">
+              <div className="flex items-center gap-3 px-4 py-2 bg-slate-800/50 rounded-xl border border-slate-700/50 w-fit">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-green-300 font-medium">Online</span>
+                <span className="text-green-300 font-medium text-sm">Online</span>
               </div>
             </div>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
             <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-6">
+              <CardContent className="p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Заявки</p>
-                    <p className="text-3xl font-bold text-white">{contacts.length}</p>
-                    <p className="text-xs text-cyan-400 mt-1">+2 сегодня</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white">{contacts.length}</p>
+                    <p className="text-xs text-slate-500 mt-1">Всего получено</p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <Mail className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Mail className="w-6 h-6 md:w-7 md:h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
@@ -175,7 +175,7 @@ export function AdminPage() {
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Проекты</p>
                     <p className="text-3xl font-bold text-white">{portfolioProjects.length}</p>
-                    <p className="text-xs text-green-400 mt-1">Активные</p>
+                    <p className="text-xs text-slate-500 mt-1">В портфолио</p>
                   </div>
                   <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
                     <Briefcase className="w-7 h-7 text-white" />
@@ -190,7 +190,7 @@ export function AdminPage() {
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Команда</p>
                     <p className="text-3xl font-bold text-white">{teamRoles.length}</p>
-                    <p className="text-xs text-purple-400 mt-1">Ролей</p>
+                    <p className="text-xs text-slate-500 mt-1">Ролей</p>
                   </div>
                   <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
                     <Users className="w-7 h-7 text-white" />
@@ -205,7 +205,7 @@ export function AdminPage() {
                   <div>
                     <p className="text-sm font-medium text-slate-400 mb-1">Технологии</p>
                     <p className="text-3xl font-bold text-white">{technologies.length}</p>
-                    <p className="text-xs text-orange-400 mt-1">В стеке</p>
+                    <p className="text-xs text-slate-500 mt-1">В стеке</p>
                   </div>
                   <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
                     <Code className="w-7 h-7 text-white" />
@@ -217,34 +217,34 @@ export function AdminPage() {
 
           {/* Tabs */}
           <Tabs defaultValue="contacts" className="space-y-8">
-            <TabsList className="bg-slate-800/80 border border-slate-700/50 p-2 rounded-xl shadow-xl backdrop-blur-sm">
+            <TabsList className="bg-slate-800/80 border border-slate-700/50 p-2 rounded-xl shadow-xl backdrop-blur-sm flex-wrap gap-2 h-auto">
               <TabsTrigger 
                 value="contacts" 
-                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
+                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
               >
                 <Mail className="w-4 h-4" />
-                <span className="font-medium">Заявки</span>
+                <span className="font-medium hidden sm:inline">Заявки</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="portfolio" 
-                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
+                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
               >
                 <Briefcase className="w-4 h-4" />
-                <span className="font-medium">Портфолио</span>
+                <span className="font-medium hidden sm:inline">Портфолио</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="team" 
-                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
+                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
               >
                 <Users className="w-4 h-4" />
-                <span className="font-medium">Команда</span>
+                <span className="font-medium hidden sm:inline">Команда</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="technologies" 
-                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
+                className="flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white text-sm md:text-base"
               >
                 <Code className="w-4 h-4" />
-                <span className="font-medium">Технологии</span>
+                <span className="font-medium hidden sm:inline">Технологии</span>
               </TabsTrigger>
             </TabsList>
 

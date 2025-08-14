@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
-import { Code } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -16,6 +15,17 @@ interface TechnologyDialogProps {
   technology?: Technology;
 }
 
+const categories = [
+  'Frontend',
+  'Backend', 
+  'Database',
+  'DevOps',
+  'Mobile',
+  'Tools',
+  'Design',
+  'Other'
+];
+
 export function TechnologyDialog({ children, technology }: TechnologyDialogProps) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -24,8 +34,8 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
     resolver: zodResolver(insertTechnologySchema),
     defaultValues: {
       name: technology?.name || '',
+      category: technology?.category || '',
       icon: technology?.icon || 'Code',
-      category: technology?.category || 'frontend',
     },
   });
 
@@ -43,81 +53,88 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
     },
   });
 
-  const onSubmit = (data: InsertTechnology) => {
-    mutation.mutate(data);
-  };
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 max-w-lg">
+      <DialogContent className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 text-white max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-slate-900 dark:text-white text-xl font-semibold">
+          <DialogTitle className="text-white text-xl font-bold">
             {technology ? 'Редактировать технологию' : 'Добавить технологию'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(mutation.mutate)} className="space-y-6">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-900 dark:text-white">Название</FormLabel>
+                  <FormLabel className="text-slate-300">Название технологии</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
+                    <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-orange-400 focus:ring-orange-400/20" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="icon"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white">Иконка (Lucide React)</FormLabel>
-                  <FormControl>
-                    <Input {...field} className="bg-gray-800 border-gray-600 text-white" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <FormField
               control={form.control}
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Категория</FormLabel>
+                  <FormLabel className="text-slate-300">Категория</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
+                      <SelectTrigger className="bg-slate-900/50 border-slate-600/50 text-white focus:border-orange-400 focus:ring-orange-400/20">
                         <SelectValue placeholder="Выберите категорию" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-gray-800 border-gray-600">
-                      <SelectItem value="frontend">Frontend</SelectItem>
-                      <SelectItem value="backend">Backend</SelectItem>
-                      <SelectItem value="mobile">Mobile</SelectItem>
-                      <SelectItem value="database">Database</SelectItem>
-                      <SelectItem value="devops">DevOps</SelectItem>
-                      <SelectItem value="design">Design</SelectItem>
+                    <SelectContent className="bg-slate-800 border-slate-700 text-white">
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category} className="hover:bg-slate-700 focus:bg-slate-700">
+                          {category}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button 
-              type="submit" 
-              disabled={mutation.isPending}
-              className="w-full bg-blue-600 hover:bg-blue-700"
-            >
-              {mutation.isPending ? 'Сохранение...' : (technology ? 'Сохранить' : 'Добавить')}
-            </Button>
+
+            <FormField
+              control={form.control}
+              name="icon"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-slate-300">Иконка (название из Lucide)</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Code" className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-orange-400 focus:ring-orange-400/20" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex-1 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border-slate-600/50"
+              >
+                Отмена
+              </Button>
+              <Button
+                type="submit"
+                disabled={mutation.isPending}
+                className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white shadow-lg"
+              >
+                {mutation.isPending ? 'Сохранение...' : 'Сохранить'}
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>

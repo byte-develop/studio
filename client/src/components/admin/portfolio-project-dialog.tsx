@@ -67,104 +67,121 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 max-w-2xl">
+      <DialogContent className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-slate-900 dark:text-white text-xl font-semibold">
+          <DialogTitle className="text-white text-xl font-bold">
             {project ? 'Редактировать проект' : 'Добавить проект'}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-900 dark:text-white">Название</FormLabel>
+                  <FormLabel className="text-slate-300">Название проекта</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
+                    <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-900 dark:text-white">Описание</FormLabel>
+                  <FormLabel className="text-slate-300">Описание</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
+                    <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20 min-h-[120px]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-900 dark:text-white">URL изображения</FormLabel>
+                  <FormLabel className="text-slate-300">URL изображения</FormLabel>
                   <FormControl>
-                    <Input {...field} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
+                    <Input {...field} placeholder="https://..." className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="technologiesText"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-900 dark:text-white">Технологии (через запятую)</FormLabel>
+                  <FormLabel className="text-slate-300">Технологии (через запятую)</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="React, Node.js, PostgreSQL" className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
+                    <Input {...field} placeholder="React, Node.js, PostgreSQL" className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="link"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-900 dark:text-white">Ссылка на проект</FormLabel>
+                  <FormLabel className="text-slate-300">Ссылка на проект</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white" />
+                    <Input {...field} placeholder="https://..." className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="featured"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border border-gray-600 p-4">
+                <FormItem className="flex flex-row items-center justify-between p-4 border border-slate-600/50 rounded-xl bg-slate-800/30">
                   <div className="space-y-0.5">
-                    <FormLabel className="text-white">Рекомендуемый проект</FormLabel>
-                    <div className="text-gray-400 text-sm">Отображать на главной странице</div>
+                    <FormLabel className="text-slate-300">Рекомендуемый проект</FormLabel>
+                    <p className="text-sm text-slate-400">
+                      Отображать в топе портфолио
+                    </p>
                   </div>
                   <FormControl>
                     <Switch
-                      checked={field.value ?? false}
+                      checked={field.value}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <Button 
-              type="submit" 
-              disabled={mutation.isPending}
-              className="w-full bg-blue-600 hover:bg-blue-700"
-            >
-              {mutation.isPending ? 'Сохранение...' : (project ? 'Сохранить' : 'Добавить')}
-            </Button>
+
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex-1 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border-slate-600/50"
+              >
+                Отмена
+              </Button>
+              <Button
+                type="submit"
+                disabled={mutation.isPending}
+                className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-lg"
+              >
+                {mutation.isPending ? 'Сохранение...' : 'Сохранить'}
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
