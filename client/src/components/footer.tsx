@@ -10,13 +10,9 @@ export function Footer() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <motion.div
-            whileHover={{ scale: 1.1, rotateZ: 360 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-jetbrains-mono font-bold text-neon-cyan mb-4 cursor-pointer"
-          >
+          <div className="text-3xl font-jetbrains-mono font-bold text-neon-cyan mb-4">
             VERTEX
-          </motion.div>
+          </div>
           <p className="text-gray-400 mb-8 max-w-md mx-auto">
             Создаем будущее цифровых технологий сегодня
           </p>
