@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Users, Briefcase, Code, Mail, LogOut, Settings, BarChart3 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Users, Briefcase, Code, Mail, LogOut, Settings, BarChart3 } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import type { 
@@ -85,104 +85,130 @@ export function AdminPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
       {/* Sidebar */}
-      <div className="fixed left-0 top-0 h-full w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 shadow-sm">
+      <div className="fixed left-0 top-0 h-full w-72 bg-gradient-to-b from-slate-800 to-slate-900 border-r border-slate-700/50 shadow-2xl backdrop-blur-sm">
         <div className="p-6">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Settings className="w-6 h-6 text-white" />
+          {/* Logo Section */}
+          <div className="flex items-center gap-4 mb-10">
+            <div className="relative">
+              <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Settings className="w-7 h-7 text-white" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-slate-800"></div>
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-slate-900 dark:text-white">Админ панель</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400">VERTEX Studio</p>
+              <h1 className="text-xl font-bold text-white">Админ панель</h1>
+              <p className="text-sm text-cyan-300 font-medium">VERTEX Studio</p>
             </div>
           </div>
           
-          <nav className="space-y-2">
-            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300">
+          {/* Navigation */}
+          <nav className="space-y-3">
+            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30 shadow-md">
               <BarChart3 className="w-5 h-5" />
-              <span className="font-medium">Дашборд</span>
+              <span className="font-semibold">Дашборд</span>
             </div>
             
             <Button
               onClick={handleLogout}
               variant="ghost"
-              className="w-full justify-start gap-3 text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20"
+              className="w-full justify-start gap-3 px-4 py-3 text-red-300 hover:text-red-200 hover:bg-red-500/20 rounded-xl transition-all duration-200 border border-transparent hover:border-red-500/30"
             >
               <LogOut className="w-5 h-5" />
-              Выйти
+              <span className="font-medium">Выйти</span>
             </Button>
           </nav>
+
+          {/* Status Indicator */}
+          <div className="mt-8 p-4 bg-slate-800/50 rounded-xl border border-slate-700/50">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-green-300 font-medium">Система активна</span>
+            </div>
+            <p className="text-xs text-slate-400">Все сервисы работают нормально</p>
+          </div>
         </div>
       </div>
 
       {/* Main content */}
-      <div className="ml-64 p-6">
+      <div className="ml-72 p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-              Панель управления
-            </h1>
-            <p className="text-slate-600 dark:text-slate-400">
-              Управление контентом и настройками сайта
-            </p>
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  Панель управления
+                </h1>
+                <p className="text-slate-300 text-lg">
+                  Управление контентом и настройками сайта
+                </p>
+              </div>
+              <div className="flex items-center gap-3 px-4 py-2 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-green-300 font-medium">Online</span>
+              </div>
+            </div>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Заявки</p>
-                    <p className="text-2xl font-bold text-slate-900 dark:text-white">{contacts.length}</p>
+                    <p className="text-sm font-medium text-slate-400 mb-1">Заявки</p>
+                    <p className="text-3xl font-bold text-white">{contacts.length}</p>
+                    <p className="text-xs text-cyan-400 mt-1">+2 сегодня</p>
                   </div>
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Mail className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+            <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Проекты</p>
-                    <p className="text-2xl font-bold text-slate-900 dark:text-white">{portfolioProjects.length}</p>
+                    <p className="text-sm font-medium text-slate-400 mb-1">Проекты</p>
+                    <p className="text-3xl font-bold text-white">{portfolioProjects.length}</p>
+                    <p className="text-xs text-green-400 mt-1">Активные</p>
                   </div>
-                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
-                    <Briefcase className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Briefcase className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+            <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Команда</p>
-                    <p className="text-2xl font-bold text-slate-900 dark:text-white">{teamRoles.length}</p>
+                    <p className="text-sm font-medium text-slate-400 mb-1">Команда</p>
+                    <p className="text-3xl font-bold text-white">{teamRoles.length}</p>
+                    <p className="text-xs text-purple-400 mt-1">Ролей</p>
                   </div>
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center">
-                    <Users className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Users className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+            <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Технологии</p>
-                    <p className="text-2xl font-bold text-slate-900 dark:text-white">{technologies.length}</p>
+                    <p className="text-sm font-medium text-slate-400 mb-1">Технологии</p>
+                    <p className="text-3xl font-bold text-white">{technologies.length}</p>
+                    <p className="text-xs text-orange-400 mt-1">В стеке</p>
                   </div>
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
-                    <Code className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Code className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
@@ -190,221 +216,246 @@ export function AdminPage() {
           </div>
 
           {/* Tabs */}
-          <Tabs defaultValue="contacts" className="space-y-6">
-            <TabsList className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1">
+          <Tabs defaultValue="contacts" className="space-y-8">
+            <TabsList className="bg-slate-800/80 border border-slate-700/50 p-2 rounded-xl shadow-xl backdrop-blur-sm">
               <TabsTrigger 
                 value="contacts" 
-                className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
               >
                 <Mail className="w-4 h-4" />
-                Заявки
+                <span className="font-medium">Заявки</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="portfolio" 
-                className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
               >
                 <Briefcase className="w-4 h-4" />
-                Портфолио
+                <span className="font-medium">Портфолио</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="team" 
-                className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
               >
                 <Users className="w-4 h-4" />
-                Команда
+                <span className="font-medium">Команда</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="technologies" 
-                className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-600 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-white"
               >
                 <Code className="w-4 h-4" />
-                Технологии
+                <span className="font-medium">Технологии</span>
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="contacts">
-              <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-slate-900 dark:text-white">Заявки от клиентов</CardTitle>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        Управление обращениями и заявками
-                      </p>
+              <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl backdrop-blur-sm">
+                <CardHeader className="border-b border-slate-700/50 bg-slate-800/50">
+                  <CardTitle className="text-white flex items-center gap-3 text-xl">
+                    <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-white" />
                     </div>
+                    <span className="font-bold">Обращения клиентов</span>
                     {contacts.length > 0 && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
+                      <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 ml-auto">
                         {contacts.length} заявок
                       </Badge>
                     )}
-                  </div>
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-8">
                   <ContactsTable contacts={contacts} />
                 </CardContent>
               </Card>
             </TabsContent>
 
             <TabsContent value="portfolio">
-              <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <CardHeader>
+              <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl backdrop-blur-sm">
+                <CardHeader className="border-b border-slate-700/50 bg-slate-800/50">
                   <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-slate-900 dark:text-white">Проекты портфолио</CardTitle>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        Управление проектами в портфолио
-                      </p>
-                    </div>
+                    <CardTitle className="text-white flex items-center gap-3 text-xl">
+                      <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                        <Briefcase className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="font-bold">Портфолио проектов</span>
+                    </CardTitle>
                     <PortfolioProjectDialog>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      <Button className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-2">
                         <Plus className="w-4 h-4 mr-2" />
-                        Добавить проект
+                        <span className="font-medium">Добавить проект</span>
                       </Button>
                     </PortfolioProjectDialog>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {portfolioProjects.map((project) => (
-                      <div key={project.id} className="p-6 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
-                        <div className="flex justify-between items-start mb-4">
-                          <h3 className="font-semibold text-slate-900 dark:text-white">{project.title}</h3>
-                          <div className="flex gap-2">
-                            {project.featured && (
-                              <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300">
-                                Рекомендуемый
-                              </Badge>
-                            )}
-                            <PortfolioProjectDialog project={project}>
-                              <Button size="sm" variant="ghost" className="text-slate-600 hover:text-blue-600">
-                                <Edit className="w-4 h-4" />
+                <CardContent className="p-8">
+                  {portfolioProjects.length === 0 ? (
+                    <div className="text-center py-16">
+                      <div className="mx-auto w-20 h-20 bg-slate-700/50 rounded-full flex items-center justify-center mb-6">
+                        <Briefcase className="w-10 h-10 text-slate-400" />
+                      </div>
+                      <p className="text-slate-300 text-xl font-medium mb-2">Проектов пока нет</p>
+                      <p className="text-slate-400">Добавьте первый проект в портфолио</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      {portfolioProjects.map((project) => (
+                        <div key={project.id} className="group bg-slate-800/50 border border-slate-700/50 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 backdrop-blur-sm p-6">
+                          <div className="flex justify-between items-start mb-4">
+                            <h3 className="font-bold text-white text-lg">{project.title}</h3>
+                            <div className="flex gap-2">
+                              {project.featured && (
+                                <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 shadow-lg">
+                                  Рекомендуемый
+                                </Badge>
+                              )}
+                              <PortfolioProjectDialog project={project}>
+                                <Button size="sm" className="bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border-slate-600/50 transition-all duration-200">
+                                  <Pencil className="w-4 h-4" />
+                                </Button>
+                              </PortfolioProjectDialog>
+                              <Button 
+                                size="sm" 
+                                onClick={() => deletePortfolioProject.mutate(project.id)}
+                                disabled={deletePortfolioProject.isPending}
+                                className="bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-400/50 transition-all duration-200"
+                              >
+                                <Trash2 className="w-4 h-4" />
                               </Button>
-                            </PortfolioProjectDialog>
-                            <Button 
-                              size="sm" 
-                              variant="ghost" 
-                              onClick={() => deletePortfolioProject.mutate(project.id)}
-                              disabled={deletePortfolioProject.isPending}
-                              className="text-slate-600 hover:text-red-600"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
+                            </div>
+                          </div>
+                          <p className="text-slate-300 mb-4 leading-relaxed">{project.description}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {project.technologies?.map((tech) => (
+                              <Badge key={tech} className="bg-slate-700/50 text-slate-300 border-slate-600/50 hover:bg-slate-600/50 transition-colors">
+                                {tech}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
-                        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies?.map((tech) => (
-                            <Badge key={tech} variant="outline" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
 
             <TabsContent value="team">
-              <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <CardHeader>
+              <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl backdrop-blur-sm">
+                <CardHeader className="border-b border-slate-700/50 bg-slate-800/50">
                   <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-slate-900 dark:text-white">Роли команды</CardTitle>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        Управление структурой команды
-                      </p>
-                    </div>
+                    <CardTitle className="text-white flex items-center gap-3 text-xl">
+                      <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg flex items-center justify-center">
+                        <Users className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="font-bold">Роли команды</span>
+                    </CardTitle>
                     <TeamRoleDialog>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      <Button className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-2">
                         <Plus className="w-4 h-4 mr-2" />
-                        Добавить роль
+                        <span className="font-medium">Добавить роль</span>
                       </Button>
                     </TeamRoleDialog>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {teamRoles.map((role) => (
-                      <div key={role.id} className="p-6 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
-                        <div className="flex justify-between items-start mb-4">
-                          <h3 className="font-semibold text-slate-900 dark:text-white">{role.title}</h3>
-                          <div className="flex gap-2">
-                            <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
-                              {role.count}
-                            </Badge>
-                            <TeamRoleDialog role={role}>
-                              <Button size="sm" variant="ghost" className="text-slate-600 hover:text-blue-600">
-                                <Edit className="w-4 h-4" />
-                              </Button>
-                            </TeamRoleDialog>
-                            <Button 
-                              size="sm" 
-                              variant="ghost" 
-                              onClick={() => deleteTeamRole.mutate(role.id)}
-                              disabled={deleteTeamRole.isPending}
-                              className="text-slate-600 hover:text-red-600"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                        <p className="text-slate-600 dark:text-slate-400 text-sm">{role.description}</p>
+                <CardContent className="p-8">
+                  {teamRoles.length === 0 ? (
+                    <div className="text-center py-16">
+                      <div className="mx-auto w-20 h-20 bg-slate-700/50 rounded-full flex items-center justify-center mb-6">
+                        <Users className="w-10 h-10 text-slate-400" />
                       </div>
-                    ))}
-                  </div>
+                      <p className="text-slate-300 text-xl font-medium mb-2">Ролей пока нет</p>
+                      <p className="text-slate-400">Добавьте первую роль для команды</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {teamRoles.map((role) => (
+                        <div key={role.id} className="group bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 backdrop-blur-sm">
+                          <div className="flex justify-between items-start mb-4">
+                            <h3 className="font-bold text-white text-lg">{role.title}</h3>
+                            <div className="flex gap-2">
+                              <Badge className="bg-gradient-to-r from-purple-500 to-violet-600 text-white border-0 shadow-lg">
+                                {role.count}
+                              </Badge>
+                              <TeamRoleDialog role={role}>
+                                <Button size="sm" className="bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border-slate-600/50 transition-all duration-200">
+                                  <Pencil className="w-4 h-4" />
+                                </Button>
+                              </TeamRoleDialog>
+                              <Button 
+                                size="sm" 
+                                onClick={() => deleteTeamRole.mutate(role.id)}
+                                disabled={deleteTeamRole.isPending}
+                                className="bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-400/50 transition-all duration-200"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                          <p className="text-slate-300 leading-relaxed">{role.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
 
             <TabsContent value="technologies">
-              <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <CardHeader>
+              <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-xl backdrop-blur-sm">
+                <CardHeader className="border-b border-slate-700/50 bg-slate-800/50">
                   <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-slate-900 dark:text-white">Технологии</CardTitle>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        Управление технологиями и инструментами
-                      </p>
-                    </div>
+                    <CardTitle className="text-white flex items-center gap-3 text-xl">
+                      <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                        <Code className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="font-bold">Технологии</span>
+                    </CardTitle>
                     <TechnologyDialog>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-2">
                         <Plus className="w-4 h-4 mr-2" />
-                        Добавить технологию
+                        <span className="font-medium">Добавить технологию</span>
                       </Button>
                     </TechnologyDialog>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    {technologies.map((tech) => (
-                      <div key={tech.id} className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors text-center group">
-                        <div className="flex justify-between items-start mb-3">
-                          <h3 className="font-medium text-slate-900 dark:text-white text-sm flex-1 text-left">{tech.name}</h3>
-                          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <TechnologyDialog technology={tech}>
-                              <Button size="sm" variant="ghost" className="h-6 w-6 p-0 text-slate-600 hover:text-blue-600">
-                                <Edit className="w-3 h-3" />
-                              </Button>
-                            </TechnologyDialog>
-                            <Button 
-                              size="sm" 
-                              variant="ghost" 
-                              onClick={() => deleteTechnology.mutate(tech.id)}
-                              disabled={deleteTechnology.isPending}
-                              className="h-6 w-6 p-0 text-slate-600 hover:text-red-600"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                            </Button>
-                          </div>
-                        </div>
-                        <Badge variant="outline" className="text-xs">
-                          {tech.category}
-                        </Badge>
+                <CardContent className="p-8">
+                  {technologies.length === 0 ? (
+                    <div className="text-center py-16">
+                      <div className="mx-auto w-20 h-20 bg-slate-700/50 rounded-full flex items-center justify-center mb-6">
+                        <Code className="w-10 h-10 text-slate-400" />
                       </div>
-                    ))}
-                  </div>
+                      <p className="text-slate-300 text-xl font-medium mb-2">Технологий пока нет</p>
+                      <p className="text-slate-400">Добавьте первую технологию в стек</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                      {technologies.map((tech) => (
+                        <div key={tech.id} className="group bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 hover:shadow-2xl transition-all duration-300 hover:scale-105 backdrop-blur-sm text-center">
+                          <div className="flex justify-between items-start mb-3">
+                            <h3 className="font-semibold text-white text-sm flex-1 text-left">{tech.name}</h3>
+                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <TechnologyDialog technology={tech}>
+                                <Button size="sm" className="h-6 w-6 p-0 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border-slate-600/50 transition-all duration-200">
+                                  <Pencil className="w-3 h-3" />
+                                </Button>
+                              </TechnologyDialog>
+                              <Button 
+                                size="sm" 
+                                onClick={() => deleteTechnology.mutate(tech.id)}
+                                disabled={deleteTechnology.isPending}
+                                className="h-6 w-6 p-0 bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-400/50 transition-all duration-200"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
+                          <Badge className="bg-slate-700/50 text-slate-300 border-slate-600/50 hover:bg-slate-600/50 transition-colors text-xs">
+                            {tech.category}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>

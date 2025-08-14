@@ -34,55 +34,62 @@ export function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-deep-black flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        <Card className="bg-gray-800 border-gray-700">
-          <CardHeader className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-full flex items-center justify-center">
-              <Lock className="w-8 h-8 text-neon-cyan" />
+        <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700/50 shadow-2xl backdrop-blur-sm">
+          <CardHeader className="text-center pb-8">
+            <div className="relative">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <Lock className="w-10 h-10 text-white" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full border-2 border-slate-800 animate-pulse"></div>
             </div>
-            <CardTitle className="text-2xl text-white">
+            <CardTitle className="text-3xl text-white font-bold mb-3">
               Вход в админ-панель
             </CardTitle>
-            <p className="text-gray-400">
+            <p className="text-slate-300 text-lg">
               Введите пароль для доступа к панели управления
             </p>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-6">
+          <CardContent className="px-8 pb-8">
+            <form onSubmit={handleLogin} className="space-y-8">
               <div className="relative">
                 <Input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Введите пароль"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-gray-900 border-gray-600 text-white pr-12"
+                  className="bg-slate-900/50 border-slate-600/50 text-white pr-12 h-12 text-lg placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20 transition-all duration-200"
                   autoFocus
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-slate-700/50 transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="w-4 h-4 text-gray-400" />
+                    <EyeOff className="w-5 h-5 text-slate-400 hover:text-white transition-colors" />
                   ) : (
-                    <Eye className="w-4 h-4 text-gray-400" />
+                    <Eye className="w-5 h-5 text-slate-400 hover:text-white transition-colors" />
                   )}
                 </Button>
               </div>
               <Button
                 type="submit"
-                className="w-full bg-neon-cyan hover:bg-neon-cyan/80 text-black font-semibold"
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold h-12 text-lg shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl"
               >
-                Войти
+                Войти в систему
               </Button>
             </form>
-            <div className="mt-6 p-4 bg-gray-900 rounded-lg">
-              <p className="text-sm text-gray-400 text-center">
-                Пароль для демонстрации: <span className="text-neon-cyan font-mono">vertex2024</span>
+            <div className="mt-8 p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                <span className="text-cyan-300 font-semibold">Демонстрационный доступ</span>
+              </div>
+              <p className="text-slate-300 text-sm">
+                Пароль: <span className="text-cyan-400 font-mono font-semibold bg-slate-900/50 px-2 py-1 rounded">vertex2024</span>
               </p>
             </div>
           </CardContent>
