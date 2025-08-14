@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -72,6 +72,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
           <DialogTitle className="text-white text-xl font-bold">
             {project ? 'Редактировать проект' : 'Добавить проект'}
           </DialogTitle>
+          <DialogDescription className="text-slate-400">
+            {project ? 'Обновите информацию о проекте в портфолио' : 'Добавьте новый проект в портфолио'}
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

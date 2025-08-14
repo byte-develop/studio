@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -52,6 +52,9 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
           <DialogTitle className="text-white text-xl font-bold">
             {role ? 'Редактировать роль' : 'Добавить роль'}
           </DialogTitle>
+          <DialogDescription className="text-slate-400">
+            {role ? 'Измените информацию о роли в команде' : 'Создайте новую роль для команды'}
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(mutation.mutate)} className="space-y-6">
