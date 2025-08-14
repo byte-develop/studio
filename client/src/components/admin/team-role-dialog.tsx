@@ -34,9 +34,9 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
   const mutation = useMutation({
     mutationFn: (data: InsertTeamRole) => {
       if (role) {
-        return apiRequest(`/api/team-roles/${role.id}`, 'PUT', data);
+        return apiRequest('PUT', `/api/team-roles/${role.id}`, data);
       }
-      return apiRequest('/api/team-roles', 'POST', data);
+      return apiRequest('POST', '/api/team-roles', data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/team-roles'] });

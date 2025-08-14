@@ -31,9 +31,9 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
   const mutation = useMutation({
     mutationFn: (data: InsertTechnology) => {
       if (technology) {
-        return apiRequest(`/api/technologies/${technology.id}`, 'PUT', data);
+        return apiRequest('PUT', `/api/technologies/${technology.id}`, data);
       }
-      return apiRequest('/api/technologies', 'POST', data);
+      return apiRequest('POST', '/api/technologies', data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/technologies'] });

@@ -52,7 +52,7 @@ export function AdminPage() {
 
   // Мутации для удаления
   const deletePortfolioProject = useMutation({
-    mutationFn: (id: number) => apiRequest(`/api/portfolio-projects/${id}`, 'DELETE'),
+    mutationFn: (id: number) => apiRequest('DELETE', `/api/portfolio-projects/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/portfolio-projects'] });
       toast({
@@ -63,7 +63,7 @@ export function AdminPage() {
   });
 
   const deleteTeamRole = useMutation({
-    mutationFn: (id: number) => apiRequest(`/api/team-roles/${id}`, 'DELETE'),
+    mutationFn: (id: number) => apiRequest('DELETE', `/api/team-roles/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/team-roles'] });
       toast({
@@ -74,7 +74,7 @@ export function AdminPage() {
   });
 
   const deleteTechnology = useMutation({
-    mutationFn: (id: number) => apiRequest(`/api/technologies/${id}`, 'DELETE'),
+    mutationFn: (id: number) => apiRequest('DELETE', `/api/technologies/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/technologies'] });
       toast({

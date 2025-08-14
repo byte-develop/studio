@@ -12,9 +12,10 @@ Preferred language: Russian (русский язык)
 **August 14, 2025** - Database Seeding and Final Migration
 - ✓ Заполнена база данных технологиями (24 записи)
 - ✓ Добавлена структура команды (6 ролей с описанием)
-- ✓ Создано портфолио проектов (3 проекта)
+- ✓ Создано портфолио проектов (3 проекта)  
 - ✓ Добавлены примеры проектов для услуг (4 проекта)
 - ✓ Завершена миграция проекта в среду Replit
+- ✓ Исправлены ошибки API запросов в админ панели (неправильный порядок параметров)
 
 **August 12, 2025** - Project Migration to Replit Environment
 - ✓ Successfully migrated from Replit Agent to standard Replit environment

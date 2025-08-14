@@ -42,9 +42,9 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
   const mutation = useMutation({
     mutationFn: (data: InsertPortfolioProject) => {
       if (project) {
-        return apiRequest(`/api/portfolio-projects/${project.id}`, 'PUT', data);
+        return apiRequest('PUT', `/api/portfolio-projects/${project.id}`, data);
       }
-      return apiRequest('/api/portfolio-projects', 'POST', data);
+      return apiRequest('POST', '/api/portfolio-projects', data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/portfolio-projects'] });
