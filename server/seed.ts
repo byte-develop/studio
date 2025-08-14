@@ -48,69 +48,69 @@ async function seedDatabase() {
       await db.insert(teamRoles).values(role).onConflictDoNothing();
     }
 
-    // Проекты портфолио
+    // Проекты портфолио - полностью реализуемые технически сложные проекты
     const portfolioProjectsData = [
       {
-        title: "E-commerce Platform",
-        description: "Современная платформа электронной коммерции с микросервисной архитектурой, поддержкой множественных валют и продвинутой аналитикой. Включает admin панель, систему управления заказами и интеграцию с платежными системами.",
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
-        link: "#",
-        featured: true
-      },
-      {
-        title: "AI-Powered Analytics Dashboard",
-        description: "Интеллектуальная панель аналитики с использованием машинного обучения для предсказания трендов и автоматического выявления аномалий в данных. Интерактивные графики и real-time обновления.",
+        title: "CRM System с AI-аналитикой",
+        description: "Полнофункциональная CRM система с автоматизацией продаж, управлением клиентской базой, интеллектуальной аналитикой и прогнозированием. Включает модули для работы с лидами, сделками, отчетностью и интеграцией с внешними сервисами.",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["Vue.js", "Python", "TensorFlow", "MongoDB", "Docker"],
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Express.js"],
         link: "#",
         featured: true
       },
       {
-        title: "Mobile Banking App",
-        description: "Безопасное мобильное банковское приложение с биометрической авторизацией, P2P переводами, управлением картами и инвестиционным портфелем. Поддержка iOS и Android.",
-        image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["React Native", "Node.js", "PostgreSQL", "Redis"],
+        title: "Learning Management System (LMS)",
+        description: "Современная платформа онлайн-обучения с интерактивными курсами, системой тестирования, прогресс-трекингом, форумами и видеоконференциями. Поддержка ролей преподавателей, студентов и администраторов.",
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "Express.js"],
         link: "#",
         featured: true
       },
       {
-        title: "3D Product Configurator",
-        description: "Интерактивный 3D конфигуратор продуктов для мебельной индустрии. Пользователи могут выбирать материалы, цвета и конфигурации в реальном времени с фотореалистичной визуализацией.",
-        image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["Three.js", "React", "Node.js", "AWS"],
-        link: "#",
-        featured: false
-      },
-      {
-        title: "Real-time Collaboration Platform",
-        description: "Платформа для совместной работы в реальном времени с видеозвонками, общими досками, файловым хранилищем и системой задач. Поддержка до 1000 одновременных участников.",
+        title: "Task Management & Project Tracking",
+        description: "Комплексная система управления проектами и задачами с канбан-досками, временными линиями, отчетами, интеграцией команд и автоматизацией рабочих процессов. Поддержка методологий Agile и Scrum.",
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["Next.js", "Express.js", "PostgreSQL", "Redis", "Docker"],
+        technologies: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express.js"],
+        link: "#",
+        featured: true
+      },
+      {
+        title: "Advanced Analytics Dashboard",
+        description: "Мощная панель аналитики с интерактивными графиками, кастомными отчетами, real-time мониторингом KPI, фильтрацией данных и экспортом в различные форматы. Поддержка множественных источников данных.",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Express.js"],
+        link: "#",
+        featured: true
+      },
+      {
+        title: "E-commerce Platform",
+        description: "Полнофункциональная платформа электронной коммерции с каталогом товаров, корзиной покупок, системой заказов, управлением складом, админ-панелью и интеграцией платежей. Мультивендорная поддержка.",
+        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "Express.js"],
         link: "#",
         featured: false
       },
       {
-        title: "Smart IoT Dashboard",
-        description: "Умная панель управления IoT устройствами для умного дома. Мониторинг датчиков, автоматизация сценариев, энергосбережение и безопасность с мобильным приложением.",
-        image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["React", "Python", "MongoDB", "Docker", "AWS"],
+        title: "Inventory Management System",
+        description: "Система управления складскими запасами с отслеживанием товаров, автоматическими уведомлениями о низких остатках, управлением поставщиками, штрих-кодированием и детальной отчетностью.",
+        image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express.js"],
         link: "#",
         featured: false
       },
       {
-        title: "Blockchain Voting System",
-        description: "Децентрализованная система голосования на блокчейне с криптографической защитой, прозрачностью результатов и анонимностью избирателей. Web3 интеграция.",
-        image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["React", "Node.js", "PostgreSQL", "Docker"],
+        title: "Real-time Chat & Collaboration",
+        description: "Система корпоративного общения в реальном времени с чатами, каналами, файлообменом, видеозвонками, интеграцией с задачами и продвинутыми настройками приватности.",
+        image: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "Node.js", "PostgreSQL", "TypeScript", "WebSocket"],
         link: "#",
         featured: false
       },
       {
-        title: "Medical Records Management",
-        description: "HIPAA-совместимая система управления медицинскими записями с электронными рецептами, планированием приемов и телемедициной. Интеграция с медицинским оборудованием.",
-        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        technologies: ["Vue.js", "Express.js", "PostgreSQL", "Redis", "Docker"],
+        title: "HR Management Platform",
+        description: "Комплексная HR-система для управления персоналом с модулями найма, учета рабочего времени, оценки производительности, управления отпусками и корпоративным обучением.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Express.js"],
         link: "#",
         featured: false
       }
