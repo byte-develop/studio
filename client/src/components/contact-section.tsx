@@ -21,24 +21,6 @@ const contactInfo = [
     title: 'Email',
     description: 'hello@vertexstudio.dev',
     action: 'mailto:hello@vertexstudio.dev'
-  },
-  {
-    icon: Phone,
-    title: 'Телефон',
-    description: '+7 (495) 123-45-67',
-    action: 'tel:+74951234567'
-  },
-  {
-    icon: MapPin,
-    title: 'Офис',
-    description: 'Москва, ул. Тверская, 1',
-    action: '#'
-  },
-  {
-    icon: Clock,
-    title: 'Режим работы',
-    description: 'Пн-Пт: 9:00 - 18:00',
-    action: null
   }
 ];
 
