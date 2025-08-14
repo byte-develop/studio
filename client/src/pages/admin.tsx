@@ -85,7 +85,7 @@ export function AdminPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-deep-black via-gray-900 to-deep-black text-white">
+    <div className="dark min-h-screen bg-gradient-to-br from-deep-black via-gray-900 to-deep-black text-white">
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-cyan/5 rounded-full blur-3xl animate-pulse"></div>

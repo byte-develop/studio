@@ -56,20 +56,20 @@
   --foreground: hsl(0 0% 100%);
   --card: hsl(0 0% 10.1961%);
   --card-foreground: hsl(0 0% 100%);
-  --popover: hsl(0 0% 3.9216%);
+  --popover: hsl(0 0% 8%);
   --popover-foreground: hsl(0 0% 100%);
   --primary: hsl(180 100% 50%);
-  --primary-foreground: hsl(206 62% 4%);
-  --secondary: hsl(0 0% 94.9020%);
-  --secondary-foreground: hsl(210 25% 7.8431%);
-  --muted: hsl(0 0% 9.4118%);
-  --muted-foreground: hsl(210 3.3898% 46.2745%);
-  --accent: hsl(180 100% 50% / 0.1);
-  --accent-foreground: hsl(180 100% 50%);
-  --destructive: hsl(356.3033 90.5579% 54.3137%);
-  --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(210 5.2632% 14.9020%);
-  --input: hsl(207.6923 27.6596% 18.4314%);
+  --primary-foreground: hsl(0 0% 10%);
+  --secondary: hsl(0 0% 15%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(0 0% 15%);
+  --muted-foreground: hsl(0 0% 70%);
+  --accent: hsl(0 0% 15%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(0 0% 20%);
+  --input: hsl(0 0% 15%);
   --ring: hsl(180 100% 50%);
   --chart-1: hsl(180 100% 50%);
   --chart-2: hsl(159.7826 100% 36.0784%);
@@ -79,10 +79,10 @@
   --sidebar: hsl(0 0% 10.1961%);
   --sidebar-foreground: hsl(0 0% 100%);
   --sidebar-primary: hsl(180 100% 50%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(180 100% 50% / 0.1);
-  --sidebar-accent-foreground: hsl(180 100% 50%);
-  --sidebar-border: hsl(205.7143 15.7895% 26.0784%);
+  --sidebar-primary-foreground: hsl(0 0% 10%);
+  --sidebar-accent: hsl(0 0% 15%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(0 0% 20%);
   --sidebar-ring: hsl(180 100% 50%);
 }
 
@@ -94,6 +94,7 @@
   body {
     @apply bg-deep-black text-white font-sans antialiased overflow-x-hidden;
     font-family: var(--font-sans);
+    color: hsl(0 0% 100%);
   }
 
   html {
@@ -272,6 +273,61 @@
 
 [data-radix-select-trigger] [data-placeholder] {
   color: hsl(210 3.3898% 46.2745%) !important;
+}
+
+/* Additional admin panel styling fixes */
+.bg-gray-800 {
+  background-color: hsl(0 0% 12%) !important;
+  color: hsl(0 0% 100%) !important;
+}
+
+.border-gray-600 {
+  border-color: hsl(0 0% 25%) !important;
+}
+
+.text-white {
+  color: hsl(0 0% 100%) !important;
+}
+
+.text-gray-400 {
+  color: hsl(0 0% 70%) !important;
+}
+
+.text-gray-300 {
+  color: hsl(0 0% 80%) !important;
+}
+
+/* Form input styling fixes */
+input[type="text"], 
+input[type="email"], 
+input[type="url"],
+textarea {
+  background-color: hsl(0 0% 12%) !important;
+  color: hsl(0 0% 100%) !important;
+  border-color: hsl(0 0% 25%) !important;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="url"]:focus,
+textarea:focus {
+  border-color: hsl(180 100% 50%) !important;
+  box-shadow: 0 0 0 1px hsl(180 100% 50%) !important;
+}
+
+/* Tabs styling fixes */
+[data-state="active"] {
+  background: linear-gradient(90deg, hsl(180 100% 50%) 0%, hsl(200 100% 60%) 100%) !important;
+  color: hsl(0 0% 10%) !important;
+}
+
+/* Badge styling fixes */
+.border-gray-500\/50 {
+  border-color: hsl(0 0% 40%) !important;
+}
+
+.bg-gray-800\/50 {
+  background-color: hsl(0 0% 12%) !important;
 }
 
 [data-radix-select-value] {
