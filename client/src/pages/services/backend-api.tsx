@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { Cloud, Database, Server, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 
 export default function BackendAPIPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const features = [
     "RESTful и GraphQL API разработка",
     "Микросервисная архитектура",

@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { Rocket, Server, Shield, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 
 export default function DevOpsCloudPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const features = [
     "CI/CD автоматизация развертывания",
     "Контейнеризация с Docker и Kubernetes",

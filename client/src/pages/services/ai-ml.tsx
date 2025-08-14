@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { Shield, Brain, Bot, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 
 export default function AIMLPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const features = [
     "Интеграция с ChatGPT и Claude",
     "Компьютерное зрение и распознавание",

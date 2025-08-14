@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { Box, Globe, Smartphone, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 
 export default function WebDevelopmentPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const features = [
     "Адаптивный дизайн для всех устройств",
     "Высокая производительность и SEO оптимизация", 

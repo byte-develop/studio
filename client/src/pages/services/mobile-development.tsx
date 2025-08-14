@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { Smartphone, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 
 export default function MobileDevelopmentPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const features = [
     "Нативные iOS и Android приложения",
     "Кроссплатформенная разработка",

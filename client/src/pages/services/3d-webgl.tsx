@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { Brain, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 
 export default function ThreeDWebGLPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const features = [
     "Интерактивные 3D сцены и анимации",
     "WebGL оптимизация для браузеров",
