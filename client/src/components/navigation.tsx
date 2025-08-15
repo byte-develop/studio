@@ -45,10 +45,10 @@ export function Navigation() {
         <div className="flex items-center space-x-8">
           <motion.div
             whileHover={{ scale: 1.1 }}
-            className="text-neon-cyan font-jetbrains-mono font-bold text-xl cursor-pointer"
+            className="text-neon-cyan font-jetbrains-mono font-bold text-xl cursor-pointer bg-gradient-to-r from-neon-cyan to-blue-400 bg-clip-text text-transparent"
             onClick={() => scrollToSection('#hero')}
           >
-            HNS Studio
+            HNS
           </motion.div>
           
           {!isMobile ? (

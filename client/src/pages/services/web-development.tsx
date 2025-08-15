@@ -36,9 +36,9 @@ export default function WebDevelopmentPage() {
             <Link href="/">
               <motion.div 
                 whileHover={{ scale: 1.05 }}
-                className="text-2xl font-bold text-neon-cyan cursor-pointer"
+                className="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-blue-400 bg-clip-text text-transparent cursor-pointer font-jetbrains-mono tracking-wide"
               >
-                HNS Studio
+                HNS
               </motion.div>
             </Link>
             <Link href="/#services">
