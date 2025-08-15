@@ -150,15 +150,21 @@ npm run build
 
 # Проверьте, что сборка прошла успешно
 ls -la dist/
-ls -la dist/server/
+ls -la server/public/  # Vite собирает клиент в server/public
 
-# Если папка dist не создалась, проверьте package.json на наличие build скрипта
-cat package.json | grep -A5 -B5 "scripts"
+# Если сборка не прошла, проверьте скрипты в package.json
+cat package.json | grep -A10 -B5 "scripts"
+
+# Если server/public не создался, возможно нужно запустить сборку отдельно для клиента
+npm run build:client  # если есть такой скрипт
+# или
+cd client && npm run build && cd ..
 ```
 
 ### Настройка переменных окружения
 ```bash
-sudo nano /var/www/hns-studio/.env.production
+# Создайте файл переменных среды в директории проекта
+nano /var/www/hns-studio/studio/.env.production
 ```
 
 Содержимое .env.production:
@@ -174,6 +180,8 @@ TELEGRAM_CHAT_ID=your_chat_id_here
 # Безопасность
 SESSION_SECRET=generate_random_32_char_string_here
 ```
+
+**Важно:** Убедитесь что файл .env.production находится в папке `/var/www/hns-studio/studio/` (там же где package.json)
 
 ### Генерация безопасного ключа сессии
 ```bash
@@ -295,13 +303,26 @@ nano /var/www/hns-studio/ecosystem.config.json
 
 ### Создание директории для логов
 ```bash
-mkdir /var/www/hns-studio/logs
+mkdir /var/www/hns-studio/studio/logs
 ```
 
 ### Запуск приложения
-```bash
-cd /var/www/hns-studio
 
+**Обязательно! Сначала соберите проект:**
+```bash
+cd /var/www/hns-studio/studio
+npm run build
+
+# Проверьте что создалась папка server/public с файлами
+ls -la server/public/
+
+# Если папка пустая или не создалась, есть проблемы со сборкой
+# Попробуйте собрать еще раз и проверьте ошибки
+npm run build 2>&1 | tee build.log
+```
+
+**Затем запустите PM2:**
+```bash
 # Если используете .cjs файл:
 pm2 start ecosystem.config.cjs
 
@@ -331,8 +352,12 @@ pm2 delete hns-studio
 # Установите tsx глобально
 npm install -g tsx
 
-# Проверьте, может ли приложение запуститься вручную
+# ОБЯЗАТЕЛЬНО! Сначала соберите проект
 cd /var/www/hns-studio/studio
+npm run build
+ls -la server/public/  # Должны быть статичные файлы
+
+# Затем проверьте, может ли приложение запуститься вручную
 NODE_ENV=production PORT=5000 DATABASE_URL="postgresql://hns_user:your_password@localhost:5432/hns_production" npx tsx server/index.ts
 
 # Если работает вручную, но не в PM2, проверьте переменные среды в .env.production
