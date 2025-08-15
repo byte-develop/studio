@@ -355,7 +355,16 @@ npm install -g tsx
 # ОБЯЗАТЕЛЬНО! Сначала соберите проект
 cd /var/www/hns-studio/studio
 npm run build
-ls -la server/public/  # Должны быть статичные файлы
+
+# Проверьте где создались статические файлы
+ls -la dist/public/     # Vite собирает в dist/public
+ls -la server/public/   # Возможно нужно переместить сюда
+
+# Если файлы в dist/public, создайте симлинк или скопируйте
+if [ -d "dist/public" ] && [ ! -d "server/public" ]; then
+    ln -sf ../dist/public server/public
+    echo "Создан симлинк server/public -> ../dist/public"
+fi
 
 # Затем проверьте, может ли приложение запуститься вручную
 NODE_ENV=production PORT=5000 DATABASE_URL="postgresql://hns_user:your_password@localhost:5432/hns_production" npx tsx server/index.ts
