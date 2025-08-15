@@ -320,19 +320,31 @@ pm2 logs hns-studio
 **Диагностика проблем запуска:**
 
 ```bash
+# Если приложение в статусе "errored", посмотрите детальные логи
+pm2 logs hns-studio --lines 100
+pm2 logs hns-studio --err --lines 50
+
+# Остановите проблемное приложение
+pm2 stop hns-studio
+pm2 delete hns-studio
+
 # Установите tsx глобально
 npm install -g tsx
 
 # Проверьте, может ли приложение запуститься вручную
-cd /var/www/hns-studio
-NODE_ENV=production PORT=5000 npx tsx server/index.ts
+cd /var/www/hns-studio/studio
+NODE_ENV=production PORT=5000 DATABASE_URL="postgresql://hns_user:your_password@localhost:5432/hns_production" npx tsx server/index.ts
+
+# Если работает вручную, но не в PM2, проверьте переменные среды в .env.production
+ls -la .env.production
+cat .env.production
 
 # Если есть ошибки, исправьте их перед запуском PM2
-# Затем запустите PM2
+# Затем запустите PM2 заново
 pm2 start ecosystem.config.cjs
 
-# Мониторинг запуска
-pm2 logs hns-studio --lines 50
+# Мониторинг запуска в реальном времени
+pm2 logs hns-studio --lines 50 --timestamp
 ```
 
 **Альтернативный способ запуска (без tsx):**
