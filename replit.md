@@ -19,6 +19,7 @@ Preferred language: Russian (русский язык)
 - ✓ Добавлены градиентные эффекты и стильное оформление логотипа HNS
 - ✓ Убраны все остатки VERTEX из админки, Telegram уведомлений и email контактов
 - ✓ Изменен пароль админки с vertex2024 на hns2024
+- ✓ Создана подробная инструкция по развертыванию на Ubuntu сервере (DEPLOYMENT.md)
 
 **August 14, 2025** - Migration Complete & Portfolio Projects Added
 - ✓ Успешно завершена миграция из Replit Agent в стандартную среду Replit
