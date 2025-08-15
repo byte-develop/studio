@@ -227,8 +227,11 @@ sudo systemctl reload nginx
 ## 4. Настройка PM2
 
 ### Создание конфигурации PM2
+
+**Важно:** Проект использует ES modules, поэтому создаем конфигурацию с расширением .cjs:
+
 ```bash
-nano /var/www/hns-studio/ecosystem.config.js
+nano /var/www/hns-studio/ecosystem.config.cjs
 ```
 
 Содержимое файла:
@@ -255,6 +258,34 @@ module.exports = {
 }
 ```
 
+**Альтернативно, можно использать JSON формат:**
+```bash
+nano /var/www/hns-studio/ecosystem.config.json
+```
+
+```json
+{
+  "apps": [{
+    "name": "hns-studio",
+    "script": "./server/index.ts",
+    "interpreter": "node",
+    "interpreter_args": "--loader tsx",
+    "instances": 1,
+    "autorestart": true,
+    "watch": false,
+    "max_memory_restart": "1G",
+    "env": {
+      "NODE_ENV": "production",
+      "PORT": 5000
+    },
+    "error_file": "./logs/err.log",
+    "out_file": "./logs/out.log",
+    "log_file": "./logs/combined.log",
+    "time": true
+  }]
+}
+```
+
 ### Создание директории для логов
 ```bash
 mkdir /var/www/hns-studio/logs
@@ -263,9 +294,27 @@ mkdir /var/www/hns-studio/logs
 ### Запуск приложения
 ```bash
 cd /var/www/hns-studio
-pm2 start ecosystem.config.js
+
+# Если используете .cjs файл:
+pm2 start ecosystem.config.cjs
+
+# Или если используете .json файл:
+pm2 start ecosystem.config.json
+
+# Сохраняем конфигурацию и настраиваем автозапуск
 pm2 save
 pm2 startup  # Следуйте инструкциям для автозапуска
+
+# Проверяем статус
+pm2 status
+pm2 logs hns-studio
+```
+
+**Если возникла ошибка с tsx, установите его глобально:**
+```bash
+npm install -g tsx
+# Затем перезапустите приложение
+pm2 restart hns-studio
 ```
 
 ## 5. Настройка SSL сертификата
@@ -356,6 +405,23 @@ sudo -u postgres psql hns_production < backup_file.sql
 
 ## Решение проблем
 
+### Проблемы с PM2 и ES modules
+```bash
+# Ошибка "module is not defined" - переименуйте конфигурацию:
+mv ecosystem.config.js ecosystem.config.cjs
+
+# Или создайте JSON версию вместо JS
+```
+
+### Проблемы с tsx интерпретатором
+```bash
+# Установите tsx глобально
+npm install -g tsx
+
+# Или измените конфигурацию на использование обычного node:
+# В ecosystem.config - уберите tsx и используйте обычный JS
+```
+
 ### Проблемы с правами доступа
 ```bash
 sudo chown -R $USER:$USER /var/www/hns-studio
@@ -377,6 +443,14 @@ sudo tail -f /var/log/nginx/error.log
 ```bash
 sudo netstat -tulpn | grep :5000
 sudo lsof -i :5000
+```
+
+### Полная пересборка при проблемах
+```bash
+cd /var/www/hns-studio
+npm clean-install  # Чистая установка зависимостей
+npm run build       # Пересборка
+pm2 restart hns-studio
 ```
 
 ## Безопасность
