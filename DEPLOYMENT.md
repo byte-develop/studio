@@ -147,6 +147,13 @@ npm install
 ### Сборка проекта
 ```bash
 npm run build
+
+# Проверьте, что сборка прошла успешно
+ls -la dist/
+ls -la dist/server/
+
+# Если папка dist не создалась, проверьте package.json на наличие build скрипта
+cat package.json | grep -A5 -B5 "scripts"
 ```
 
 ### Настройка переменных окружения
@@ -310,11 +317,31 @@ pm2 status
 pm2 logs hns-studio
 ```
 
-**Если возникла ошибка с tsx, установите его глобально:**
+**Диагностика проблем запуска:**
+
 ```bash
+# Установите tsx глобально
 npm install -g tsx
-# Затем перезапустите приложение
-pm2 restart hns-studio
+
+# Проверьте, может ли приложение запуститься вручную
+cd /var/www/hns-studio
+NODE_ENV=production PORT=5000 npx tsx server/index.ts
+
+# Если есть ошибки, исправьте их перед запуском PM2
+# Затем запустите PM2
+pm2 start ecosystem.config.cjs
+
+# Мониторинг запуска
+pm2 logs hns-studio --lines 50
+```
+
+**Альтернативный способ запуска (без tsx):**
+```bash
+# Соберите проект
+npm run build
+
+# Запустите скомпилированный JavaScript
+pm2 start ecosystem.config.simple.cjs
 ```
 
 ## 5. Настройка SSL сертификата
@@ -431,6 +458,67 @@ sudo chown -R $USER:$USER /var/www/hns-studio
 ```bash
 sudo systemctl status postgresql
 sudo -u postgres psql -l  # Список баз данных
+```
+
+### Ошибка 502 Bad Gateway - Node.js приложение не отвечает
+```bash
+# Проверьте статус PM2
+pm2 status
+
+# Проверьте логи приложения
+pm2 logs hns-studio
+
+# Проверьте, запущен ли процесс на порту 5000
+sudo netstat -tulpn | grep :5000
+sudo lsof -i :5000
+
+# Если приложение не запущено, перезапустите его
+pm2 restart hns-studio
+
+# Если все еще не работает, остановите и запустите заново
+pm2 stop hns-studio
+pm2 delete hns-studio
+pm2 start ecosystem.config.cjs
+
+# Проверьте логи Nginx
+sudo tail -f /var/log/nginx/error.log
+sudo tail -f /var/log/nginx/access.log
+```
+
+### Если проблема с tsx loader
+```bash
+# Сначала соберите проект в обычный JavaScript
+npm run build
+
+# Создайте упрощенную PM2 конфигурацию без tsx
+nano ecosystem.config.simple.cjs
+```
+
+Содержимое упрощенной конфигурации:
+```javascript
+module.exports = {
+  apps: [{
+    name: 'hns-studio',
+    script: './dist/server/index.js',  // Используем скомпилированный JS
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+    env: {
+      NODE_ENV: 'production',
+      PORT: 5000
+    },
+    error_file: './logs/err.log',
+    out_file: './logs/out.log',
+    log_file: './logs/combined.log',
+    time: true
+  }]
+}
+```
+
+```bash
+# Запустите с упрощенной конфигурацией
+pm2 start ecosystem.config.simple.cjs
 ```
 
 ### Проверка логов
