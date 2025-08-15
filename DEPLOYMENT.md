@@ -217,11 +217,20 @@ server {
         proxy_connect_timeout 75s;
     }
     
-    # Статические файлы
+    # Статические файлы (CSS, JS, изображения)
     location /assets/ {
-        alias /var/www/hns-studio/dist/assets/;
+        alias /var/www/hns-studio/studio/dist/public/assets/;
         expires 1y;
         add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+
+    # Другие статические файлы (favicon, robots.txt и т.д.)
+    location ~* \.(ico|css|js|gif|jpeg|jpg|png|svg|woff|woff2|ttf|eot)$ {
+        root /var/www/hns-studio/studio/dist/public;
+        expires 1y;
+        add_header Cache-Control "public";
+        access_log off;
     }
     
     # Gzip сжатие
@@ -529,6 +538,23 @@ pm2 start ecosystem.config.cjs
 # Проверьте логи Nginx
 sudo tail -f /var/log/nginx/error.log
 sudo tail -f /var/log/nginx/access.log
+```
+
+### Ошибка 404 для статических файлов (CSS/JS)
+```bash
+# Проверьте что статические файлы существуют
+ls -la /var/www/hns-studio/studio/dist/public/assets/
+
+# Проверьте права доступа
+sudo chown -R www-data:www-data /var/www/hns-studio/studio/dist/public/
+sudo chmod -R 644 /var/www/hns-studio/studio/dist/public/
+
+# Обновите конфигурацию Nginx с правильными путями
+sudo nano /etc/nginx/sites-available/hns-studio.space
+
+# Проверьте конфигурацию и перезагрузите
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ### Если проблема с tsx loader
