@@ -76,15 +76,67 @@ sudo apt install certbot python3-certbot-nginx -y
 ## 2. Развертывание приложения
 
 ### Клонирование проекта
+
 ```bash
 cd /var/www
 sudo mkdir hns-studio
 sudo chown $USER:$USER hns-studio
 cd hns-studio
+```
 
-# Загрузка проекта (замените на ваш способ)
-git clone <your-repo-url> .
-# или загрузите файлы через scp/rsync
+**Способ 1: SSH ключ (рекомендуется для приватных репозиториев)**
+
+```bash
+# Генерируем SSH ключ на сервере
+ssh-keygen -t ed25519 -C "your-email@example.com"
+# Нажмите Enter для всех вопросов (использует стандартные настройки)
+
+# Показываем публичный ключ для добавления в GitHub
+cat ~/.ssh/id_ed25519.pub
+```
+
+1. Скопируйте вывод команды выше
+2. Идите в GitHub → Settings → SSH and GPG keys → New SSH key
+3. Вставьте скопированный ключ и сохраните
+4. Затем клонируйте репозиторий:
+
+```bash
+git clone git@github.com:byte-develop/studio.git .
+```
+
+**Способ 2: Personal Access Token (альтернатива)**
+
+```bash
+# Клонирование через HTTPS с токеном
+git clone https://your-username:your-personal-token@github.com/byte-develop/studio.git .
+```
+
+Для создания токена: GitHub → Settings → Developer settings → Personal access tokens
+
+**Способ 3: Загрузка файлов вручную (если нет доступа к Git)**
+
+```bash
+# Скачать zip архив и распаковать
+wget https://github.com/byte-develop/studio/archive/main.zip
+unzip main.zip
+mv studio-main/* .
+rm -rf studio-main main.zip
+```
+
+**Способ 4: Загрузка с локального компьютера через SCP**
+
+С локального компьютера:
+```bash
+# Сжимаем проект (исключая node_modules и .git)
+tar --exclude='node_modules' --exclude='.git' -czf hns-studio.tar.gz /path/to/your/local/project
+
+# Загружаем на сервер
+scp hns-studio.tar.gz root@your-server-ip:/var/www/hns-studio/
+
+# На сервере распаковываем
+cd /var/www/hns-studio
+tar -xzf hns-studio.tar.gz --strip-components=1
+rm hns-studio.tar.gz
 ```
 
 ### Установка зависимостей
