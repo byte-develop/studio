@@ -1,6 +1,6 @@
 # Overview
 
-This is a modern full-stack web application built with a React frontend and Express.js backend. The application is a portfolio/agency website for "HNS (Hidden Network Service)," a comprehensive digital development company. It features a futuristic dark theme design with CSS-based 3D effects, particle animations, and interactive elements. The site showcases a full range of development services from web development to 3D/WebGL, mobile apps, backend solutions, AI/ML, and DevOps. The project uses TypeScript throughout and implements modern web technologies including Framer Motion for animations, and a comprehensive UI component library based on shadcn/ui.
+This is a modern full-stack web application built with a React frontend and Express.js backend. The application is a portfolio/agency website for "HNS Studio," a comprehensive digital development company. It features a futuristic dark theme design with CSS-based 3D effects, particle animations, and interactive elements. The site showcases a full range of development services from web development to 3D/WebGL, mobile apps, backend solutions, AI/ML, and DevOps. The project uses TypeScript throughout and implements modern web technologies including Framer Motion for animations, and a comprehensive UI component library based on shadcn/ui.
 
 # User Preferences
 
@@ -10,7 +10,7 @@ Preferred language: Russian (русский язык)
 # Recent Changes
 
 **August 15, 2025** - Company Rebranding Complete
-- ✓ Изменено название компании с VERTEX Studio на HNS (Hidden Network Service)
+- ✓ Изменено название компании с VERTEX Studio на HNS Studio
 - ✓ Обновлены все упоминания в навигации, footer, заголовках
 - ✓ Изменены политика конфиденциальности и пользовательское соглашение
 - ✓ Обновлены все сервисные страницы с новым брендингом

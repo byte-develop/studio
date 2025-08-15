@@ -11,13 +11,13 @@ export function Footer() {
           className="text-center"
         >
           <div className="text-3xl font-jetbrains-mono font-bold text-neon-cyan mb-4">
-            HNS
+            HNS Studio
           </div>
           <p className="text-gray-400 mb-8 max-w-md mx-auto">
             Создаем будущее цифровых технологий сегодня
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 text-sm text-gray-500">
-            <p className="text-center">&copy; 2024 HNS (Hidden Network Service). Все права защищены.</p>
+            <p className="text-center">&copy; 2024 HNS Studio (Hidden Network Service). Все права защищены.</p>
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
               <motion.a
                 href="#"

@@ -38,7 +38,7 @@ export default function MobileDevelopmentPage() {
                 whileHover={{ scale: 1.05 }}
                 className="text-2xl font-bold text-neon-cyan cursor-pointer"
               >
-                HNS
+                HNS Studio
               </motion.div>
             </Link>
             <Link href="/#services">

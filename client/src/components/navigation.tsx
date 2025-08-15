@@ -48,7 +48,7 @@ export function Navigation() {
             className="text-neon-cyan font-jetbrains-mono font-bold text-xl cursor-pointer"
             onClick={() => scrollToSection('#hero')}
           >
-            HNS
+            HNS Studio
           </motion.div>
           
           {!isMobile ? (
