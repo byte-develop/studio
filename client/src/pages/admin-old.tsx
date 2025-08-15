@@ -92,7 +92,7 @@ export function AdminPage() {
             <h1 className="text-4xl font-light mb-4 text-3d">
               Панель <span className="text-neon-cyan">Администратора</span>
             </h1>
-            <p className="text-gray-400">Управление содержимым сайта VERTEX Studio</p>
+            <p className="text-gray-400">Управление содержимым сайта HNS</p>
           </div>
           <Button
             onClick={handleLogout}

@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lock, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-const ADMIN_PASSWORD = 'vertex2024';
+const ADMIN_PASSWORD = 'hns2024';
 
 export function AdminLoginPage() {
   const [password, setPassword] = useState('');
@@ -89,7 +89,7 @@ export function AdminLoginPage() {
                 <span className="text-cyan-300 font-semibold">Демонстрационный доступ</span>
               </div>
               <p className="text-slate-300 text-sm">
-                Пароль: <span className="text-cyan-400 font-mono font-semibold bg-slate-900/50 px-2 py-1 rounded">vertex2024</span>
+                Пароль: <span className="text-cyan-400 font-mono font-semibold bg-slate-900/50 px-2 py-1 rounded">hns2024</span>
               </p>
             </div>
           </CardContent>

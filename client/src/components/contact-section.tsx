@@ -19,8 +19,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    description: 'hello@vertexstudio.dev',
-    action: 'mailto:hello@vertexstudio.dev'
+    description: 'info@hns.dev',
+    action: 'mailto:info@hns.dev'
   }
 ];
 

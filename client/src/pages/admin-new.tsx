@@ -207,7 +207,7 @@ export function AdminPage() {
               </div>
               <div>
                 <h1 className="text-lg font-bold text-white">Админ панель</h1>
-                <p className="text-xs text-slate-400">VERTEX Studio</p>
+                <p className="text-xs text-slate-400">HNS</p>
               </div>
             </div>
             <Button 

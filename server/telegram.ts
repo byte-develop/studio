@@ -21,7 +21,7 @@ export class TelegramService {
 
   private formatContactMessage(contact: Contact): string {
     const lines = [
-      '🔥 <b>Новая заявка с сайта VERTEX Studio!</b>',
+      '🔥 <b>Новая заявка с сайта HNS!</b>',
       '',
       `👤 <b>Имя:</b> ${this.escapeHtml(contact.name || 'Не указано')}`,
       `📧 <b>Email:</b> ${this.escapeHtml(contact.email || 'Не указан')}`,

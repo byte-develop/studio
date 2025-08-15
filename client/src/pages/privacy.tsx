@@ -181,8 +181,8 @@ export function PrivacyPage() {
                 По вопросам обработки персональных данных вы можете обратиться к нам:
               </p>
               <div className="p-4 bg-white/5 rounded-lg">
-                <p className="text-white font-medium">VERTEX Studio</p>
-                <p className="text-gray-300">Email: hello@vertexstudio.dev</p>
+                <p className="text-white font-medium">HNS</p>
+                <p className="text-gray-300">Email: info@hns.dev</p>
                 <p className="text-gray-300 mt-2">
                   Ответственный за обработку персональных данных: администратор сайта
                 </p>

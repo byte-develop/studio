@@ -17,6 +17,8 @@ Preferred language: Russian (русский язык)
 - ✓ Добавлены title и meta description в HTML с новым названием
 - ✓ Обновлена контактная информация (email: info@hns.dev, сайт: hns.dev)
 - ✓ Добавлены градиентные эффекты и стильное оформление логотипа HNS
+- ✓ Убраны все остатки VERTEX из админки, Telegram уведомлений и email контактов
+- ✓ Изменен пароль админки с vertex2024 на hns2024
 
 **August 14, 2025** - Migration Complete & Portfolio Projects Added
 - ✓ Успешно завершена миграция из Replit Agent в стандартную среду Replit
