@@ -2,24 +2,39 @@
 
 ## Требования к серверу
 
-- Ubuntu 20.04 LTS или выше
+- Ubuntu 20.04 LTS или выше (рекомендуется Ubuntu 22.04 LTS)
 - Минимум 2GB RAM, 20GB диск
 - Доступ root или sudo
 - Домен hns-studio.space настроен на IP сервера
+- Node.js 20.x LTS или новее (будет установлено по инструкции)
 
 ## 1. Подготовка сервера
 
-### Обновление системы
+### Обновление системы и установка базовых пакетов
 ```bash
 sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl wget git build-essential
 ```
 
-### Установка Node.js 18+
+### Установка Node.js (последняя LTS версия)
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
-node --version  # Проверка версии
+# Устанавливаем Node Version Manager (nvm)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+# Перезагружаем профиль или перелогиниваемся
+source ~/.bashrc
+
+# Устанавливаем последнюю LTS версию Node.js
+nvm install --lts
+nvm use --lts
+nvm alias default lts/*
+
+# Проверяем установку
+node --version  # Должна быть версия 20.x или новее
 npm --version   # Проверка npm
+
+# Обновляем npm до последней версии
+npm install -g npm@latest
 ```
 
 ### Установка PostgreSQL
