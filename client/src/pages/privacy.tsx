@@ -36,7 +36,7 @@ export function PrivacyPage() {
               </h1>
             </div>
             <p className="text-gray-400 text-lg">
-              Защита и обработка персональных данных в VERTEX Studio
+              Защита и обработка персональных данных в HNS (Hidden Network Service)
             </p>
             <p className="text-sm text-gray-500 mt-2">
               Дата последнего обновления: {new Date().toLocaleDateString('ru-RU')}
@@ -49,7 +49,7 @@ export function PrivacyPage() {
               <h2 className="text-2xl font-semibold text-neon-cyan mb-4">1. Общие положения</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
                 Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки 
-                и защиты персональных данных пользователей сайта VERTEX Studio (далее — «Сайт»).
+                и защиты персональных данных пользователей сайта HNS (Hidden Network Service) (далее — «Сайт»).
               </p>
               <p className="text-gray-300 leading-relaxed">
                 Мы серьезно относимся к защите ваших персональных данных и обязуемся обеспечивать их безопасность 

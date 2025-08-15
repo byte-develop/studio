@@ -38,7 +38,7 @@ export default function WebDevelopmentPage() {
                 whileHover={{ scale: 1.05 }}
                 className="text-2xl font-bold text-neon-cyan cursor-pointer"
               >
-                VERTEX Studio
+                HNS
               </motion.div>
             </Link>
             <Link href="/#services">

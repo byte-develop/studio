@@ -36,7 +36,7 @@ export function TermsPage() {
               </h1>
             </div>
             <p className="text-gray-400 text-lg">
-              Условия использования услуг VERTEX Studio
+              Условия использования услуг HNS (Hidden Network Service)
             </p>
             <p className="text-sm text-gray-500 mt-2">
               Дата последнего обновления: {new Date().toLocaleDateString('ru-RU')}
@@ -49,7 +49,7 @@ export function TermsPage() {
               <h2 className="text-2xl font-semibold text-neon-cyan mb-4">1. Общие положения</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
                 Настоящее Пользовательское соглашение (далее — «Соглашение») является официальным предложением 
-                VERTEX Studio (далее — «Компания») для пользователей сети Интернет (далее — «Пользователи») 
+                HNS (Hidden Network Service) (далее — «Компания») для пользователей сети Интернет (далее — «Пользователи») 
                 относительно использования сайта и услуг Компании.
               </p>
               <p className="text-gray-300 leading-relaxed">
@@ -61,10 +61,10 @@ export function TermsPage() {
             <section className="glass-morphism rounded-2xl p-8">
               <h2 className="text-2xl font-semibold text-neon-cyan mb-4">2. Определения</h2>
               <ul className="space-y-3 text-gray-300">
-                <li><strong>Сайт</strong> — интернет-ресурс, расположенный по адресу vertexstudio.dev</li>
+                <li><strong>Сайт</strong> — интернет-ресурс, расположенный по адресу hns.dev</li>
                 <li><strong>Услуги</strong> — разработка веб-сайтов, мобильных приложений, 3D/WebGL решений, backend систем, AI/ML решений</li>
                 <li><strong>Заказчик</strong> — физическое или юридическое лицо, заказывающее услуги Компании</li>
-                <li><strong>Исполнитель</strong> — VERTEX Studio</li>
+                <li><strong>Исполнитель</strong> — HNS (Hidden Network Service)</li>
               </ul>
             </section>
 
@@ -157,8 +157,8 @@ export function TermsPage() {
                 По всем вопросам, связанным с настоящим Соглашением, Вы можете обратиться к нам:
               </p>
               <div className="mt-4 p-4 bg-white/5 rounded-lg">
-                <p className="text-white font-medium">VERTEX Studio</p>
-                <p className="text-gray-300">Email: hello@vertexstudio.dev</p>
+                <p className="text-white font-medium">HNS (Hidden Network Service)</p>
+                <p className="text-gray-300">Email: info@hns.dev</p>
               </div>
             </section>
           </div>
