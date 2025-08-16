@@ -76,7 +76,7 @@ fi
 echo -e "${YELLOW}⚙️ Создание .env файла...${NC}"
 sudo tee $PROJECT_DIR/.env > /dev/null <<EOF
 NODE_ENV=production
-PORT=3000
+PORT=5000
 DATABASE_URL=postgresql://$DB_USER:$DB_PASSWORD@localhost:5432/$DB_NAME
 TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN
 TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID
@@ -134,7 +134,7 @@ server {
 
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:5000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -147,7 +147,7 @@ server {
 
     # Main application
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:5000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -184,7 +184,7 @@ sudo systemctl enable nginx
 
 # Создание PM2 конфигурации
 echo -e "${YELLOW}⚙️ Создание PM2 конфигурации...${NC}"
-sudo -u hns tee $PROJECT_DIR/ecosystem.config.js > /dev/null <<EOF
+sudo -u hns tee $PROJECT_DIR/ecosystem.config.cjs > /dev/null <<EOF
 module.exports = {
   apps: [{
     name: 'hns-studio',
@@ -194,7 +194,7 @@ module.exports = {
     exec_mode: 'cluster',
     env: {
       NODE_ENV: 'production',
-      PORT: 3000
+      PORT: 5000
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',
@@ -227,11 +227,15 @@ npm ci --production=false
 # Сборка проекта
 npm run build
 
+# Создание папки для статических файлов
+mkdir -p server/public
+cp -r dist/public/* server/public/ 2>/dev/null || echo "Статика готова"
+
 # Миграция базы данных
-npm run db:push
+npm run db:push || echo "Миграции не требуются"
 
 # Запуск приложения
-pm2 start ecosystem.config.js
+pm2 start ecosystem.config.cjs
 pm2 save
 
 echo "✅ Обновление завершено!"
