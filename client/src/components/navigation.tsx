@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/language-context';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -10,20 +11,21 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 
-const services = [
-  { title: 'Веб-Разработка', link: '/services/web-development' },
-  { title: '3D и WebGL', link: '/services/3d-webgl' },
-  { title: 'Мобильная Разработка', link: '/services/mobile-development' },
-  { title: 'Backend & API', link: '/services/backend-api' },
-  { title: 'ИИ и ML', link: '/services/ai-ml' },
-  { title: 'DevOps & Cloud', link: '/services/devops-cloud' },
-];
-
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const isMobile = useIsMobile();
+  const { language, setLanguage, t } = useLanguage();
+
+  const services = [
+    { title: t('services.webDevelopment'), link: '/services/web-development' },
+    { title: t('services.3dWebgl'), link: '/services/3d-webgl' },
+    { title: t('services.mobileDevelopment'), link: '/services/mobile-development' },
+    { title: t('services.backendApi'), link: '/services/backend-api' },
+    { title: t('services.aiMl'), link: '/services/ai-ml' },
+    { title: t('services.devopsCloud'), link: '/services/devops-cloud' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,11 +37,11 @@ export function Navigation() {
   }, []);
 
   const navItems = [
-    { href: '#hero', label: 'Главная', type: 'scroll' },
-    { href: '#services', label: 'Услуги', type: 'dropdown' },
-    { href: '#portfolio', label: 'Портфолио', type: 'scroll' },
-    { href: '#team', label: 'Команда', type: 'scroll' },
-    { href: '#contact', label: 'Контакты', type: 'scroll' },
+    { href: '#hero', label: t('nav.home'), type: 'scroll' },
+    { href: '#services', label: t('nav.services'), type: 'dropdown' },
+    { href: '#portfolio', label: t('nav.portfolio'), type: 'scroll' },
+    { href: '#team', label: t('nav.team'), type: 'scroll' },
+    { href: '#contact', label: t('nav.contacts'), type: 'scroll' },
   ];
 
   const scrollToSection = (href: string) => {
@@ -113,7 +115,7 @@ export function Navigation() {
                             onClick={() => scrollToSection('#services')}
                             className="w-full text-left cursor-pointer py-2 text-white hover:text-neon-cyan transition-colors duration-300 mt-2"
                           >
-                            Все услуги
+                            {t('nav.allServices')}
                           </motion.button>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -132,6 +134,32 @@ export function Navigation() {
                   </motion.button>
                 );
               })}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="hover:text-neon-cyan transition-colors duration-300 text-sm font-medium flex items-center gap-1"
+                  >
+                    <Globe className="w-4 h-4" />
+                    {language.toUpperCase()}
+                  </motion.button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="glass-morphism border-neon-cyan/20 text-white">
+                  <DropdownMenuItem 
+                    onClick={() => setLanguage('ru')}
+                    className="focus:bg-neon-cyan/20 hover:bg-neon-cyan/20 text-white cursor-pointer"
+                  >
+                    🇷🇺 Русский
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={() => setLanguage('en')}
+                    className="focus:bg-neon-cyan/20 hover:bg-neon-cyan/20 text-white cursor-pointer"
+                  >
+                    🇺🇸 English
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ) : (
             <button
@@ -197,7 +225,7 @@ export function Navigation() {
                                 }}
                                 className="text-sm hover:text-neon-cyan transition-colors duration-300 py-2 px-3 text-left w-full rounded-lg hover:bg-neon-cyan/10 text-gray-300 break-words"
                               >
-                                Все услуги
+                                {t('nav.allServices')}
                               </motion.button>
                             </div>
                           </motion.div>
@@ -217,6 +245,37 @@ export function Navigation() {
                   </motion.button>
                 );
               })}
+              
+              {/* Language Switcher for Mobile */}
+              <div className="border-t border-neon-cyan/20 pt-4 mt-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-400 text-sm">Language:</span>
+                  <div className="flex gap-2">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => setLanguage('ru')}
+                      className={`px-3 py-1 rounded-lg text-sm transition-colors ${
+                        language === 'ru' 
+                          ? 'bg-neon-cyan/20 text-neon-cyan' 
+                          : 'text-gray-400 hover:text-neon-cyan'
+                      }`}
+                    >
+                      🇷🇺 RU
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => setLanguage('en')}
+                      className={`px-3 py-1 rounded-lg text-sm transition-colors ${
+                        language === 'en' 
+                          ? 'bg-neon-cyan/20 text-neon-cyan' 
+                          : 'text-gray-400 hover:text-neon-cyan'
+                      }`}
+                    >
+                      🇺🇸 EN
+                    </motion.button>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}

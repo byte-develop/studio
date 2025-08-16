@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { HeroScene } from './three/hero-scene';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
+import { useLanguage } from '@/contexts/language-context';
 
 export function HeroSection() {
   const { elementRef } = useScrollTrigger();
+  const { t } = useLanguage();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -71,23 +73,14 @@ export function HeroSection() {
           variants={itemVariants}
           className="hero-content text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-6 text-3d"
         >
-          <motion.span
-            className="block"
-          >
-            ПЕРЕДОВАЯ
-          </motion.span>
-          <motion.span
-            className="block text-neon-cyan"
-          >
-            РАЗРАБОТКА
-          </motion.span>
+          {t('hero.title')}
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
           className="hero-content text-base sm:text-lg md:text-xl lg:text-2xl font-light text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto"
         >
-          Превращаем идеи в революционные цифровые продукты с помощью инновационных технологий и креативного подхода
+          {t('hero.subtitle')}
         </motion.p>
 
         <motion.div
@@ -101,7 +94,7 @@ export function HeroSection() {
             className="glass-morphism px-8 py-4 rounded-full hover:bg-neon-cyan/10 transition-all duration-300 group"
           >
             <span className="group-hover:text-neon-cyan transition-colors">
-              Посмотреть проекты
+              {t('hero.ourWork')}
             </span>
           </motion.button>
           
@@ -111,7 +104,7 @@ export function HeroSection() {
             onClick={scrollToContact}
             className="border border-neon-cyan px-8 py-4 rounded-full hover:bg-neon-cyan hover:text-deep-black transition-all duration-300"
           >
-            Связаться с нами
+            {t('hero.getStarted')}
           </motion.button>
         </motion.div>
       </motion.div>
