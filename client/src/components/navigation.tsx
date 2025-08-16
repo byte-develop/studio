@@ -151,7 +151,7 @@ export function Navigation() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed top-24 left-1/2 transform -translate-x-1/2 z-40 glass-morphism rounded-2xl p-6 w-64"
+            className="fixed top-24 left-4 right-4 z-40 glass-morphism rounded-2xl p-6 max-w-sm mx-auto"
           >
             <div className="flex flex-col space-y-3">
               {navItems.map((item) => {
@@ -160,24 +160,49 @@ export function Navigation() {
                     <div key={item.href} className="space-y-2">
                       <motion.button
                         whileHover={{ x: 10 }}
-                        onClick={() => scrollToSection(item.href)}
-                        className="text-left hover:text-neon-cyan transition-colors duration-300 py-2 font-medium"
+                        onClick={() => {
+                          setIsServicesOpen(!isServicesOpen);
+                        }}
+                        className="text-left hover:text-neon-cyan transition-colors duration-300 py-2 font-medium flex items-center justify-between w-full"
                       >
                         {item.label}
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
                       </motion.button>
-                      <div className="pl-4 space-y-2">
-                        {services.map((service) => (
-                          <Link key={service.link} href={service.link}>
-                            <motion.div
-                              whileHover={{ x: 5 }}
-                              onClick={() => setIsOpen(false)}
-                              className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 cursor-pointer text-gray-300"
-                            >
-                              {service.title}
-                            </motion.div>
-                          </Link>
-                        ))}
-                      </div>
+                      <AnimatePresence>
+                        {isServicesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className="overflow-hidden"
+                          >
+                            <div className="bg-gray-900/40 rounded-xl p-3 space-y-1 border border-neon-cyan/10">
+                              {services.map((service) => (
+                                <Link key={service.link} href={service.link}>
+                                  <motion.div
+                                    whileHover={{ x: 5 }}
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-sm hover:text-neon-cyan transition-colors duration-300 py-2 px-3 cursor-pointer text-gray-300 rounded-lg hover:bg-neon-cyan/10 break-words"
+                                  >
+                                    {service.title}
+                                  </motion.div>
+                                </Link>
+                              ))}
+                              <motion.button
+                                whileHover={{ x: 5 }}
+                                onClick={() => {
+                                  scrollToSection('#services');
+                                  setIsServicesOpen(false);
+                                }}
+                                className="text-sm hover:text-neon-cyan transition-colors duration-300 py-2 px-3 text-left w-full rounded-lg hover:bg-neon-cyan/10 text-gray-300 break-words"
+                              >
+                                Все услуги
+                              </motion.button>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   );
                 }
