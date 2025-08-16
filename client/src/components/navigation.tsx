@@ -174,14 +174,14 @@ export function Navigation() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="pl-4 space-y-2 border-l border-neon-cyan/20"
+                            className="mt-2 space-y-1 bg-gray-900/30 rounded-lg p-3 border border-neon-cyan/10"
                           >
                             {services.map((service) => (
                               <Link key={service.link} href={service.link}>
                                 <motion.div
                                   whileHover={{ x: 5 }}
                                   onClick={() => setIsOpen(false)}
-                                  className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 cursor-pointer"
+                                  className="text-sm hover:text-neon-cyan transition-colors duration-300 py-2 px-2 cursor-pointer rounded hover:bg-neon-cyan/10"
                                 >
                                   {service.title}
                                 </motion.div>
@@ -193,7 +193,7 @@ export function Navigation() {
                                 scrollToSection('#services');
                                 setIsServicesOpen(false);
                               }}
-                              className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 pt-2 text-left w-full"
+                              className="text-sm hover:text-neon-cyan transition-colors duration-300 py-2 px-2 text-left w-full rounded hover:bg-neon-cyan/10 mt-1"
                             >
                               Все услуги
                             </motion.button>
