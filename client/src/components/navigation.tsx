@@ -111,7 +111,7 @@ export function Navigation() {
                           <motion.button
                             whileHover={{ x: 5 }}
                             onClick={() => scrollToSection('#services')}
-                            className="w-full text-left cursor-pointer py-2 text-white hover:text-neon-cyan transition-colors duration-300 border-t border-neon-cyan/20 mt-2"
+                            className="w-full text-left cursor-pointer py-2 text-white hover:text-neon-cyan transition-colors duration-300 mt-2"
                           >
                             Все услуги
                           </motion.button>
@@ -193,7 +193,7 @@ export function Navigation() {
                                 scrollToSection('#services');
                                 setIsServicesOpen(false);
                               }}
-                              className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 border-t border-neon-cyan/20 pt-2 text-left w-full"
+                              className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 pt-2 text-left w-full"
                             >
                               Все услуги
                             </motion.button>
