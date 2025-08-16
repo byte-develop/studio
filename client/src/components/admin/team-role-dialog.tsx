@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { apiRequest } from '@/lib/queryClient';
 import { insertTeamRoleSchema, type TeamRole, type InsertTeamRole } from '@shared/schema';
 
@@ -132,25 +133,89 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
               />
             </div>
 
-            <FormField
-              control={form.control}
-              name="count"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-300">Количество человек</FormLabel>
-                  <FormControl>
-                    <Input 
-                      {...field} 
-                      type="number" 
-                      min="1"
-                      onChange={(e) => field.onChange(parseInt(e.target.value))}
-                      className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20" 
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <FormField
+                control={form.control}
+                name="count"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Количество человек</FormLabel>
+                    <FormControl>
+                      <Input 
+                        {...field} 
+                        type="number" 
+                        min="1"
+                        onChange={(e) => field.onChange(parseInt(e.target.value))}
+                        className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="icon"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Иконка</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="bg-slate-900/50 border-slate-600/50 text-white focus:border-purple-400 focus:ring-purple-400/20">
+                          <SelectValue placeholder="Выберите иконку" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-slate-800 border-slate-700 text-white">
+                        <SelectItem value="Users">👥 Users</SelectItem>
+                        <SelectItem value="Code">💻 Code</SelectItem>
+                        <SelectItem value="Palette">🎨 Palette</SelectItem>
+                        <SelectItem value="Smartphone">📱 Smartphone</SelectItem>
+                        <SelectItem value="Server">🖥️ Server</SelectItem>
+                        <SelectItem value="Database">🗄️ Database</SelectItem>
+                        <SelectItem value="Brain">🧠 Brain</SelectItem>
+                        <SelectItem value="Shield">🛡️ Shield</SelectItem>
+                        <SelectItem value="Target">🎯 Target</SelectItem>
+                        <SelectItem value="Briefcase">💼 Briefcase</SelectItem>
+                        <SelectItem value="Settings">⚙️ Settings</SelectItem>
+                        <SelectItem value="Rocket">🚀 Rocket</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="color"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Цвет</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="bg-slate-900/50 border-slate-600/50 text-white focus:border-purple-400 focus:ring-purple-400/20">
+                          <SelectValue placeholder="Выберите цвет" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-slate-800 border-slate-700 text-white">
+                        <SelectItem value="blue">🔵 Синий</SelectItem>
+                        <SelectItem value="purple">🟣 Фиолетовый</SelectItem>
+                        <SelectItem value="green">🟢 Зеленый</SelectItem>
+                        <SelectItem value="orange">🟠 Оранжевый</SelectItem>
+                        <SelectItem value="red">🔴 Красный</SelectItem>
+                        <SelectItem value="pink">🩷 Розовый</SelectItem>
+                        <SelectItem value="cyan">🔷 Голубой</SelectItem>
+                        <SelectItem value="yellow">🟡 Желтый</SelectItem>
+                        <SelectItem value="indigo">🟦 Индиго</SelectItem>
+                        <SelectItem value="emerald">💚 Изумрудный</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <div className="flex gap-3 pt-4">
               <Button
