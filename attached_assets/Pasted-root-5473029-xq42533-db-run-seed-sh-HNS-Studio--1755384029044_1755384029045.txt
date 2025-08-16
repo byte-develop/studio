@@ -1,0 +1,138 @@
+root@5473029-xq42533:~/db# ./run-seed.sh
+🌱 Скрипт заполнения базы данных HNS Studio
+=================================================
+📦 Установка зависимости pg...
+
+up to date, audited 15 packages in 657ms
+
+found 0 vulnerabilities
+🔍 Проверка подключения к базе данных...
+🌱 Запуск заполнения базы данных...
+
+🔌 Подключение к базе данных...
+📋 Создание таблиц...
+🧹 Очистка существующих данных...
+⚙️ Добавление технологий...
+✅ Добавлено 38 технологий
+👥 Добавление ролей команды...
+✅ Добавлено 8 ролей команды
+💼 Добавление проектов портфолио...
+✅ Добавлено 10 проектов портфолио
+
+🎉 База данных успешно заполнена!
+📊 Статистика:
+   • Технологии: 38
+   • Роли команды: 8
+   • Проекты портфолио: 10
+
+🔍 Примеры добавленных данных:
+   Технологии:
+     • React (Frontend)
+     • TypeScript (Frontend)
+     • Three.js (Frontend)
+     • React Three Fiber (Frontend)
+     • WebGL (Frontend)
+   Проекты:
+     • AI-Powered Code Review Platform (AI/ML)
+     • 3D Virtual Office Platform (3D/WebGL)
+     • Intelligent E-commerce Analytics Suite (AI/ML)
+
+🔌 Подключение к базе данных закрыто
+
+✅ База данных успешно заполнена тестовыми данными!
+
+📋 Что было добавлено:
+• 30+ технологий (React, Node.js, AI/ML, Blockchain и др.)
+• 8 ролей в команде (Frontend, Backend, Full-Stack, DevOps и др.)
+• 10 проектов портфолио (от AI платформ до VR/AR систем)
+
+🚀 Теперь можете запустить приложение и увидеть данные в интерфейсе!
+root@5473029-xq42533:~/db# ^C
+root@5473029-xq42533:~/db# ^C
+root@5473029-xq42533:~/db# cd /var/www/
+root@5473029-xq42533:/var/www# cd hns-studio
+root@5473029-xq42533:/var/www/hns-studio# cd studio
+root@5473029-xq42533:/var/www/hns-studio/studio# nano .env
+root@5473029-xq42533:/var/www/hns-studio/studio# pm2 env hns-studio
+[PM2][ERROR] Modules with id hns-studio not found
+root@5473029-xq42533:/var/www/hns-studio/studio# cat /var/www/hns-studio/studio/.env
+NODE_ENV=production
+PORT=5000
+DATABASE_URL=postgresql://hns_user:Saa40022@localhost:5432/hns_studio
+root@5473029-xq42533:/var/www/hns-studio/studio# sudo -u postgres psql -c "SELECT datname, usename, client_addr FROM pg_stat_activity WHERE state = 'active';"
+ datname  | usename  | client_addr 
+----------+----------+-------------
+ postgres | postgres | 
+(1 row)
+
+root@5473029-xq42533:/var/www/hns-studio/studio# cat > check-db.js << 'EOF'
+const { Client } = require('pg');
+// Загрузка .env
+require('dotenv').config();
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'установлен' : 'НЕ установлен');
+console.log('NODE_ENV:', process.env.NODE_ENV || 'не установлен');
+if (process.env.DATABASE_URL) {
+  const client = new Client({ connectionString: process.env.DATABASE_URL });
+  
+  client.connect()
+    .then(() => {
+      console.log('✅ Подключение к PostgreSQL успешно');
+      return client.query('SELECT current_database(), current_user, inet_server_addr(), inet_server_port()');
+    })
+    .then(result => {
+      const row = result.rows[0];
+      console.log('База данных:', row.current_database);
+      console.log('Пользователь:', row.current_user);
+      console.log('Хост:', row.inet_server_addr || 'localhost');
+      console.log('Порт:', row.inet_server_port || '5432');
+    })
+    .catch(err => {
+      console.log('❌ Ошибка подключения:', err.message);
+    })
+    .finally(() => {
+      client.end();
+    });
+} else {
+  console.log('❌ Сайт использует in-memory хранилище (данные в памяти)');
+}
+EOF
+root@5473029-xq42533:/var/www/hns-studio/studio# npm install dotenv
+
+added 125 packages, and audited 771 packages in 2s
+
+81 packages are looking for funding
+  run `npm fund` for details
+
+8 vulnerabilities (3 low, 5 moderate)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+root@5473029-xq42533:/var/www/hns-studio/studio# node check-db.js
+file:///var/www/hns-studio/studio/check-db.js:1
+const { Client } = require('pg');
+                   ^
+
+ReferenceError: require is not defined in ES module scope, you can use import instead
+This file is being treated as an ES module because it has a '.js' file extension and '/var/www/hns-studio/studio/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+    at file:///var/www/hns-studio/studio/check-db.js:1:20
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:647:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.18.0
+root@5473029-xq42533:/var/www/hns-studio/studio# mv check-db.js check-db.cjs
+root@5473029-xq42533:/var/www/hns-studio/studio# node check-db.cjs
+[dotenv@17.2.1] injecting env (3) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+DATABASE_URL: установлен
+NODE_ENV: production
+✅ Подключение к PostgreSQL успешно
+База данных: hns_studio
+Пользователь: hns_user
+Хост: ::1
+Порт: 5432
+root@5473029-xq42533:/var/www/hns-studio/studio#
