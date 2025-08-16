@@ -85,26 +85,33 @@ export function Navigation() {
                         </motion.button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent 
-                        className="glass-morphism border-neon-cyan/20 min-w-[200px]"
+                        className="glass-morphism border-neon-cyan/20 min-w-[200px] bg-gray-900/95 text-white"
                         sideOffset={8}
                       >
                         {services.map((service) => (
-                          <DropdownMenuItem key={service.link} asChild>
+                          <DropdownMenuItem 
+                            key={service.link} 
+                            asChild
+                            className="focus:bg-neon-cyan/20 hover:bg-neon-cyan/20 text-white"
+                          >
                             <Link href={service.link}>
                               <motion.div
                                 whileHover={{ x: 5 }}
-                                className="w-full cursor-pointer py-2 hover:text-neon-cyan transition-colors duration-300"
+                                className="w-full cursor-pointer py-2 text-white hover:text-neon-cyan transition-colors duration-300"
                               >
                                 {service.title}
                               </motion.div>
                             </Link>
                           </DropdownMenuItem>
                         ))}
-                        <DropdownMenuItem asChild>
+                        <DropdownMenuItem 
+                          asChild
+                          className="focus:bg-neon-cyan/20 hover:bg-neon-cyan/20 text-white"
+                        >
                           <motion.button
                             whileHover={{ x: 5 }}
                             onClick={() => scrollToSection('#services')}
-                            className="w-full text-left cursor-pointer py-2 hover:text-neon-cyan transition-colors duration-300 border-t border-neon-cyan/20 mt-2"
+                            className="w-full text-left cursor-pointer py-2 text-white hover:text-neon-cyan transition-colors duration-300 border-t border-neon-cyan/20 mt-2"
                           >
                             Все услуги
                           </motion.button>
