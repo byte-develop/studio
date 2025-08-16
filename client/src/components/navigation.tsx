@@ -85,7 +85,7 @@ export function Navigation() {
                         </motion.button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent 
-                        className="glass-morphism border-neon-cyan/20 min-w-[200px] bg-gray-900/95 text-white"
+                        className="glass-morphism border-neon-cyan/20 min-w-[200px] text-white"
                         sideOffset={8}
                       >
                         {services.map((service) => (
@@ -177,7 +177,7 @@ export function Navigation() {
                             transition={{ duration: 0.3, ease: 'easeInOut' }}
                             className="overflow-hidden"
                           >
-                            <div className="bg-gray-900/40 rounded-xl p-3 space-y-1 border border-neon-cyan/10">
+                            <div className="rounded-xl p-3 space-y-1 border border-neon-cyan/10">
                               {services.map((service) => (
                                 <Link key={service.link} href={service.link}>
                                   <motion.div
