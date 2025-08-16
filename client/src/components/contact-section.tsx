@@ -36,7 +36,7 @@ export function ContactSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
@@ -276,7 +276,7 @@ export function ContactSection() {
                     <SelectItem value="backend">{t('services.backendApi')}</SelectItem>
                     <SelectItem value="ai-ml">{t('services.aiMl')}</SelectItem>
                     <SelectItem value="devops">{t('services.devopsCloud')}</SelectItem>
-                    <SelectItem value="consulting">Консультации</SelectItem>
+                    <SelectItem value="consulting">{t('contact.consulting')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -290,10 +290,10 @@ export function ContactSection() {
                     <SelectValue placeholder={t('contact.selectBudget')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="50k-100k">50,000 - 100,000 ₽</SelectItem>
-                    <SelectItem value="100k-500k">100,000 - 500,000 ₽</SelectItem>
-                    <SelectItem value="500k-1m">500,000 - 1,000,000 ₽</SelectItem>
-                    <SelectItem value="1m+">1,000,000+ ₽</SelectItem>
+                    <SelectItem value="50k-100k">{t('contact.budget50k100k')}</SelectItem>
+                    <SelectItem value="100k-500k">{t('contact.budget100k500k')}</SelectItem>
+                    <SelectItem value="500k-1m">{t('contact.budget500k1m')}</SelectItem>
+                    <SelectItem value="1m+">{t('contact.budget1mPlus')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -325,7 +325,7 @@ export function ContactSection() {
                   <a href="/privacy" className="text-neon-cyan hover:underline">
                     {t('contact.privacyPolicy')}
                   </a>{' '}
-                  и{' '}
+                  {language === 'ru' ? 'и' : 'and'}{' '}
                   <a href="/terms" className="text-neon-cyan hover:underline">
                     {t('contact.userAgreement')}
                   </a>

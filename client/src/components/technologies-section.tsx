@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
 import { useQuery } from '@tanstack/react-query';
+import { useLanguage } from '@/contexts/language-context';
 import type { Technology } from '@shared/schema';
 import * as LucideIcons from 'lucide-react';
 
 export function TechnologiesSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
+  const { t } = useLanguage();
 
   // Загружаем данные технологий из базы данных
   const { data: technologies = [], isLoading } = useQuery<Technology[]>({
@@ -55,17 +57,17 @@ export function TechnologiesSection() {
           className="text-center mb-20"
         >
           <h2 className="text-5xl font-light mb-6 text-3d">
-            Наши <span className="text-neon-cyan">Технологии</span>
+            {t('technologies.title').split(' ').slice(0, -1).join(' ')} <span className="text-neon-cyan">{t('technologies.title').split(' ').slice(-1)[0]}</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Передовой стек технологий для создания инновационных решений
+            {t('technologies.subtitle')}
           </p>
         </motion.div>
 
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-neon-cyan"></div>
-            <p className="mt-4 text-gray-400">Загружаем технологии...</p>
+            <p className="mt-4 text-gray-400">{t('technologies.loading')}</p>
           </div>
         ) : (
           <motion.div

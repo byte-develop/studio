@@ -145,11 +145,36 @@ const translations = {
       sendSuccess: 'Сообщение отправлено!',
       sendSuccessDesc: 'Мы свяжемся с вами в ближайшее время.',
       sendError: 'Ошибка отправки',
-      sendErrorDesc: 'Попробуйте еще раз позже.'
+      sendErrorDesc: 'Попробуйте еще раз позже.',
+      consulting: 'Консультации',
+      budget50k100k: '50,000 - 100,000 ₽',
+      budget100k500k: '100,000 - 500,000 ₽',
+      budget500k1m: '500,000 - 1,000,000 ₽',
+      budget1mPlus: '1,000,000+ ₽'
     },
     technologies: {
       title: 'Наши Технологии',
-      subtitle: 'Современные инструменты для создания лучших решений'
+      subtitle: 'Современные инструменты для создания лучших решений',
+      loading: 'Загружаем технологии...'
+    },
+    allPortfolio: {
+      title: 'Наше Портфолио',
+      subtitle: 'Полная коллекция наших проектов — от веб-разработки до мобильных приложений и 3D-визуализации',
+      backToSite: 'Назад к сайту',
+      searchPlaceholder: 'Поиск по названию или описанию проекта...',
+      allProjects: 'Все проекты',
+      projectsShown: 'Показано',
+      projectsFound: 'Найдено',
+      of: 'из',
+      projects: 'проектов',
+      loading: 'Загружаем проекты...',
+      noResults: 'Проекты не найдены',
+      noResultsDesc: 'Попробуйте изменить параметры поиска или фильтры',
+      resetFilters: 'Сбросить фильтры',
+      openProject: 'Открыть проект',
+      allProjectsShown: 'Показаны все найденные проекты',
+      backToMain: 'Вернуться к сайту',
+      topProject: '⭐ Топ'
     },
     footer: {
       company: 'Компания',
@@ -158,7 +183,8 @@ const translations = {
       contact: 'Контакты',
       privacy: 'Политика конфиденциальности',
       terms: 'Пользовательское соглашение',
-      rights: 'Все права защищены.'
+      rights: 'Все права защищены.',
+      description: 'Создаем будущее цифровых технологий сегодня'
     },
     modal: {
       topProject: 'Топ проект',
@@ -179,6 +205,14 @@ const translations = {
       subtitle: 'Условия использования услуг HNS',
       backToHome: 'Вернуться на главную',
       lastUpdated: 'Дата последнего обновления'
+    },
+    servicePages: {
+      backToServices: 'Назад к услугам',
+      getStarted: 'Начать проект',
+      contactUs: 'Связаться с нами',
+      ourApproach: 'Наш Подход',
+      keyFeatures: 'Ключевые Возможности',
+      technologiesWeUse: 'Технологии, Которые Мы Используем'
     }
   },
   en: {
@@ -275,11 +309,36 @@ const translations = {
       sendSuccess: 'Message sent!',
       sendSuccessDesc: 'We will contact you shortly.',
       sendError: 'Sending error',
-      sendErrorDesc: 'Please try again later.'
+      sendErrorDesc: 'Please try again later.',
+      consulting: 'Consulting',
+      budget50k100k: '$1,000 - $2,000',
+      budget100k500k: '$2,000 - $10,000',
+      budget500k1m: '$10,000 - $20,000',
+      budget1mPlus: '$20,000+'
     },
     technologies: {
       title: 'Our Technologies',
-      subtitle: 'Modern tools for creating the best solutions'
+      subtitle: 'Modern tools for creating the best solutions',
+      loading: 'Loading technologies...'
+    },
+    allPortfolio: {
+      title: 'Our Portfolio',
+      subtitle: 'Complete collection of our projects — from web development to mobile apps and 3D visualization',
+      backToSite: 'Back to Site',
+      searchPlaceholder: 'Search by title or project description...',
+      allProjects: 'All Projects',
+      projectsShown: 'Showing',
+      projectsFound: 'Found',
+      of: 'of',
+      projects: 'projects',
+      loading: 'Loading projects...',
+      noResults: 'No projects found',
+      noResultsDesc: 'Try changing search parameters or filters',
+      resetFilters: 'Reset Filters',
+      openProject: 'Open Project',
+      allProjectsShown: 'All found projects are shown',
+      backToMain: 'Back to Site',
+      topProject: '⭐ Top'
     },
     footer: {
       company: 'Company',
@@ -288,7 +347,8 @@ const translations = {
       contact: 'Contact',
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
-      rights: 'All rights reserved.'
+      rights: 'All rights reserved.',
+      description: 'Creating the future of digital technologies today'
     },
     modal: {
       topProject: 'Top Project',
@@ -309,6 +369,14 @@ const translations = {
       subtitle: 'Terms and conditions for using HNS services',
       backToHome: 'Back to Home',
       lastUpdated: 'Last updated'
+    },
+    servicePages: {
+      backToServices: 'Back to Services',
+      getStarted: 'Start Project',
+      contactUs: 'Contact Us',
+      ourApproach: 'Our Approach',
+      keyFeatures: 'Key Features',
+      technologiesWeUse: 'Technologies We Use'
     }
   }
 };

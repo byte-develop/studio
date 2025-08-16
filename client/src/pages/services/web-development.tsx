@@ -2,8 +2,11 @@ import { motion } from 'framer-motion';
 import { Box, Globe, Smartphone, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
 import { useEffect } from 'react';
+import { useLanguage } from '@/contexts/language-context';
 
 export default function WebDevelopmentPage() {
+  const { t } = useLanguage();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -46,7 +49,7 @@ export default function WebDevelopmentPage() {
                 whileHover={{ scale: 1.05 }}
                 className="px-6 py-2 bg-neon-cyan/10 text-neon-cyan rounded-lg hover:bg-neon-cyan/20 transition-colors"
               >
-                Назад к услугам
+                {t('servicePages.backToServices')}
               </motion.button>
             </Link>
           </div>

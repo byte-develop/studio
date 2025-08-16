@@ -3,6 +3,7 @@ import { ExternalLink, ArrowLeft, Filter, Search } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/language-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -10,6 +11,7 @@ import { ProjectModal } from '@/components/ui/project-modal';
 import type { PortfolioProject } from '@shared/schema';
 
 export function PortfolioPage() {
+  const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
@@ -27,8 +29,10 @@ export function PortfolioPage() {
 
   // Фильтрация проектов
   const filteredProjects = portfolioItems.filter(project => {
-    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const title = language === 'ru' ? (project.title_ru || project.title) : (project.title_en || project.title);
+    const description = language === 'ru' ? (project.description_ru || project.description) : (project.description_en || project.description);
+    const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesTech = !selectedTech || (project.technologies && project.technologies.includes(selectedTech));
     return matchesSearch && matchesTech;
   });
@@ -80,15 +84,15 @@ export function PortfolioPage() {
             <Link href="/#portfolio">
               <Button variant="ghost" className="mb-6 text-gray-400 hover:text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Назад к сайту
+                {t('allPortfolio.backToSite')}
               </Button>
             </Link>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 text-3d">
-              Наше <span className="text-neon-cyan">Портфолио</span>
+              {t('allPortfolio.title').split(' ').slice(0, -1).join(' ')} <span className="text-neon-cyan">{t('allPortfolio.title').split(' ').slice(-1)[0]}</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-              Полная коллекция наших проектов — от веб-разработки до мобильных приложений и 3D-визуализации
+              {t('allPortfolio.subtitle')}
             </p>
           </motion.div>
 
@@ -103,7 +107,7 @@ export function PortfolioPage() {
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
-                placeholder="Поиск по названию или описанию проекта..."
+                placeholder={t('allPortfolio.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-12 bg-slate-800/50 border-slate-600/50 text-white placeholder:text-gray-400 focus:border-neon-cyan focus:ring-neon-cyan/20 h-12"
@@ -123,7 +127,7 @@ export function PortfolioPage() {
                 }`}
               >
                 <Filter className="w-3 h-3 mr-1" />
-                Все проекты
+                {t('allPortfolio.allProjects')}
               </Button>
               {allTechnologies.map((tech) => (
                 <Button
@@ -146,8 +150,8 @@ export function PortfolioPage() {
             <div className="text-center">
               <p className="text-gray-400">
                 {filteredProjects.length === portfolioItems.length 
-                  ? `Показано ${filteredProjects.length} проектов`
-                  : `Найдено ${filteredProjects.length} из ${portfolioItems.length} проектов`}
+                  ? `${t('allPortfolio.projectsShown')} ${filteredProjects.length} ${t('allPortfolio.projects')}`
+                  : `${t('allPortfolio.projectsFound')} ${filteredProjects.length} ${t('allPortfolio.of')} ${portfolioItems.length} ${t('allPortfolio.projects')}`}
               </p>
             </div>
           </motion.div>
@@ -160,7 +164,7 @@ export function PortfolioPage() {
           {isLoading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-neon-cyan"></div>
-              <p className="mt-4 text-gray-400 text-lg">Загружаем проекты...</p>
+              <p className="mt-4 text-gray-400 text-lg">{t('allPortfolio.loading')}</p>
             </div>
           ) : filteredProjects.length === 0 ? (
             <motion.div
@@ -169,9 +173,9 @@ export function PortfolioPage() {
               className="text-center py-20"
             >
               <div className="text-6xl mb-6">🔍</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Проекты не найдены</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">{t('allPortfolio.noResults')}</h3>
               <p className="text-gray-400 mb-8">
-                Попробуйте изменить параметры поиска или фильтры
+                {t('allPortfolio.noResultsDesc')}
               </p>
               <Button
                 onClick={() => {
@@ -180,7 +184,7 @@ export function PortfolioPage() {
                 }}
                 className="bg-gradient-to-r from-neon-cyan to-neon-purple hover:from-neon-cyan/80 hover:to-neon-purple/80"
               >
-                Сбросить фильтры
+                {t('allPortfolio.resetFilters')}
               </Button>
             </motion.div>
           ) : (
@@ -226,7 +230,7 @@ export function PortfolioPage() {
                       {project.featured && (
                         <div className="absolute top-3 right-3">
                           <Badge className="bg-gradient-to-r from-yellow-500/90 to-orange-500/90 text-white border-0 shadow-lg text-xs">
-                            ⭐ Топ
+                            {t('allPortfolio.topProject')}
                           </Badge>
                         </div>
                       )}
@@ -244,11 +248,11 @@ export function PortfolioPage() {
                     {/* Content */}
                     <div className="p-5">
                       <h3 className="text-lg font-bold text-white mb-2 group-hover:text-neon-cyan transition-colors duration-300 line-clamp-2">
-                        {project.title}
+                        {language === 'ru' ? (project.title_ru || project.title) : (project.title_en || project.title)}
                       </h3>
                       
                       <p className="text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
-                        {project.description}
+                        {language === 'ru' ? (project.description_ru || project.description) : (project.description_en || project.description)}
                       </p>
                       
                       {/* Technologies */}
@@ -283,7 +287,7 @@ export function PortfolioPage() {
                           className="inline-flex items-center text-neon-cyan hover:text-white text-sm font-medium transition-all duration-300 group/link"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <span className="mr-2">Открыть проект</span>
+                          <span className="mr-2">{t('allPortfolio.openProject')}</span>
                           <ExternalLink className="w-3 h-3 transform group-hover/link:translate-x-1 transition-transform duration-300" />
                         </motion.a>
                       )}
@@ -303,13 +307,13 @@ export function PortfolioPage() {
               className="text-center mt-16"
             >
               <p className="text-gray-400 mb-6">
-                Показаны все найденные проекты
+                {t('allPortfolio.allProjectsShown')}
               </p>
               <Link href="/#portfolio">
                 <Button 
                   className="bg-gradient-to-r from-neon-cyan to-neon-purple hover:from-neon-cyan/80 hover:to-neon-purple/80 px-8 py-3"
                 >
-                  Вернуться к сайту
+                  {t('allPortfolio.backToMain')}
                 </Button>
               </Link>
             </motion.div>
