@@ -73,7 +73,16 @@ export function HeroSection() {
           variants={itemVariants}
           className="hero-content text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-6 text-3d"
         >
-          {t('hero.title')}
+          <motion.span
+            className="block"
+          >
+            {t('hero.title').split(' ')[0]}
+          </motion.span>
+          <motion.span
+            className="block text-neon-cyan"
+          >
+            {t('hero.title').split(' ')[1]}
+          </motion.span>
         </motion.h1>
 
         <motion.p

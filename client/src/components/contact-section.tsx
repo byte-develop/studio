@@ -9,6 +9,7 @@ import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
+import { useLanguage } from '@/contexts/language-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -35,6 +36,7 @@ export function ContactSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { t } = useLanguage();
 
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
@@ -56,16 +58,16 @@ export function ContactSection() {
     },
     onSuccess: () => {
       toast({
-        title: 'Сообщение отправлено!',
-        description: 'Мы свяжемся с вами в ближайшее время.',
+        title: t('contact.sendSuccess'),
+        description: t('contact.sendSuccessDesc'),
       });
       form.reset();
       queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
     },
     onError: (error: any) => {
       toast({
-        title: 'Ошибка отправки',
-        description: error.message || 'Попробуйте еще раз позже.',
+        title: t('contact.sendError'),
+        description: error.message || t('contact.sendErrorDesc'),
         variant: 'destructive',
       });
     },
@@ -112,10 +114,10 @@ export function ContactSection() {
           className="text-center mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
-            Свяжитесь <span className="text-neon-cyan">с Нами</span>
+            {t('contact.title').split(' ').slice(0, -2).join(' ')} <span className="text-neon-cyan">{t('contact.title').split(' ').slice(-2).join(' ')}</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-            Готовы воплотить ваши идеи в передовые цифровые решения
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
@@ -149,7 +151,7 @@ export function ContactSection() {
             ))}
 
             <motion.div variants={itemVariants} className="pt-8">
-              <h4 className="font-medium mb-4">Следите за нами</h4>
+              <h4 className="font-medium mb-4">{t('contact.followUs')}</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <a
@@ -172,10 +174,9 @@ export function ContactSection() {
                   <HeadphonesIcon className="w-5 h-5 text-neon-cyan" />
                 </div>
                 <div>
-                  <h4 className="font-medium mb-2 text-neon-cyan">Быстрый отклик</h4>
+                  <h4 className="font-medium mb-2 text-neon-cyan">{t('contact.quickResponse')}</h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    Отвечаем на все заявки в течение 2 часов в рабочее время. 
-                    Приоритет отдаем срочным проектам и важным задачам.
+                    {t('contact.quickResponseDesc')}
                   </p>
                 </div>
               </div>
@@ -190,10 +191,9 @@ export function ContactSection() {
                   <Users className="w-5 h-5 text-neon-purple" />
                 </div>
                 <div>
-                  <h4 className="font-medium mb-2 text-neon-purple">Персональный менеджер</h4>
+                  <h4 className="font-medium mb-2 text-neon-purple">{t('contact.personalManager')}</h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
-                    За каждым проектом закрепляется персональный менеджер 
-                    для постоянной связи и контроля качества.
+                    {t('contact.personalManagerDesc')}
                   </p>
                 </div>
               </div>
@@ -208,11 +208,11 @@ export function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Имя *
+                    {t('contact.name')} *
                   </label>
                   <Input
                     {...form.register('name')}
-                    placeholder="Ваше имя"
+                    placeholder={t('contact.yourName')}
                   />
                   {form.formState.errors.name && (
                     <p className="text-red-400 text-sm mt-1">
@@ -223,11 +223,11 @@ export function ContactSection() {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Компания
+                    {t('contact.company')}
                   </label>
                   <Input
                     {...form.register('company')}
-                    placeholder="Название компании"
+                    placeholder={t('contact.companyName')}
                   />
                 </div>
               </div>
@@ -235,7 +235,7 @@ export function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Email *
+                    {t('contact.email')} *
                   </label>
                   <Input
                     {...form.register('email')}
@@ -251,7 +251,7 @@ export function ContactSection() {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Телефон
+                    {t('contact.phone')}
                   </label>
                   <Input
                     {...form.register('phone')}
@@ -263,19 +263,19 @@ export function ContactSection() {
 
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Услуга
+                  {t('contact.service')}
                 </label>
                 <Select onValueChange={(value) => form.setValue('service', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Выберите услугу" />
+                    <SelectValue placeholder={t('contact.selectService')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="web-dev">Веб-Разработка</SelectItem>
-                    <SelectItem value="3d-webgl">3D и WebGL</SelectItem>
-                    <SelectItem value="mobile">Мобильная Разработка</SelectItem>
-                    <SelectItem value="backend">Backend & API</SelectItem>
-                    <SelectItem value="ai-ml">ИИ и ML</SelectItem>
-                    <SelectItem value="devops">DevOps & Cloud</SelectItem>
+                    <SelectItem value="web-dev">{t('services.webDevelopment')}</SelectItem>
+                    <SelectItem value="3d-webgl">{t('services.3dWebgl')}</SelectItem>
+                    <SelectItem value="mobile">{t('services.mobileDevelopment')}</SelectItem>
+                    <SelectItem value="backend">{t('services.backendApi')}</SelectItem>
+                    <SelectItem value="ai-ml">{t('services.aiMl')}</SelectItem>
+                    <SelectItem value="devops">{t('services.devopsCloud')}</SelectItem>
                     <SelectItem value="consulting">Консультации</SelectItem>
                   </SelectContent>
                 </Select>
@@ -283,11 +283,11 @@ export function ContactSection() {
 
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Бюджет проекта
+                  {t('contact.budget')}
                 </label>
                 <Select onValueChange={(value) => form.setValue('budget', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Выберите диапазон" />
+                    <SelectValue placeholder={t('contact.selectBudget')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="50k-100k">50,000 - 100,000 ₽</SelectItem>
@@ -300,12 +300,12 @@ export function ContactSection() {
 
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Сообщение *
+                  {t('contact.message')} *
                 </label>
                 <Textarea
                   {...form.register('message')}
                   rows={4}
-                  placeholder="Расскажите о вашем проекте..."
+                  placeholder={t('contact.projectMessage')}
                   className="resize-none"
                 />
                 {form.formState.errors.message && (
@@ -321,13 +321,13 @@ export function ContactSection() {
                   className="mt-1 border-gray-700 data-[state=checked]:bg-neon-cyan data-[state=checked]:border-neon-cyan"
                 />
                 <label htmlFor="privacy" className="text-sm text-gray-400">
-                  Я согласен с{' '}
+                  {t('contact.privacyAgree')}{' '}
                   <a href="/privacy" className="text-neon-cyan hover:underline">
-                    политикой конфиденциальности
+                    {t('contact.privacyPolicy')}
                   </a>{' '}
                   и{' '}
                   <a href="/terms" className="text-neon-cyan hover:underline">
-                    пользовательским соглашением
+                    {t('contact.userAgreement')}
                   </a>
                 </label>
               </div>
@@ -340,7 +340,7 @@ export function ContactSection() {
                 >
                   <span className="flex items-center justify-center space-x-2">
                     <span>
-                      {isSubmitting ? 'Отправляется...' : 'Отправить сообщение'}
+                      {isSubmitting ? t('contact.sending') : t('contact.send')}
                     </span>
                     <motion.div
                       animate={{ x: isSubmitting ? 0 : [0, 5, 0] }}

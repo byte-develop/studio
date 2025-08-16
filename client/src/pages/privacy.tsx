@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { ArrowLeft, Shield } from 'lucide-react';
+import { useLanguage } from '@/contexts/language-context';
 
 export function PrivacyPage() {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen bg-deep-black text-white">
       {/* Navigation */}
@@ -11,7 +14,7 @@ export function PrivacyPage() {
           <Link href="/">
             <a className="flex items-center gap-2 text-neon-cyan hover:text-white transition-colors">
               <ArrowLeft className="w-5 h-5" />
-              Вернуться на главную
+              {t('privacy.backToHome')}
             </a>
           </Link>
         </div>
@@ -32,14 +35,17 @@ export function PrivacyPage() {
                 <Shield className="w-6 h-6 text-neon-cyan" />
               </div>
               <h1 className="text-3xl md:text-4xl font-light">
-                Политика <span className="text-neon-cyan">конфиденциальности</span>
+                {t('privacy.title').includes('Политика') ? 
+                  <>Политика <span className="text-neon-cyan">конфиденциальности</span></> :
+                  <>Privacy <span className="text-neon-cyan">Policy</span></>
+                }
               </h1>
             </div>
             <p className="text-gray-400 text-lg">
-              Защита и обработка персональных данных в HNS
+              {t('privacy.subtitle')}
             </p>
             <p className="text-sm text-gray-500 mt-2">
-              Дата последнего обновления: {new Date().toLocaleDateString('ru-RU')}
+              {t('privacy.lastUpdated')}: {new Date().toLocaleDateString('ru-RU')}
             </p>
           </div>
 

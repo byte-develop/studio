@@ -33,8 +33,12 @@ export const technologies = pgTable("technologies", {
 // Таблица для проектов портфолио
 export const portfolioProjects = pgTable("portfolio_projects", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
+  title: text("title").notNull(), // Legacy field for backward compatibility
+  description: text("description").notNull(), // Legacy field for backward compatibility
+  title_ru: text("title_ru"), // Russian title
+  title_en: text("title_en"), // English title
+  description_ru: text("description_ru"), // Russian description
+  description_en: text("description_en"), // English description
   image: text("image").notNull(), // URL изображения
   technologies: text("technologies").array().notNull().default([]), // массив технологий
   link: text("link"), // ссылка на проект
@@ -57,8 +61,12 @@ export const serviceProjects = pgTable("service_projects", {
 // Таблица для ролей команды
 export const teamRoles = pgTable("team_roles", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
+  title: text("title").notNull(), // Legacy field for backward compatibility
+  description: text("description").notNull(), // Legacy field for backward compatibility
+  title_ru: text("title_ru"), // Russian title
+  title_en: text("title_en"), // English title
+  description_ru: text("description_ru"), // Russian description
+  description_en: text("description_en"), // English description
   icon: text("icon").notNull(), // название иконки
   count: integer("count").notNull().default(1), // количество участников
   color: text("color").notNull().default("blue"), // цвет для UI
@@ -96,6 +104,11 @@ export const insertTechnologySchema = createInsertSchema(technologies).omit({
 export const insertPortfolioProjectSchema = createInsertSchema(portfolioProjects).omit({
   id: true,
   createdAt: true,
+}).extend({
+  title_ru: z.string().min(1, "Название на русском обязательно"),
+  title_en: z.string().min(1, "Название на английском обязательно"),
+  description_ru: z.string().min(10, "Описание на русском должно содержать минимум 10 символов"),
+  description_en: z.string().min(10, "Описание на английском должно содержать минимум 10 символов"),
 });
 
 export const insertServiceProjectSchema = createInsertSchema(serviceProjects).omit({
@@ -106,6 +119,11 @@ export const insertServiceProjectSchema = createInsertSchema(serviceProjects).om
 export const insertTeamRoleSchema = createInsertSchema(teamRoles).omit({
   id: true,
   updatedAt: true,
+}).extend({
+  title_ru: z.string().min(1, "Название роли на русском обязательно"),
+  title_en: z.string().min(1, "Название роли на английском обязательно"),
+  description_ru: z.string().optional(),
+  description_en: z.string().optional(),
 });
 
 export const insertSettingSchema = createInsertSchema(settings).omit({

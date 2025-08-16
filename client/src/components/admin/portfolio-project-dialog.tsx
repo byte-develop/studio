@@ -32,6 +32,10 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
     defaultValues: {
       title: project?.title || '',
       description: project?.description || '',
+      title_ru: project?.title_ru || project?.title || '',
+      title_en: project?.title_en || '',
+      description_ru: project?.description_ru || project?.description || '',
+      description_en: project?.description_en || '',
       image: project?.image || '',
       technologiesText: project?.technologies?.join(', ') || '',
       link: project?.link || '',
@@ -59,7 +63,14 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
       : [];
     
     const { technologiesText, ...projectData } = data;
-    mutation.mutate({ ...projectData, technologies });
+    // Set legacy fields for backward compatibility
+    const submitData = {
+      ...projectData,
+      technologies,
+      title: data.title_ru || data.title || '',
+      description: data.description_ru || data.description || '',
+    };
+    mutation.mutate(submitData);
   };
 
   return (
@@ -78,33 +89,63 @@ export function PortfolioProjectDialog({ children, project }: PortfolioProjectDi
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-300">Название проекта</FormLabel>
-                  <FormControl>
-                    <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="title_ru"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Название проекта (Русский)</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="title_en"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Название проекта (English)</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-300">Описание</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20 min-h-[120px]" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="description_ru"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Описание (Русский)</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20 min-h-[120px]" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description_en"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Описание (English)</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-cyan-400 focus:ring-cyan-400/20 min-h-[120px]" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}

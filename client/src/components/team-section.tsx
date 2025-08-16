@@ -3,9 +3,11 @@ import { Code2, Palette, Server, Shield, Brain, Users, Target, Lightbulb, Monito
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
 import { useQuery } from '@tanstack/react-query';
 import type { TeamRole } from '@shared/schema';
+import { useLanguage } from '@/contexts/language-context';
 
 export function TeamSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
+  const { t, language } = useLanguage();
 
   // Загружаем данные команды из базы данных
   const { data: teamStructure = [], isLoading } = useQuery<TeamRole[]>({
@@ -62,17 +64,17 @@ export function TeamSection() {
           className="text-center mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
-            Структура <span className="text-neon-cyan">Команды</span>
+            {t('team.title').split(' ').slice(0, -1).join(' ')} <span className="text-neon-cyan">{t('team.title').split(' ').slice(-1)[0]}</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-            Сплоченная команда профессионалов с четким распределением ролей и ответственности
+            {t('team.subtitle')}
           </p>
         </motion.div>
 
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-neon-cyan"></div>
-            <p className="mt-4 text-gray-400">Загружаем данные команды...</p>
+            <p className="mt-4 text-gray-400">{t('team.loading')}</p>
           </div>
         ) : (
           <motion.div
@@ -111,10 +113,10 @@ export function TeamSection() {
                   </div>
                   
                   <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-neon-cyan transition-colors duration-300">
-                    {role.title}
+                    {language === 'ru' ? (role.title_ru || role.title) : (role.title_en || role.title)}
                   </h3>
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    {role.description}
+                    {language === 'ru' ? (role.description_ru || role.description) : (role.description_en || role.description)}
                   </p>
                 </div>
               </motion.div>
@@ -132,12 +134,10 @@ export function TeamSection() {
         >
           <div className="glass-morphism rounded-3xl p-8 lg:p-12 max-w-5xl mx-auto">
             <h3 className="text-2xl lg:text-3xl font-light mb-6 text-3d">
-              Наша <span className="text-neon-cyan">философия работы</span>
+              {t('team.philosophy').split(' ').slice(0, -2).join(' ')} <span className="text-neon-cyan">{t('team.philosophy').split(' ').slice(-2).join(' ')}</span>
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
-              Мы верим в силу командной работы и четкого распределения ролей. Каждый участник команды 
-              является экспертом в своей области и вносит уникальный вклад в успех проекта. 
-              Прозрачная коммуникация и взаимная поддержка - основа нашего подхода.
+              {t('team.philosophyDesc')}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -145,24 +145,24 @@ export function TeamSection() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-2xl flex items-center justify-center">
                   <Users className="w-8 h-8 text-neon-cyan" />
                 </div>
-                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">Командная работа</h4>
-                <p className="text-gray-400 text-sm">Синергия экспертов разных областей</p>
+                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">{t('team.teamwork')}</h4>
+                <p className="text-gray-400 text-sm">{t('team.teamworkDesc')}</p>
               </div>
               
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-2xl flex items-center justify-center">
                   <Target className="w-8 h-8 text-neon-cyan" />
                 </div>
-                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">Фокус на качестве</h4>
-                <p className="text-gray-400 text-sm">Каждый элемент проходит строгий контроль</p>
+                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">{t('team.qualityFocus')}</h4>
+                <p className="text-gray-400 text-sm">{t('team.qualityFocusDesc')}</p>
               </div>
               
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-neon-cyan/10 rounded-2xl flex items-center justify-center">
                   <Lightbulb className="w-8 h-8 text-neon-cyan" />
                 </div>
-                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">Инновации</h4>
-                <p className="text-gray-400 text-sm">Постоянно изучаем новые технологии</p>
+                <h4 className="text-xl font-semibold mb-2 text-neon-cyan">{t('team.innovation')}</h4>
+                <p className="text-gray-400 text-sm">{t('team.innovationDesc')}</p>
               </div>
             </div>
           </div>

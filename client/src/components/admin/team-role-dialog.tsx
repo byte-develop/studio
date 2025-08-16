@@ -24,6 +24,10 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
     defaultValues: {
       title: role?.title || '',
       description: role?.description || '',
+      title_ru: role?.title_ru || role?.title || '',
+      title_en: role?.title_en || '',
+      description_ru: role?.description_ru || role?.description || '',
+      description_en: role?.description_en || '',
       icon: role?.icon || 'Users',
       count: role?.count || 1,
       color: role?.color || 'blue',
@@ -45,7 +49,13 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
   });
 
   const onSubmit = (data: InsertTeamRole) => {
-    mutation.mutate(data);
+    // Set legacy fields for backward compatibility
+    const submitData = {
+      ...data,
+      title: data.title_ru || data.title || '',
+      description: data.description_ru || data.description || '',
+    };
+    mutation.mutate(submitData);
   };
 
   return (
@@ -64,33 +74,63 @@ export function TeamRoleDialog({ children, role }: TeamRoleDialogProps) {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-300">Название роли</FormLabel>
-                  <FormControl>
-                    <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="title_ru"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Название роли (Русский)</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="title_en"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Название роли (English)</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-slate-300">Описание</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20 min-h-[100px]" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="description_ru"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Описание (Русский)</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20 min-h-[100px]" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description_en"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-300">Описание (English)</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20 min-h-[100px]" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}

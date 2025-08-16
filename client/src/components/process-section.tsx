@@ -1,40 +1,43 @@
 import { motion } from 'framer-motion';
 import { Search, PenTool, Code, Rocket } from 'lucide-react';
 import { useScrollTrigger } from '@/hooks/use-scroll-trigger';
+import { useLanguage } from '@/contexts/language-context';
 
-const processSteps = [
-  {
-    number: '01',
-    title: 'Анализ и Планирование',
-    description: 'Глубокое изучение требований, создание технического задания и архитектуры проекта',
-    icon: Search,
-    side: 'left',
-  },
-  {
-    number: '02',
-    title: 'Дизайн и Прототипирование',
-    description: 'Создание UX/UI дизайна, интерактивных прототипов и 3D концепций',
-    icon: PenTool,
-    side: 'right',
-  },
-  {
-    number: '03',
-    title: 'Разработка',
-    description: 'Программирование функционала, интеграция 3D элементов и создание API',
-    icon: Code,
-    side: 'left',
-  },
-  {
-    number: '04',
-    title: 'Тестирование и Запуск',
-    description: 'Комплексное тестирование, оптимизация производительности и развертывание',
-    icon: Rocket,
-    side: 'right',
-  },
-];
 
 export function ProcessSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
+  const { t } = useLanguage();
+
+  const processSteps = [
+    {
+      number: '01',
+      title: t('process.step1'),
+      description: t('process.step1Desc'),
+      icon: Search,
+      side: 'left',
+    },
+    {
+      number: '02',
+      title: t('process.step2'),
+      description: t('process.step2Desc'),
+      icon: PenTool,
+      side: 'right',
+    },
+    {
+      number: '03',
+      title: t('process.step3'),
+      description: t('process.step3Desc'),
+      icon: Code,
+      side: 'left',
+    },
+    {
+      number: '04',
+      title: t('process.step4'),
+      description: t('process.step4Desc'),
+      icon: Rocket,
+      side: 'right',
+    },
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,10 +72,13 @@ export function ProcessSection() {
           className="text-center mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
-            Процесс <span className="text-neon-cyan">Разработки</span>
+            {t('process.title').includes('Процесс') ? 
+              <>Процесс <span className="text-neon-cyan">Разработки</span></> :
+              <>Development <span className="text-neon-cyan">Process</span></>
+            }
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-            Структурированный подход к созданию инновационных решений
+            {t('process.subtitle')}
           </p>
         </motion.div>
 

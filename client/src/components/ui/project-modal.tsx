@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Calendar, Tag } from "lucide-react";
 import { type PortfolioProject } from "@shared/schema";
+import { useLanguage } from "@/contexts/language-context";
 
 interface ProjectModalProps {
   project: PortfolioProject | null;
@@ -9,6 +10,8 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+  const { t, language } = useLanguage();
+  
   if (!project) return null;
 
   const backdropVariants = {
@@ -95,7 +98,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 {project.featured && (
                   <div className="absolute top-4 left-4">
                     <div className="px-3 py-1 bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm rounded-full text-white text-xs font-medium shadow-lg">
-                      ⭐ Топ проект
+                      ⭐ {t('modal.topProject')}
                     </div>
                   </div>
                 )}
@@ -103,7 +106,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 {/* Title Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <h2 className="text-3xl md:text-4xl font-bold text-white mb-2" data-testid="text-project-title">
-                    {project.title}
+                    {language === 'ru' ? (project.title_ru || project.title) : (project.title_en || project.title)}
                   </h2>
                 </div>
               </div>
@@ -120,13 +123,13 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
-                      }) : 'Дата не указана'}
+                      }) : t('modal.dateNotSpecified')}
                     </span>
                   </div>
                   
                   <div className="flex items-center gap-3 text-slate-300">
                     <Tag className="w-5 h-5 text-neon-purple" />
-                    <span className="text-sm">{project.technologies.length} технологий</span>
+                    <span className="text-sm">{project.technologies.length} {t('modal.technologiesCount')}</span>
                   </div>
                   
 
@@ -134,15 +137,15 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
                 {/* Description */}
                 <div className="mb-8">
-                  <h3 className="text-xl font-semibold text-white mb-4">Описание проекта</h3>
+                  <h3 className="text-xl font-semibold text-white mb-4">{t('modal.projectDescription')}</h3>
                   <p className="text-slate-300 leading-relaxed text-lg" data-testid="text-project-description">
-                    {project.description}
+                    {language === 'ru' ? (project.description_ru || project.description) : (project.description_en || project.description)}
                   </p>
                 </div>
 
                 {/* Technologies */}
                 <div className="mb-8">
-                  <h3 className="text-xl font-semibold text-white mb-4">Технологии</h3>
+                  <h3 className="text-xl font-semibold text-white mb-4">{t('modal.technologies')}</h3>
                   <div className="flex flex-wrap gap-3">
                     {project.technologies.map((tech, index) => (
                       <span
@@ -165,7 +168,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                       data-testid="button-view-demo"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Посмотреть демо
+                      {t('modal.viewDemo')}
                     </button>
                   </div>
                 )}

@@ -78,41 +78,74 @@ const translations = {
       learnMore: 'Подробнее'
     },
     hero: {
-      title: 'Создаем цифровые решения будущего',
-      subtitle: 'Современная веб-студия, специализирующаяся на передовых технологиях и инновационных решениях',
-      getStarted: 'Начать проект',
-      ourWork: 'Наши работы'
+      title: 'ПЕРЕДОВАЯ РАЗРАБОТКА',
+      subtitle: 'Превращаем идеи в революционные цифровые продукты с помощью инновационных технологий и креативного подхода',
+      getStarted: 'Связаться с нами',
+      ourWork: 'Посмотреть проекты'
     },
     portfolio: {
       title: 'Наше Портфолио',
-      subtitle: 'Проекты, которыми мы гордимся',
+      subtitle: 'Проекты, которые определяют будущее цифровых технологий',
       viewProject: 'Посмотреть проект',
-      technologies: 'Технологии'
+      technologies: 'Технологии',
+      loading: 'Загружаем проекты...',
+      viewAllProjects: 'Посмотреть все проекты',
+      topProject: 'Топ проект'
     },
     team: {
-      title: 'Наша Команда',
-      subtitle: 'Опытные специалисты которые воплощают ваши идеи в реальность'
+      title: 'Структура Команды',
+      subtitle: 'Сплоченная команда профессионалов с четким распределением ролей и ответственности',
+      loading: 'Загружаем данные команды...',
+      philosophy: 'Наша философия работы',
+      philosophyDesc: 'Мы верим в силу командной работы и четкого распределения ролей. Каждый участник команды является экспертом в своей области и вносит уникальный вклад в успех проекта. Прозрачная коммуникация и взаимная поддержка - основа нашего подхода.',
+      teamwork: 'Командная работа',
+      teamworkDesc: 'Синергия экспертов разных областей',
+      qualityFocus: 'Фокус на качестве',
+      qualityFocusDesc: 'Каждый элемент проходит строгий контроль',
+      innovation: 'Инновации',
+      innovationDesc: 'Постоянно изучаем новые технологии'
     },
     process: {
-      title: 'Наш Процесс',
-      subtitle: 'От идеи до готового продукта',
-      step1: 'Анализ',
-      step1Desc: 'Изучаем вашу бизнес задачу и целевую аудиторию',
-      step2: 'Планирование',
-      step2Desc: 'Создаем детальный план разработки и архитектуру',
+      title: 'Процесс Разработки',
+      subtitle: 'Структурированный подход к созданию инновационных решений',
+      step1: 'Анализ и Планирование',
+      step1Desc: 'Глубокое изучение требований, создание технического задания и архитектуры проекта',
+      step2: 'Дизайн и Прототипирование',
+      step2Desc: 'Создание UX/UI дизайна, интерактивных прототипов и 3D концепций',
       step3: 'Разработка',
-      step3Desc: 'Воплощаем решение с постоянным контролем качества',
-      step4: 'Запуск',
-      step4Desc: 'Разворачиваем и обеспечиваем надежную работу'
+      step3Desc: 'Программирование функционала, интеграция 3D элементов и создание API',
+      step4: 'Тестирование и Запуск',
+      step4Desc: 'Комплексное тестирование, оптимизация производительности и развертывание'
     },
     contact: {
-      title: 'Связаться с Нами',
-      subtitle: 'Готовы обсудить ваш проект?',
+      title: 'Свяжитесь с Нами',
+      subtitle: 'Готовы воплотить ваши идеи в передовые цифровые решения',
       name: 'Имя',
       email: 'Email',
       company: 'Компания',
+      phone: 'Телефон',
+      service: 'Услуга',
+      budget: 'Бюджет проекта',
       message: 'Сообщение',
-      send: 'Отправить'
+      send: 'Отправить сообщение',
+      sending: 'Отправляется...',
+      followUs: 'Следите за нами',
+      quickResponse: 'Быстрый отклик',
+      quickResponseDesc: 'Отвечаем на все заявки в течение 2 часов в рабочее время. Приоритет отдаем срочным проектам и важным задачам.',
+      personalManager: 'Персональный менеджер',
+      personalManagerDesc: 'За каждым проектом закрепляется персональный менеджер для постоянной связи и контроля качества.',
+      selectService: 'Выберите услугу',
+      selectBudget: 'Выберите диапазон',
+      yourName: 'Ваше имя',
+      companyName: 'Название компании',
+      projectMessage: 'Расскажите о вашем проекте...',
+      privacyAgree: 'Я согласен с',
+      privacyPolicy: 'политикой конфиденциальности',
+      userAgreement: 'пользовательским соглашением',
+      sendSuccess: 'Сообщение отправлено!',
+      sendSuccessDesc: 'Мы свяжемся с вами в ближайшее время.',
+      sendError: 'Ошибка отправки',
+      sendErrorDesc: 'Попробуйте еще раз позже.'
     },
     technologies: {
       title: 'Наши Технологии',
@@ -126,6 +159,26 @@ const translations = {
       privacy: 'Политика конфиденциальности',
       terms: 'Пользовательское соглашение',
       rights: 'Все права защищены.'
+    },
+    modal: {
+      topProject: 'Топ проект',
+      projectDescription: 'Описание проекта',
+      technologies: 'Технологии',
+      technologiesCount: 'технологий',
+      viewDemo: 'Посмотреть демо',
+      dateNotSpecified: 'Дата не указана'
+    },
+    privacy: {
+      title: 'Политика конфиденциальности',
+      subtitle: 'Защита и обработка персональных данных в HNS',
+      backToHome: 'Вернуться на главную',
+      lastUpdated: 'Дата последнего обновления'
+    },
+    terms: {
+      title: 'Пользовательское соглашение',
+      subtitle: 'Условия использования услуг HNS',
+      backToHome: 'Вернуться на главную',
+      lastUpdated: 'Дата последнего обновления'
     }
   },
   en: {
@@ -155,41 +208,74 @@ const translations = {
       learnMore: 'Learn More'
     },
     hero: {
-      title: 'Creating digital solutions of the future',
-      subtitle: 'Modern web studio specializing in cutting-edge technologies and innovative solutions',
-      getStarted: 'Start Project',
-      ourWork: 'Our Work'
+      title: 'CUTTING-EDGE DEVELOPMENT',
+      subtitle: 'We turn ideas into revolutionary digital products using innovative technologies and creative approach',
+      getStarted: 'Contact Us',
+      ourWork: 'View Projects'
     },
     portfolio: {
       title: 'Our Portfolio',
-      subtitle: 'Projects we are proud of',
+      subtitle: 'Projects that define the future of digital technologies',
       viewProject: 'View Project',
-      technologies: 'Technologies'
+      technologies: 'Technologies',
+      loading: 'Loading projects...',
+      viewAllProjects: 'View All Projects',
+      topProject: 'Top Project'
     },
     team: {
-      title: 'Our Team',
-      subtitle: 'Experienced specialists who bring your ideas to life'
+      title: 'Team Structure',
+      subtitle: 'A cohesive team of professionals with clear role distribution and responsibilities',
+      loading: 'Loading team data...',
+      philosophy: 'Our Work Philosophy',
+      philosophyDesc: 'We believe in the power of teamwork and clear role distribution. Each team member is an expert in their field and contributes uniquely to project success. Transparent communication and mutual support are the foundation of our approach.',
+      teamwork: 'Teamwork',
+      teamworkDesc: 'Synergy of experts from different fields',
+      qualityFocus: 'Quality Focus',
+      qualityFocusDesc: 'Every element undergoes strict quality control',
+      innovation: 'Innovation',
+      innovationDesc: 'Constantly learning new technologies'
     },
     process: {
-      title: 'Our Process',
-      subtitle: 'From idea to ready product',
-      step1: 'Analysis',
-      step1Desc: 'We study your business challenge and target audience',
-      step2: 'Planning',
-      step2Desc: 'Create detailed development plan and architecture',
+      title: 'Development Process',
+      subtitle: 'Structured approach to creating innovative solutions',
+      step1: 'Analysis and Planning',
+      step1Desc: 'Deep study of requirements, creating technical specifications and project architecture',
+      step2: 'Design and Prototyping',
+      step2Desc: 'Creating UX/UI design, interactive prototypes and 3D concepts',
       step3: 'Development',
-      step3Desc: 'Implement solution with constant quality control',
-      step4: 'Launch',
-      step4Desc: 'Deploy and ensure reliable operation'
+      step3Desc: 'Programming functionality, integrating 3D elements and creating APIs',
+      step4: 'Testing and Launch',
+      step4Desc: 'Comprehensive testing, performance optimization and deployment'
     },
     contact: {
       title: 'Contact Us',
-      subtitle: 'Ready to discuss your project?',
+      subtitle: 'Ready to bring your ideas to cutting-edge digital solutions',
       name: 'Name',
       email: 'Email',
       company: 'Company',
+      phone: 'Phone',
+      service: 'Service',
+      budget: 'Project Budget',
       message: 'Message',
-      send: 'Send'
+      send: 'Send Message',
+      sending: 'Sending...',
+      followUs: 'Follow Us',
+      quickResponse: 'Quick Response',
+      quickResponseDesc: 'We respond to all requests within 2 hours during business hours. Priority is given to urgent projects and important tasks.',
+      personalManager: 'Personal Manager',
+      personalManagerDesc: 'Each project is assigned a personal manager for constant communication and quality control.',
+      selectService: 'Select Service',
+      selectBudget: 'Select Range',
+      yourName: 'Your Name',
+      companyName: 'Company Name',
+      projectMessage: 'Tell us about your project...',
+      privacyAgree: 'I agree with',
+      privacyPolicy: 'privacy policy',
+      userAgreement: 'terms of service',
+      sendSuccess: 'Message sent!',
+      sendSuccessDesc: 'We will contact you shortly.',
+      sendError: 'Sending error',
+      sendErrorDesc: 'Please try again later.'
     },
     technologies: {
       title: 'Our Technologies',
@@ -203,6 +289,26 @@ const translations = {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
       rights: 'All rights reserved.'
+    },
+    modal: {
+      topProject: 'Top Project',
+      projectDescription: 'Project Description',
+      technologies: 'Technologies',
+      technologiesCount: 'technologies',
+      viewDemo: 'View Demo',
+      dateNotSpecified: 'Date not specified'
+    },
+    privacy: {
+      title: 'Privacy Policy',
+      subtitle: 'Protection and processing of personal data at HNS',
+      backToHome: 'Back to Home',
+      lastUpdated: 'Last updated'
+    },
+    terms: {
+      title: 'Terms of Service',
+      subtitle: 'Terms and conditions for using HNS services',
+      backToHome: 'Back to Home',
+      lastUpdated: 'Last updated'
     }
   }
 };

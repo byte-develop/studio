@@ -5,11 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 import type { PortfolioProject } from '@shared/schema';
 import { ProjectModal } from '@/components/ui/project-modal';
 import { useState } from 'react';
+import { useLanguage } from '@/contexts/language-context';
 
 export function PortfolioSection() {
   const { elementRef, hasTriggered } = useScrollTrigger();
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t, language } = useLanguage();
   
   // Загружаем данные портфолио из базы данных
   const { data: portfolioItems = [], isLoading } = useQuery<PortfolioProject[]>({
@@ -59,17 +61,17 @@ export function PortfolioSection() {
           className="text-center mb-20"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light mb-6 text-3d">
-            Наше <span className="text-neon-cyan">Портфолио</span>
+            {t('portfolio.title').split(' ').slice(0, -1).join(' ')} <span className="text-neon-cyan">{t('portfolio.title').split(' ').slice(-1)[0]}</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-            Проекты, которые определяют будущее цифровых технологий
+            {t('portfolio.subtitle')}
           </p>
         </motion.div>
 
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-neon-cyan"></div>
-            <p className="mt-4 text-gray-400">Загружаем проекты...</p>
+            <p className="mt-4 text-gray-400">{t('portfolio.loading')}</p>
           </div>
         ) : (
           <motion.div
@@ -113,7 +115,7 @@ export function PortfolioSection() {
                   {/* Featured Badge */}
                   <div className="absolute top-4 right-4">
                     <div className="px-3 py-1 bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm rounded-full text-white text-xs font-medium shadow-lg">
-                      ⭐ Топ проект
+                      ⭐ {t('portfolio.topProject')}
                     </div>
                   </div>
 
@@ -130,11 +132,11 @@ export function PortfolioSection() {
                 {/* Content */}
                 <div className="p-6">
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-neon-cyan transition-colors duration-300">
-                    {project.title}
+                    {language === 'ru' ? (project.title_ru || project.title) : (project.title_en || project.title)}
                   </h3>
                   
                   <p className="text-gray-400 text-sm md:text-base mb-6 leading-relaxed line-clamp-3">
-                    {project.description}
+                    {language === 'ru' ? (project.description_ru || project.description) : (project.description_en || project.description)}
                   </p>
                   
                   {/* Technologies */}
@@ -170,7 +172,7 @@ export function PortfolioSection() {
                       whileHover={{ x: 5 }}
                       className="inline-flex items-center text-neon-cyan hover:text-white font-medium transition-all duration-300 group/link"
                     >
-                      <span className="mr-2">Посмотреть проект</span>
+                      <span className="mr-2">{t('portfolio.viewProject')}</span>
                       <ExternalLink className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
                     </motion.a>
                   )}
@@ -194,7 +196,7 @@ export function PortfolioSection() {
             className="inline-block glass-morphism px-8 py-4 rounded-full hover:bg-neon-cyan/10 transition-all duration-300 group cursor-pointer"
           >
             <span className="group-hover:text-neon-cyan transition-colors">
-              Посмотреть все проекты
+              {t('portfolio.viewAllProjects')}
             </span>
           </motion.a>
         </motion.div>
