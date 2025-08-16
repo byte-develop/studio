@@ -1,0 +1,40 @@
+root@5473029-xq42533:/var/www/hns-studio/studio# pm2 logs hns-studio
+[TAILING] Tailing last 15 lines for [hns-studio] process (change the value with --lines option)
+/var/www/hns-studio/studio/logs/out-0.log last 15 lines:
+/var/www/hns-studio/studio/logs/err-0.log last 15 lines:
+0|hns-stud | 2025-08-17T01:15:08: Error: Could not find the build directory: /var/www/hns-studio/studio/server/public, make sure to build the client first
+0|hns-stud | 2025-08-17T01:15:08:     at serveStatic (/var/www/hns-studio/studio/server/vite.ts:74:11)
+0|hns-stud | 2025-08-17T01:15:08:     at <anonymous> (/var/www/hns-studio/studio/server/index.ts:56:5)
+0|hns-stud | 2025-08-17T01:15:08: 
+0|hns-stud | 2025-08-17T01:15:08: Node.js v22.18.0
+0|hns-stud | 2025-08-17T01:15:11: /var/www/hns-studio/studio/server/vite.ts:74
+0|hns-stud | 2025-08-17T01:15:11:     throw new Error(
+0|hns-stud | 2025-08-17T01:15:11:           ^
+0|hns-stud | 2025-08-17T01:15:11: 
+0|hns-stud | 2025-08-17T01:15:11: 
+0|hns-stud | 2025-08-17T01:15:11: Error: Could not find the build directory: /var/www/hns-studio/studio/server/public, make sure to build the client first
+0|hns-stud | 2025-08-17T01:15:11:     at serveStatic (/var/www/hns-studio/studio/server/vite.ts:74:11)
+0|hns-stud | 2025-08-17T01:15:11:     at <anonymous> (/var/www/hns-studio/studio/server/index.ts:56:5)
+0|hns-stud | 2025-08-17T01:15:11: 
+0|hns-stud | 2025-08-17T01:15:11: Node.js v22.18.0
+
+0|hns-studio  | 2025-08-17T01:15:14: /var/www/hns-studio/studio/server/vite.ts:74
+0|hns-studio  | 2025-08-17T01:15:14:     throw new Error(
+0|hns-studio  | 2025-08-17T01:15:14:           ^
+0|hns-studio  | 2025-08-17T01:15:14: 
+0|hns-studio  | 2025-08-17T01:15:14: 
+0|hns-studio  | 2025-08-17T01:15:14: Error: Could not find the build directory: /var/www/hns-studio/studio/server/public, make sure to build the client first
+0|hns-studio  | 2025-08-17T01:15:14:     at serveStatic (/var/www/hns-studio/studio/server/vite.ts:74:11)
+0|hns-studio  | 2025-08-17T01:15:14:     at <anonymous> (/var/www/hns-studio/studio/server/index.ts:56:5)
+0|hns-studio  | 2025-08-17T01:15:14: 
+0|hns-studio  | 2025-08-17T01:15:14: Node.js v22.18.0
+0|hns-studio  | 2025-08-17T01:15:17: /var/www/hns-studio/studio/server/vite.ts:74
+0|hns-studio  | 2025-08-17T01:15:17:     throw new Error(
+0|hns-studio  | 2025-08-17T01:15:17:           ^
+0|hns-studio  | 2025-08-17T01:15:17: 
+0|hns-studio  | 2025-08-17T01:15:17: 
+0|hns-studio  | 2025-08-17T01:15:17: Error: Could not find the build directory: /var/www/hns-studio/studio/server/public, make sure to build the client first
+0|hns-studio  | 2025-08-17T01:15:17:     at serveStatic (/var/www/hns-studio/studio/server/vite.ts:74:11)
+0|hns-studio  | 2025-08-17T01:15:17:     at <anonymous> (/var/www/hns-studio/studio/server/index.ts:56:5)
+0|hns-studio  | 2025-08-17T01:15:17: 
+0|hns-studio  | 2025-08-17T01:15:17: Node.js v22.18.0
