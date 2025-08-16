@@ -113,10 +113,84 @@ export function TechnologyDialog({ children, technology }: TechnologyDialogProps
               name="icon"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-300">Иконка (название из Lucide)</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Code" className="bg-slate-900/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-orange-400 focus:ring-orange-400/20" />
-                  </FormControl>
+                  <FormLabel className="text-slate-300">Иконка</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="bg-slate-900/50 border-slate-600/50 text-white focus:border-orange-400 focus:ring-orange-400/20">
+                        <SelectValue placeholder="Выберите иконку" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="bg-slate-800 border-slate-700 text-white max-h-80 overflow-y-auto">
+                      {/* Frontend Technologies */}
+                      <SelectItem value="Code">💻 Code (универсальная)</SelectItem>
+                      <SelectItem value="Globe">🌐 Globe (веб)</SelectItem>
+                      <SelectItem value="Layout">📱 Layout (UI/UX)</SelectItem>
+                      <SelectItem value="Palette">🎨 Palette (дизайн)</SelectItem>
+                      <SelectItem value="Brush">🖌️ Brush (дизайн)</SelectItem>
+                      <SelectItem value="Figma">🎯 Figma</SelectItem>
+                      
+                      {/* JavaScript/TypeScript */}
+                      <SelectItem value="Zap">⚡ Zap (быстрые технологии)</SelectItem>
+                      <SelectItem value="Coffee">☕ Coffee (JavaScript)</SelectItem>
+                      <SelectItem value="FileText">📄 FileText (документы)</SelectItem>
+                      
+                      {/* Backend/Server */}
+                      <SelectItem value="Server">🖥️ Server</SelectItem>
+                      <SelectItem value="Database">💾 Database</SelectItem>
+                      <SelectItem value="HardDrive">💿 HardDrive</SelectItem>
+                      <SelectItem value="Cloud">☁️ Cloud</SelectItem>
+                      <SelectItem value="Api">🔗 Api</SelectItem>
+                      
+                      {/* Mobile */}
+                      <SelectItem value="Smartphone">📱 Smartphone</SelectItem>
+                      <SelectItem value="Tablet">📱 Tablet</SelectItem>
+                      <SelectItem value="Monitor">🖥️ Monitor</SelectItem>
+                      
+                      {/* DevOps/Tools */}
+                      <SelectItem value="Settings">⚙️ Settings</SelectItem>
+                      <SelectItem value="Cog">🔧 Cog</SelectItem>
+                      <SelectItem value="Wrench">🔨 Wrench</SelectItem>
+                      <SelectItem value="GitBranch">🌿 GitBranch</SelectItem>
+                      <SelectItem value="Package">📦 Package</SelectItem>
+                      <SelectItem value="Terminal">💻 Terminal</SelectItem>
+                      <SelectItem value="Command">⌨️ Command</SelectItem>
+                      
+                      {/* Data/Analytics */}
+                      <SelectItem value="BarChart">📊 BarChart</SelectItem>
+                      <SelectItem value="PieChart">🥧 PieChart</SelectItem>
+                      <SelectItem value="TrendingUp">📈 TrendingUp</SelectItem>
+                      <SelectItem value="Activity">📊 Activity</SelectItem>
+                      
+                      {/* Security */}
+                      <SelectItem value="Shield">🛡️ Shield</SelectItem>
+                      <SelectItem value="Lock">🔒 Lock</SelectItem>
+                      <SelectItem value="Key">🔑 Key</SelectItem>
+                      
+                      {/* AI/ML */}
+                      <SelectItem value="Brain">🧠 Brain</SelectItem>
+                      <SelectItem value="Bot">🤖 Bot</SelectItem>
+                      <SelectItem value="Cpu">💾 CPU</SelectItem>
+                      <SelectItem value="Zap">⚡ Zap (быстрые вычисления)</SelectItem>
+                      
+                      {/* Gaming/3D */}
+                      <SelectItem value="Gamepad2">🎮 Gamepad</SelectItem>
+                      <SelectItem value="Box">📦 Box (3D)</SelectItem>
+                      <SelectItem value="Layers">📚 Layers</SelectItem>
+                      
+                      {/* Network/Communication */}
+                      <SelectItem value="Wifi">📡 Wifi</SelectItem>
+                      <SelectItem value="Radio">📻 Radio</SelectItem>
+                      <SelectItem value="Satellite">🛰️ Satellite</SelectItem>
+                      
+                      {/* Other Common */}
+                      <SelectItem value="Star">⭐ Star</SelectItem>
+                      <SelectItem value="Heart">❤️ Heart</SelectItem>
+                      <SelectItem value="Grid">⚏ Grid</SelectItem>
+                      <SelectItem value="Target">🎯 Target</SelectItem>
+                      <SelectItem value="Rocket">🚀 Rocket</SelectItem>
+                      <SelectItem value="Tool">🔧 Tool</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
