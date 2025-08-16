@@ -1,11 +1,28 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Link } from 'wouter';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
+
+const services = [
+  { title: 'Веб-Разработка', link: '/services/web-development' },
+  { title: '3D и WebGL', link: '/services/3d-webgl' },
+  { title: 'Мобильная Разработка', link: '/services/mobile-development' },
+  { title: 'Backend & API', link: '/services/backend-api' },
+  { title: 'ИИ и ML', link: '/services/ai-ml' },
+  { title: 'DevOps & Cloud', link: '/services/devops-cloud' },
+];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -18,11 +35,11 @@ export function Navigation() {
   }, []);
 
   const navItems = [
-    { href: '#hero', label: 'Главная' },
-    { href: '#services', label: 'Услуги' },
-    { href: '#portfolio', label: 'Портфолио' },
-    { href: '#team', label: 'Команда' },
-    { href: '#contact', label: 'Контакты' },
+    { href: '#hero', label: 'Главная', type: 'scroll' },
+    { href: '#services', label: 'Услуги', type: 'dropdown' },
+    { href: '#portfolio', label: 'Портфолио', type: 'scroll' },
+    { href: '#team', label: 'Команда', type: 'scroll' },
+    { href: '#contact', label: 'Контакты', type: 'scroll' },
   ];
 
   const scrollToSection = (href: string) => {
@@ -53,17 +70,61 @@ export function Navigation() {
           
           {!isMobile ? (
             <div className="flex items-center space-x-6">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.href}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="hover:text-neon-cyan transition-colors duration-300 text-sm font-medium"
-                >
-                  {item.label}
-                </motion.button>
-              ))}
+              {navItems.map((item) => {
+                if (item.type === 'dropdown') {
+                  return (
+                    <DropdownMenu key={item.href}>
+                      <DropdownMenuTrigger asChild>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="hover:text-neon-cyan transition-colors duration-300 text-sm font-medium flex items-center gap-1"
+                        >
+                          {item.label}
+                          <ChevronDown className="w-4 h-4" />
+                        </motion.button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent 
+                        className="glass-morphism border-neon-cyan/20 min-w-[200px]"
+                        sideOffset={8}
+                      >
+                        {services.map((service) => (
+                          <DropdownMenuItem key={service.link} asChild>
+                            <Link href={service.link}>
+                              <motion.div
+                                whileHover={{ x: 5 }}
+                                className="w-full cursor-pointer py-2 hover:text-neon-cyan transition-colors duration-300"
+                              >
+                                {service.title}
+                              </motion.div>
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                        <DropdownMenuItem asChild>
+                          <motion.button
+                            whileHover={{ x: 5 }}
+                            onClick={() => scrollToSection('#services')}
+                            className="w-full text-left cursor-pointer py-2 hover:text-neon-cyan transition-colors duration-300 border-t border-neon-cyan/20 mt-2"
+                          >
+                            Все услуги
+                          </motion.button>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  );
+                }
+                return (
+                  <motion.button
+                    key={item.href}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection(item.href)}
+                    className="hover:text-neon-cyan transition-colors duration-300 text-sm font-medium"
+                  >
+                    {item.label}
+                  </motion.button>
+                );
+              })}
             </div>
           ) : (
             <button
@@ -86,16 +147,66 @@ export function Navigation() {
             className="fixed top-24 left-1/2 transform -translate-x-1/2 z-40 glass-morphism rounded-2xl p-6 w-64"
           >
             <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.href}
-                  whileHover={{ x: 10 }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-left hover:text-neon-cyan transition-colors duration-300 py-2"
-                >
-                  {item.label}
-                </motion.button>
-              ))}
+              {navItems.map((item) => {
+                if (item.type === 'dropdown') {
+                  return (
+                    <div key={item.href} className="space-y-2">
+                      <motion.button
+                        whileHover={{ x: 10 }}
+                        onClick={() => {
+                          setIsServicesOpen(!isServicesOpen);
+                        }}
+                        className="text-left hover:text-neon-cyan transition-colors duration-300 py-2 flex items-center gap-2 w-full"
+                      >
+                        {item.label}
+                        <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+                      </motion.button>
+                      <AnimatePresence>
+                        {isServicesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pl-4 space-y-2 border-l border-neon-cyan/20"
+                          >
+                            {services.map((service) => (
+                              <Link key={service.link} href={service.link}>
+                                <motion.div
+                                  whileHover={{ x: 5 }}
+                                  onClick={() => setIsOpen(false)}
+                                  className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 cursor-pointer"
+                                >
+                                  {service.title}
+                                </motion.div>
+                              </Link>
+                            ))}
+                            <motion.button
+                              whileHover={{ x: 5 }}
+                              onClick={() => {
+                                scrollToSection('#services');
+                                setIsServicesOpen(false);
+                              }}
+                              className="text-sm hover:text-neon-cyan transition-colors duration-300 py-1 border-t border-neon-cyan/20 pt-2 text-left w-full"
+                            >
+                              Все услуги
+                            </motion.button>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+                return (
+                  <motion.button
+                    key={item.href}
+                    whileHover={{ x: 10 }}
+                    onClick={() => scrollToSection(item.href)}
+                    className="text-left hover:text-neon-cyan transition-colors duration-300 py-2"
+                  >
+                    {item.label}
+                  </motion.button>
+                );
+              })}
             </div>
           </motion.div>
         )}
