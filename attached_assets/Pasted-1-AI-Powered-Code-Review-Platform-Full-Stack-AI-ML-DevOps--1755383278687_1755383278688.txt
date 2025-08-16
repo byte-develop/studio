@@ -1,0 +1,110 @@
+1. AI-Powered Code Review Platform
+Области: Full-Stack, AI/ML, DevOps
+
+Суть: Платформа для автоматического ревью кода с ИИ-анализом
+Технологии: React + TypeScript, Node.js, PostgreSQL, OpenAI API, GitHub API
+Фишки:
+Интеграция с GitHub/GitLab
+ИИ-анализ качества кода, безопасности, производительности
+Система команд и проектов
+Дашборд с метриками и аналитикой
+Webhook'и для автоматических проверок
+2. 3D Virtual Office Platform
+Области: 3D/WebGL, Real-time, WebRTC
+
+Суть: Виртуальный офис с 3D-интерфейсом для удаленной работы
+Технологии: Three.js, React Three Fiber, WebRTC, Socket.io, WebGL
+Фишки:
+3D-аватары с анимациями
+Голосовые/видео комнаты с пространственным звуком
+Интерактивные доски и экраны
+Система встреч и бронирования комнат
+Реалтайм коллаборация
+3. Intelligent E-commerce Analytics Suite
+Области: Full-Stack, AI/ML, Big Data
+
+Суть: Продвинутая аналитическая платформа для e-commerce с предиктивной аналитикой
+Технологии: React, D3.js, Python microservices, PostgreSQL + ClickHouse, TensorFlow
+Фишки:
+ML-модели для прогнозирования продаж
+Анализ поведения пользователей с рекомендациями
+Автоматическое A/B тестирование
+Интерактивные дашборды с drill-down анализом
+API для интеграции с популярными CMS
+4. Blockchain-Based Supply Chain Tracker
+Области: Blockchain, IoT, Full-Stack
+
+Суть: Система отслеживания цепочки поставок на блокчейне
+Технологии: React, Node.js, Solidity, Web3.js, PostgreSQL, QR/RFID интеграция
+Фишки:
+Смарт-контракты для автоматизации процессов
+QR-коды для отслеживания товаров
+Интеграция с IoT-датчиками
+Система верификации и сертификации
+Мобильное приложение для сканирования
+5. Real-time Collaborative Design Tool
+Области: 3D, Real-time, Creative Tools
+
+Суть: Figma-подобный инструмент, но для 3D-дизайна с командной работой
+Технологии: Three.js, WebGL, Socket.io, Canvas API, WebAssembly
+Фишки:
+Реалтайм коллаборация нескольких пользователей
+3D-примитивы, материалы, освещение
+Система слоев и компонентов
+Экспорт в популярные 3D-форматы
+Встроенная система комментариев и фидбека
+6. AI-Powered Financial Trading Bot Platform
+Области: AI/ML, FinTech, Real-time Data
+
+Суть: Платформа для создания и управления торговыми ботами с ИИ
+Технологии: React, Python FastAPI, PostgreSQL + Redis, TensorFlow, WebSocket APIs
+Фишки:
+Визуальный конструктор торговых стратегий
+ML-модели для анализа рынка
+Бэктестинг на исторических данных
+Реалтайм мониторинг портфеля
+Система управления рисками
+7. Advanced DevOps Monitoring Dashboard
+Области: DevOps, Monitoring, Infrastructure
+
+Суть: Comprehensive мониторинг для микросервисной архитектуры
+Технологии: React, Go/Node.js, InfluxDB, Grafana API, Docker, Kubernetes
+Фишки:
+Автоматическое обнаружение сервисов
+Карта зависимостей микросервисов
+Предиктивные алерты на основе ML
+Интеграция с популярными CI/CD
+Автоматическое масштабирование
+8. AR/VR Learning Management System
+Области: VR/AR, Education, 3D
+
+Суть: Платформа для обучения с поддержкой VR/AR
+Технологии: React, A-Frame, Three.js, WebXR, Unity WebGL Build
+Фишки:
+VR-классы для иммерсивного обучения
+AR-объекты для дополненной реальности
+Система создания 3D-курсов
+Мультиплеер в виртуальных классах
+Прогресс-трекинг и геймификация
+9. Smart IoT Home Automation Platform
+Области: IoT, Mobile, Real-time
+
+Суть: Comprehensive система умного дома с веб и мобильным интерфейсом
+Технологии: React Native, Node.js, MQTT, PostgreSQL, React Dashboard
+Фишки:
+Управление устройствами через веб и мобильное приложение
+Автоматизация на основе сценариев и ML
+Энергомониторинг и оптимизация
+Система безопасности с уведомлениями
+Голосовое управление через Web Speech API
+10. Advanced Video Streaming Platform
+Области: Video/Media, Real-time, CDN
+
+Суть: Платформа для стриминга с продвинутыми возможностями
+Технологии: React, WebRTC, FFmpeg, HLS, Socket.io, CDN интеграция
+Фишки:
+Адаптивный битрейт в зависимости от интернета
+Реалтайм чат и реакции
+Система записи и VOD
+Мультистрим на разные платформы
+Встроенная аналитика просмотров
