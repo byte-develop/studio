@@ -48,6 +48,31 @@ if [ -z "$DATABASE_URL" ]; then
     exit 1
 fi
 
+# Создание базы данных если её нет
+echo -e "${YELLOW}🏗️ Создание базы данных если её нет...${NC}"
+
+# Извлечение параметров подключения из DATABASE_URL
+DB_USER=$(echo $DATABASE_URL | sed -n 's/.*:\/\/\([^:]*\):.*/\1/p')
+DB_PASS=$(echo $DATABASE_URL | sed -n 's/.*:\/\/[^:]*:\([^@]*\)@.*/\1/p')
+DB_HOST=$(echo $DATABASE_URL | sed -n 's/.*@\([^:]*\):.*/\1/p')
+DB_PORT=$(echo $DATABASE_URL | sed -n 's/.*:\([0-9]*\)\/.*/\1/p')
+DB_NAME=$(echo $DATABASE_URL | sed -n 's/.*\/\([^?]*\).*/\1/p')
+
+echo "Параметры подключения:"
+echo "• Пользователь: $DB_USER"
+echo "• Хост: $DB_HOST"
+echo "• Порт: $DB_PORT"
+echo "• База данных: $DB_NAME"
+
+# Создание базы данных
+echo -e "${YELLOW}📂 Создание базы данных $DB_NAME...${NC}"
+PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d postgres -c "CREATE DATABASE $DB_NAME;" 2>/dev/null || echo "База данных уже существует или была создана"
+
+# Создание пользователя если нужно
+echo -e "${YELLOW}👤 Проверка пользователя...${NC}"
+PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U postgres -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';" 2>/dev/null || echo "Пользователь уже существует"
+PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;" 2>/dev/null || echo "Права уже предоставлены"
+
 echo -e "${YELLOW}🌱 Запуск заполнения базы данных...${NC}"
 echo ""
 
